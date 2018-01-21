@@ -163,7 +163,7 @@ function oik_block_dynamic_alt_block_render( $attributes ) {
 function oik_block_loaded() {
 
 	// Hook scripts function into block editor hook
-	//add_action('enqueue_block_assets', 'oik_block_scripts');
+	add_action('enqueue_block_assets', 'oik_block_scripts');
 	
 	// Hook scripts function into block editor hook
 	add_action( 'enqueue_block_editor_assets', 'oik_block_editor_scripts' );
