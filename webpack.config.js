@@ -5,10 +5,10 @@ const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 
 // Set different CSS extraction for editor only and common block styles
 const blocksCSSPlugin = new ExtractTextPlugin( {
-  filename: '../css/blocks.style.css',
+  filename: './assets/css/blocks.style.css',
 } );
 const editBlocksCSSPlugin = new ExtractTextPlugin( {
-  filename: '../css/blocks.editor.css',
+  filename: './assets/css/blocks.editor.css',
 } );
 
 // Configuration for the ExtractTextPlugin.
@@ -23,10 +23,10 @@ const extractConfig = {
     },
     {
       loader: 'sass-loader',
-      query: {
-        outputStyle:
-          'production' === process.env.NODE_ENV ? 'compressed' : 'nested',
-      },
+			query: {
+				outputStyle:
+					'production' === process.env.NODE_ENV ? 'compressed' : 'nested',
+			},
     },
   ],
 };
@@ -34,13 +34,13 @@ const extractConfig = {
 module.exports = {
   entry: {
     './assets/js/editor.blocks' : './blocks/index.js',
-    './assets/js/frontend.blocks' : './blocks/frontend.js',
+    //'./assets/js/frontend.blocks' : './blocks/frontend.js',
   },
   output: {
     path: path.resolve( __dirname ),
     filename: '[name].js',
   },
-  watch: true,
+  watch: false,
   devtool: 'cheap-eval-source-map',
   module: {
     rules: [
