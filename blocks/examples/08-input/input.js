@@ -30,7 +30,7 @@ export default class Input extends Component {
           type="text"
           placeholder={ __( 'Add your text' ) }
           className={ classnames(
-            'jsforwp-field',
+            'oik-block-field',
             { 'wide': this.props.isFullWidth }
           ) }
           value={ this.props.attributes.title }

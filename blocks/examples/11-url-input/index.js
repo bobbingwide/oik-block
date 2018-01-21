@@ -24,7 +24,7 @@ const {
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/url-input',
+    'oik-block/url-input',
     {
         title: __( 'Example - URL Input' ),
         category: 'common',

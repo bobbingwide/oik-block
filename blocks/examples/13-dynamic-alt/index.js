@@ -7,7 +7,7 @@ const { registerBlockType } = wp.blocks;
 
 
 registerBlockType(
-  'jsforwp/dynamic-alt',
+  'oik-block/dynamic-alt',
   {
     title: 'Example - Dynamic Alt',
     icon: icon,

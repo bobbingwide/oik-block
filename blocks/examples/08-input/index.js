@@ -15,7 +15,7 @@ const { registerBlockType } = wp.blocks;
  * Register block
  */
 export default registerBlockType(
-    'jsforwp/input',
+    'oik-block/input',
     {
         title: __( 'Example - Input Field' ),
         category: 'common',

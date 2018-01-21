@@ -32,7 +32,7 @@ const output = ( props ) => {
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/register-attributes',
+    'oik-block/register-attributes',
     {
         title: blockHeading,
         category: 'common',

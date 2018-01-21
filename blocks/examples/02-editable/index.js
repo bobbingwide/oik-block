@@ -17,7 +17,7 @@ const {
  * Register block
  */
 export default registerBlockType(
-    'jsforwp/editable',
+    'oik-block/editable',
     {
         title: __( 'Example - Editable' ),
         category: 'common',

@@ -21,7 +21,7 @@ const {
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/media-upload',
+    'oik-block/media-upload',
     {
         title: __( 'Example - Media Upload Button' ),
         category: 'common',

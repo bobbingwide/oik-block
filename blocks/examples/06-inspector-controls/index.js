@@ -32,7 +32,7 @@ const {
   * Register block
  */
 export default registerBlockType(
-    'jsforwp/inspector-controls',
+    'oik-block/inspector-controls',
     {
         title: __( 'Example - Inspector Controls' ),
         category: 'common',

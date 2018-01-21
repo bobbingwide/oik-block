@@ -5,7 +5,7 @@ import './style.scss';
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
-const blockHeading = __( 'registerBlockType [1/8] - Title Setting' );
+const blockHeading = __( 'registerBlockType [1/8] - Title Setting - oik' );
 const blockDescription = __( 'The title setting for registerBlockType() gives your block a searchable, human readable name.  It should be escaped using wp.i18n.__()' );
 
 const output = ( props ) => {
@@ -25,7 +25,7 @@ const output = ( props ) => {
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/register-title',
+    'oik-block/register-title',
     {
         title: blockHeading,
         category: 'common',

@@ -19,7 +19,7 @@ const {
   * Register block
  */
 export default registerBlockType(
-    'jsforwp/alignment-toolbar',
+    'oik-block/alignment-toolbar',
     {
         title: __( 'Example - Alignment Toolbar' ),
         category: 'common',

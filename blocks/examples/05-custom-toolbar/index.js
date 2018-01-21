@@ -28,7 +28,7 @@ const {
  * Register block
  */
 export default registerBlockType(
-    'jsforwp/custom-toolbar',
+    'oik-block/custom-toolbar',
     {
         title: __( 'Example - Custom Toolbar' ),
         category: 'common',

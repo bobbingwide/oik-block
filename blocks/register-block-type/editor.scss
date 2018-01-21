@@ -1,16 +1,16 @@
 @import 'variables';
 
-[class^="wp-block-jsforwp"] {
+[class^="wp-block-oik-block"] {
   margin: 0;
   max-width: 100%;
 }
 
-.wp-block-jsforwp-register-demo {
+.wp-block-oik-block-register-demo {
   padding: 1rem;
 }
 
-.editor-visual-editor [class^="wp-block-jsforwp"],
-.editor-visual-editor [class^="wp-block-jsforwp"] p {
+.editor-visual-editor [class^="wp-block-oik-block"],
+.editor-visual-editor [class^="wp-block-oik-block"] p {
   font-family: $font-body;
   font-size: 100%;
 }

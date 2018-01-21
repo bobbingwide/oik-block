@@ -15,7 +15,7 @@ const { registerBlockType } = wp.blocks;
  * Register block
  */
 export default registerBlockType(
-    'jsforwp/static',
+    'oik-block/static',
     {
         title: __( 'Example - Static Block' ),
         category: 'common',

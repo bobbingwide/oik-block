@@ -1,7 +1,7 @@
 @import 'variables';
 
 
-[class^="wp-block-jsforwp-register"] {
+[class^="wp-block-oik-block-register"] {
   font-family: $font-body;
   background: $yellow-lightest;
   border: 1px $yellow solid;
@@ -12,11 +12,11 @@
   max-width: 720px;
 }
 
-.wp-block-jsforwp-register-demo {
+.wp-block-oik-block-register-demo {
   padding: 0 1rem;
 }
 
-[class^="wp-block-jsforwp-register"]::before {
+[class^="wp-block-oik-block-register"]::before {
   content: '';
   position: absolute;
   height: 110px;
@@ -32,18 +32,18 @@
   transition: all .2s ease-in-out;
 }
 
-.wp-block-jsforwp-register-demo::before {
+.wp-block-oik-block-register-demo::before {
   background: none;
   content: none;
 }
 
-[class^="wp-block-jsforwp-register"]:hover::before,
-.is-selected [class^="wp-block-jsforwp-register"]::before {
+[class^="wp-block-oik-block-register"]:hover::before,
+.is-selected [class^="wp-block-oik-block-register"]::before {
   background-position-x: 44px;
 }
 
 
-[class^="wp-block-jsforwp-register"]::after {
+[class^="wp-block-oik-block-register"]::after {
   font-size: .8rem;
   font-family: $font-body;
   position: absolute;
@@ -52,28 +52,27 @@
   right: 0;
   background: $blue;
   color: $yellow-light;
-  z-index: 100;
   transition: width .6s ease-in-out;
   text-align: right;
 }
 
-[class^="wp-block-jsforwp-register"] h2 {
+[class^="wp-block-oik-block-register"] h2 {
   font-family: $font-header;
 }
 
-.entry-content [class^="wp-block-jsforwp-register"] h2 {
+.entry-content [class^="wp-block-oik-block-register"] h2 {
   margin: 1.4rem 0 1rem;
 }
 
-[class^="wp-block-jsforwp-register"] p {
+[class^="wp-block-oik-block-register"] p {
   font-family: $font-body;
 }
 
-.entry-content [class^="wp-block-jsforwp-register"] p {
+.entry-content [class^="wp-block-oik-block-register"] p {
   margin: 1rem 0;
 }
 
-[class^="wp-block-jsforwp-register"] pre {
+[class^="wp-block-oik-block-register"] pre {
   background-color: #222;
   border-top: 1px $yellow dashed;
   color: #fff;

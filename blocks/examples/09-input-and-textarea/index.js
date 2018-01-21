@@ -17,7 +17,7 @@ const { registerBlockType } = wp.blocks;
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/input-textarea',
+    'oik-block/input-textarea',
     {
         title: __( 'Example - Textarea & Input' ),
         category: 'common',

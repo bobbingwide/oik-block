@@ -35,7 +35,7 @@ const output = ( props ) => {
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/register-icon',
+    'oik-block/register-icon',
     {
         title: blockHeading,
         category: 'common',

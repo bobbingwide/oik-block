@@ -28,7 +28,7 @@ const output = ( props ) => {
  * Register example block
  */
 export default registerBlockType(
-    'jsforwp/register-keywords',
+    'oik-block/register-keywords',
     {
         title: blockHeading,
         category: 'common',

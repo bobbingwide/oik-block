@@ -8,9 +8,9 @@ import './register-block-type/editor.scss';
  * Import registerBlockType blocks
  */
 import './register-block-type/00-demo';
+import './register-block-type/01-title';
 
 /*
-//import './register-block-type/01-title';
 //import './register-block-type/02-category';
 //import './register-block-type/03-icon';
 //import './register-block-type/04-keywords';

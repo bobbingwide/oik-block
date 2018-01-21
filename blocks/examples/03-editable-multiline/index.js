@@ -17,7 +17,7 @@ const {
  * Register block
  */
 export default registerBlockType(
-    'jsforwp/editable-multiline',
+    'oik-block/editable-multiline',
     {
         title: __( 'Example - Multiline Editable' ),
         category: 'common',

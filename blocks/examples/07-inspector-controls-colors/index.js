@@ -17,7 +17,7 @@ const {
  * Register static block example block
  */
 export default registerBlockType(
-  'jsforwp/inspector-controls-color',
+  'oik-block/inspector-controls-color',
   {
     title: __( 'Example - Inspector Colors' ),
     category: 'common',

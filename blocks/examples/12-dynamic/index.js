@@ -12,7 +12,7 @@ const { registerBlockType } = wp.blocks;
 const { withAPIData } = wp.components;
 
 registerBlockType(
-  'jsforwp/dynamic', {
+  'oik-block/dynamic', {
     title: 'Example - Dynamic Block',
     icon: icon,
     category: 'widgets',

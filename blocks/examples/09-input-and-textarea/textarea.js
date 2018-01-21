@@ -28,7 +28,7 @@ export default class Textarea extends Component {
         id={ this.props.id }
         placeholder={ __( 'Add your text' ) }
         className={ classnames(
-          'jsforwp-field',
+          'oik-block-field',
           { 'wide': this.props.isFullWidth }
         ) }
         value={ this.props.inputValue }
