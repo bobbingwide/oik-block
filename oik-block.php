@@ -81,12 +81,20 @@ function oik_block_editor_scripts()
 /**
  * Enqueue block editor JavaScript and CSS
  */
-function oik_block_scripts()
+function oik_block_frontend_scripts()
 {
     $blockPath = '/assets/js/frontend.blocks.js';
     // Make paths variables so we don't write em twice ;)
-    $stylePath = '/assets/css/blocks.style.css';
+		
+		 bw_backtrace();
+		 bw_trace2( $_GET, "_GET" );
 
+		// Don't do Gutenberg stuff when loading the classic editor
+		if ( array_key_exists( 'classic-editor', $_GET ) ) {
+			remove_filter( 'wp_editor_settings', 'gutenberg_disable_editor_settings_wpautop' );
+			//gob();
+			return;
+		}
     // Enqueue the bundled block JS file
     wp_enqueue_script(
         'oik_block-blocks-frontend-js',
@@ -94,7 +102,13 @@ function oik_block_scripts()
         [ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
         filemtime( plugin_dir_path(__FILE__) . $blockPath )
     );
+		
 
+
+}
+
+function oik_block_frontend_styles() {
+    $stylePath = '/assets/css/blocks.style.css';
     // Enqueue frontend and editor block styles
     wp_enqueue_style(
         'oik_block-blocks-css',
@@ -159,14 +173,46 @@ function oik_block_dynamic_alt_block_render( $attributes ) {
 
 }
 
+/**
+ * Here we'll implement logic to test whether or not we're going to allow Gutenberg to edit the content
+ *
+ * If there are no blocks then we use the user's or system options.
+ *
+ */
+function oik_block_gutenberg_can_edit_post_type( $can_edit, $post_type ) {
+	bw_trace2();
+	//gob();
+	return $can_edit;
+}
+
+/**
+ * Implements actions for "oik_loaded"
+ *
+ * Now we know it's safe to respond to shortcodes
+ */
+function oik_block_oik_loaded() {
+	add_action( "oik_add_shortcodes", "oik_block_oik_add_shortcodes" );
+}
+
+/** 
+ * Add our shortcodes
+ */
+function oik_block_oik_add_shortcodes() {
+  bw_add_shortcode( "blocks", "oik_block_blocks", oik_path("shortcodes/oik-blocks.php", "oik-block"), false );
+}
+
 
 function oik_block_loaded() {
 
-	// Hook scripts function into block editor hook
-	add_action('enqueue_block_assets', 'oik_block_scripts');
+	// Hook scripts and styles functions into enqueue_block_assets hook
+	
+	add_action('enqueue_block_assets', 'oik_block_frontend_scripts');
+	add_action('enqueue_block_assets', 'oik_block_frontend_styles');
 	
 	// Hook scripts function into block editor hook
 	add_action( 'enqueue_block_editor_assets', 'oik_block_editor_scripts' );
+	
+	add_filter( 'gutenberg_can_edit_post_type', 'oik_block_gutenberg_can_edit_post_type', 10, 2 );
 	
 	
 	// Hook server side rendering into render callback
@@ -179,9 +225,16 @@ function oik_block_loaded() {
 	// Hook server side rendering into render callback
 //	register_block_type( 'oik-block/dynamic', [
 //			'render_callback' => 'oik_block_dynamic_block_render',
-//	] );
+//	] ); 
+
+	add_action( "oik_loaded", "oik_block_oik_loaded" );
+	
 
 }
 
 oik_block_loaded();
+
+
+
+
 
