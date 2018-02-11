@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="6.683028">
+    <testsuite name="Tests_issue_4225" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-issue-4225.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="6.683028">
+      <testcase name="test_get_the_content_page_2" class="Tests_issue_4225" classname="Tests_issue_4225" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-issue-4225.php" line="23" assertions="1" time="6.683028">
+        <failure type="PHPUnit\Framework\ExpectationFailedException">Tests_issue_4225::test_get_the_content_page_2
+Failed asserting that 'Page 3 excerpt\n
+ &lt;a href="https://qw/wordpress/post-title/#more-35453" class="more-link"&gt;third&lt;/a&gt;' is null.
+
+C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-issue-4225.php:44
+</failure>
+        <system-out>Array
+(
+    [0] =&gt; Page 1 excerpt
+&lt;!--more more--&gt;
+Page 1 content
+    [1] =&gt; Page 2 excerpt
+&lt;!--more again--&gt;
+Page 2 content
+    [2] =&gt; Page 3 excerpt
+&lt;!--more third--&gt;
+Page 3 content
+)
+&#13;
+Content:&#13;
+Page 3 excerpt
+&lt;span id="more-35453"&gt;&lt;/span&gt;
+Page 3 content&#13;
+Excerpt:&#13;
+Page 3 excerpt
+ &lt;a href="https://qw/wordpress/post-title/#more-35453" class="more-link"&gt;third&lt;/a&gt;</system-out>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>
