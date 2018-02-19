@@ -36,6 +36,19 @@
 .wp-block-oik-block-address .is-selected .my-content:hover,
 .wp-block-oik-block-address .my-content:focus {
   border: 1px #f7b733 solid; }
+.wp-block-oik-block-googlemap .my-content {
+  border: 1px transparent solid;
+  padding: 4px 8px;
+  margin: -4px -8px; }
+
+.wp-block-oik-block-googlemap .is-selected .my-content,
+.wp-block-oik-block-googlemap .my-content:focus {
+  border: 1px #f7b733 dashed;
+  background: rgba(255, 255, 255, 0.8); }
+
+.wp-block-oik-block-googlemap .is-selected .my-content:hover,
+.wp-block-oik-block-googlemap .my-content:focus {
+  border: 1px #f7b733 solid; }
 .wp-block-oik-block-static .sorry.warning {
   background: #C44D58;
   color: white;

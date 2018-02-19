@@ -95,6 +95,7 @@ function oik_block_frontend_scripts()
 			//gob();
 			return;
 		}
+		
     // Enqueue the bundled block JS file
     wp_enqueue_script(
         'oik_block-blocks-frontend-js',
@@ -102,6 +103,7 @@ function oik_block_frontend_scripts()
         [ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
         filemtime( plugin_dir_path(__FILE__) . $blockPath )
     );
+		
 		
 
 
