@@ -76,9 +76,11 @@ function oik_block_registered_blocks() {
 
 
 	//WP_Block_Registry::get_all_registered
-	oik_require( "lib/client-assets.php", "gutenberg" );
-	$blocks = gutenberg_prepare_blocks_for_js();
-	bw_trace2( $blocks, "blocks", false );
+	if ( function_exists( "gutenberg_prepare_blocks_for_js" ) ) {
+		oik_require( "lib/client-assets.php", "gutenberg" );
+		$blocks = gutenberg_prepare_blocks_for_js();
+		bw_trace2( $blocks, "blocks", false );
+	}
 }
 
 /*
