@@ -29,11 +29,15 @@ function oik_block_blocks( $atts, $content, $tag ) {
 
 	$post_id = oik_block_get_post_id( $atts );
 	if ( $post_id ) {
-		$post = get_post( $post_id );
-		h4( "Blocks", "widget-title widgettitle" );
-		e( $post->post_title );	
-		e( esc_html( $post->post_content ) );
-		oik_block_registered_blocks();
+		if ( is_single( $post_id ) ) {
+			$post = get_post( $post_id );
+			h4( "Blocks", "widget-title widgettitle" );
+			e( $post->post_title );	
+			e( esc_html( $post->post_content ) );
+			oik_block_registered_blocks();
+		
+			oik_block_report_blocks( $post->post_content );
+		}
 	}
 	
 	return( bw_ret() );
@@ -158,5 +162,83 @@ function oik_block_registered_blocks() {
         )
 				
 				
-*/				
+*/ 
+
+function oik_block_report_blocks( $content ) {
+	$parsed = gutenberg_parse_blocks( $content );
+	bw_trace2( $parsed, "parsed" );
+	foreach ( $parsed as $block ) {
+		$blockName = bw_array_get( $block, "blockName", null );
+		$attrs = bw_array_get( $block, 'attrs', null );
+		if ( $attrs ) {
+			$cattrs = count( $attrs );
+		} else {
+			$cattrs = null;
+		}
+		$inner = count( bw_array_get( $block, "innerBlocks", [] ) );
+		$htmlLen = strlen( $block['innerHTML'] );
+		p( "$blockName: $cattrs: $inner: $htmlLen " );
+	}
+		
+}
+
+
+/** 
+ * Example of the $parsed output
+ * Looks like we can have empty array instances? 
+ * Not sure why
+ * Also don't know where these &nbsp; characters appeared in the oik-block paragraph
+
+
+    [0] => Array
+        (
+            [blockName] => core/paragraph
+            [attrs] => Array
+                (
+                    [align] => right
+                    [fontSize] => 34
+                )
+
+            [innerBlocks] => Array
+                (
+                )
+
+            [innerHTML] => 
+<p style="font-size:34px;text-align:right"> oik-block   </p>
+
+        )
+
+    [1] => Array
+        (
+            [attrs] => Array
+                (
+                )
+
+            [innerHTML] => 
+
+
+        )
+
+    [2] => Array
+        (
+            [blockName] => core/image
+            [attrs] => Array
+                (
+                    [id] => 21336
+                    [align] => center
+                )
+
+            [innerBlocks] => Array
+                (
+                )
+
+            [innerHTML] => 
+<figure class="wp-block-image aligncenter"><img src="https://qw/hm/wp-content/uploads/2018/02/oik-banner-772x250.jpg" alt="Image for the oik-block plugin banner" />
+    <figcaption><strong>oik-block</strong> - oik-shortcodes for WordPress 5.0 blocks</figcaption>
+</figure>
+
+        )
+
+)
+*/
 
