@@ -12,8 +12,8 @@
  * @package oik-block
  */
 
-//  Exit if accessed directly.
-defined('ABSPATH') || exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /*
 function oik_block_templates( $args, $post_type ) {
@@ -42,21 +42,34 @@ function oik_block_templates( $args, $post_type ) {
 
 /**
  * Enqueues block editor JavaScript and CSS
+ * 
+ * 
+ * 
  */
-function oik_block_editor_scripts()
-{
+function oik_block_editor_scripts() {
+	bw_trace2();
+	bw_backtrace();
+	
+	if ( isset( $_GET['classic-editor'] ) ) {
+		gob();
+	}
+	//gob();
 
     // Make paths variables so we don't write em twice ;)
     $blockPath = '/assets/js/editor.blocks.js';
+    //$blockPath = '/assets/js/dummy.blocks.js';
+		
     $editorStylePath = '/assets/css/blocks.editor.css';
 
     // Enqueue the bundled block JS file
+		
     wp_enqueue_script(
         'oik_block-blocks-js',
         plugins_url( $blockPath, __FILE__ ),
         [ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
         filemtime( plugin_dir_path(__FILE__) . $blockPath )
     );
+		
 
     // Pass in REST URL
     wp_localize_script(
@@ -68,18 +81,30 @@ function oik_block_editor_scripts()
 
 
     // Enqueue optional editor only styles
+		
     wp_enqueue_style(
         'oik_block-blocks-editor-css',
         plugins_url( $editorStylePath, __FILE__),
         [ 'wp-blocks' ],
         filemtime( plugin_dir_path( __FILE__ ) . $editorStylePath )
     );
+		
+		
 
 }
 
 
 /**
  * Enqueue block editor JavaScript and CSS
+ * 
+ 
+ * It's not the setting of classic-editor that's the problem
+ * it's the fact that enqueueing the scripts when we're not in the editor
+ * but are loading TinyMCE that we get the problem.
+ * 
+ * But which of the scripts is to blame!
+ * Try knocking out the dependencies one by one.
+ * 
  */
 function oik_block_frontend_scripts()
 {
@@ -96,13 +121,16 @@ function oik_block_frontend_scripts()
 			return;
 		}
 		
+		
+		
     // Enqueue the bundled block JS file
-    wp_enqueue_script(
+     wp_enqueue_script(
         'oik_block-blocks-frontend-js',
         plugins_url( $blockPath, __FILE__ ),
         [ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
         filemtime( plugin_dir_path(__FILE__) . $blockPath )
     );
+		
 		
 		
 
@@ -124,26 +152,21 @@ function oik_block_frontend_styles() {
 
 
 /**
- * Server rendering for /blocks/examples/12-dynamic
+ * Server rendering contact-form block
+ * 
+ * @param array $attributes
+ * @return string generated HTML
  */
-function oik_block_dynamic_block_render( $attributes ) {
-
-    $recent_posts = wp_get_recent_posts( [
-        'numberposts' => 1,
-        'post_status' => 'publish',
-    ] );
-    if ( count( $recent_posts ) === 0 ) {
-        return 'No posts';
-    }
-    $post = $recent_posts[ 0 ];
-    $post_id = $post['ID'];
-    return sprintf(
-        '<p><a class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a></p>',
-        esc_url( get_permalink( $post_id ) ),
-        esc_html( get_the_title( $post_id ) )
-    );
+function oik_block_dynamic_block_contact_form( $attributes ) {
+	bw_backtrace();
+	bw_trace2();
+	
+	oik_require( "shortcodes/oik-contact-form.php" );
+	$html = bw_contact_form( $attributes );
+	return $html;
 
 }
+
 
 
 /**
@@ -201,6 +224,7 @@ function oik_block_oik_loaded() {
  */
 function oik_block_oik_add_shortcodes() {
   bw_add_shortcode( "blocks", "oik_block_blocks", oik_path("shortcodes/oik-blocks.php", "oik-block"), false );
+	bw_add_shortcode( "guts", "oik_block_guts", oik_path( "shortcodes/oik-guts.php", "oik-block" ), false );
 }
 
 
@@ -217,21 +241,18 @@ function oik_block_loaded() {
 	add_filter( 'gutenberg_can_edit_post_type', 'oik_block_gutenberg_can_edit_post_type', 10, 2 );
 	
 	
-	// Hook server side rendering into render callback
-	//register_block_type( 'oik-block/dynamic-alt', [
-//			'render_callback' => 'oik_block_dynamic_alt_block_render',
-//	] );
-
-
-
-	// Hook server side rendering into render callback
-//	register_block_type( 'oik-block/dynamic', [
-//			'render_callback' => 'oik_block_dynamic_block_render',
-//	] ); 
 
 	add_action( "oik_loaded", "oik_block_oik_loaded" );
 	
+	oik_block_register_dynamic_blocks();
 
+}
+
+/**
+ * Registers action/filter hooks for oik's dynamic blocks
+ */
+function oik_block_register_dynamic_blocks() {
+  register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
 }
 
 oik_block_loaded();

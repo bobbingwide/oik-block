@@ -17,6 +17,7 @@ import './github';	         // From oik-bob-bing-wide
 import './oik-address';			 // From oik
 import './oik-googlemap';    // From oik bw_show_googlemap
 import './oik-person';       // From oik-user bw_user  and bw_follow_me etc
+import './oik-contact-form'; // From oik bw_contact_form
 
 
 //import './register-block-type/02-category';
