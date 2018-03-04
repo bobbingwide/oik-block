@@ -32,11 +32,17 @@ const {
 const blockAttributes = {
 	user: {
 		type: 'string',
+		default: 'mick',
 	},
 	alt: {
 		type: 'string',
-		default: '1',
-	}
+		default: '0',
+	},
+	network: {
+		type: 'string',
+		default: 'Twitter',
+	},
+	
 };
 
 
@@ -57,7 +63,7 @@ export default registerBlockType(
         category: 'common',
 
         // Dashicons Options - https://goo.gl/aTM1DQ
-        icon: 'admin-link',
+        icon: 'share',
 
         // Limit to 3 Keywords / Phrases
         keywords: [
@@ -67,52 +73,57 @@ export default registerBlockType(
 
         // Set for each piece of dynamic data used in your block
         attributes: blockAttributes,
+				
+				supports: { html: false },
 
         edit: props => {
-          const onChangeInput = ( event ) => {
-            props.setAttributes( { issue: event.target.value } );
-						bit = 'bit'; 
-						props.setAttributes( { bit: bit } );
-          };
 					
-					//const focus = ( focus ) => {
-					 	//props.setAttributes( { issue: 'fred' } );
-					//};
 					const onChangeUser = ( event ) => {
-						console.log( event );
 						props.setAttributes( { user: event } );
 					};
+					
+					const onChangeAlt = ( event ) => {
+						props.setAttributes( { alt: event } );
+					};
+					
+					const onChangeNetwork = ( event ) => {
+						props.setAttributes( { network: event } );
+					};
+					
+					//var atts = props.attributes;
+					var children = [];
+					//for (var key of Object.keys( atts )) {
+					//	var value = atts[key];
+					//	console.log( value );
+					children.push( <TextControl label="User" value={props.attributes.user} id="hm001" instanceId="fm-user" onChange={onChangeUser}  /> );
+									
+					//}
+					
 					var atts = props.attributes;
-								console.log( props.attributes );
-					var children = [];		
-					for (const key of Object.keys( atts )) {
-						console.log(key, atts[key]);
-						children.push( <p>{key} </p> );
+					var chatts = [];		
+					for (var key of Object.keys( atts )) {
+						var value = atts[key];
+						if ( value ) {
+							chatts.push( " " + key + "=" + value );
+						}
 					}
 					
           return [
-					
-					
+						
   					!! props.focus && (
               <InspectorControls key="follow-me">
 								<PanelBody key="pb">
-								<PanelRow key="user">
-									<TextControl label="User" 
-											value={ props.attributes.user } 
-											id="user"
-											onChange={ onChangeUser }
-									/>
-								</PanelRow> 
-
-								</PanelBody>
-
-
+								<TextControl label="User" value={props.attributes.user} id="hm001" instanceId="fm-user" onChange={onChangeUser}  />
+								<TextControl label="Alt" value={props.attributes.alt} id="hm002" instanceId="fm-alt" onChange={onChangeAlt}  /> 
+								<TextControl label="Network" value={props.attributes.network} id="hm003" instanceId="fm-network" onChange={onChangeNetwork}  /> 
+								 </PanelBody>
               </InspectorControls>
   					),
+					
+					
             <div className={ props.className }>
-						 	<p>This is where the follow me links for {props.attributes.user} will appear.</p>
-							{children}
-            </div>
+						[bw_follow_me{chatts}]
+						</div>
           ];
         },
         save: props => {
@@ -121,10 +132,19 @@ export default registerBlockType(
 					var lsb = '[';
 					var rsb = ']';
 					var user = props.attributes.user;
+					
+					var atts = props.attributes;
+					var chatts = [];		
+					for (var key of Object.keys( atts )) {
+						var value = atts[key];
+						if ( value ) {
+							chatts.push( " " + key + "=" + value );
+						}
+					}
           return (
 						<div>
 						{lsb}
-						bw_follow_me user={user}
+						bw_follow_me {chatts}
 						{rsb}
 						</div>
           );
