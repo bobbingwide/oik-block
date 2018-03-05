@@ -1,15 +1,3 @@
-@import url(//fonts.googleapis.com/css?family=Archivo+Black|PT+Sans:400italic,700italic,400,700);
-[class^="wp-block-oik-block"] {
-  margin: 0;
-  max-width: 100%; }
-
-.wp-block-oik-block-register-demo {
-  padding: 1rem; }
-
-.editor-visual-editor [class^="wp-block-oik-block"],
-.editor-visual-editor [class^="wp-block-oik-block"] p {
-  font-family: "PT Sans", sans-serif;
-  font-size: 100%; }
 .wp-block-oik-block-github .my-content {
   border: 1px transparent solid;
   padding: 4px 8px;
@@ -87,6 +75,19 @@
 
 .wp-block-oik-block-follow-me .is-selected .my-content:hover,
 .wp-block-oik-block-follow-me .my-content:focus {
+  border: 1px #f7b733 solid; }
+.wp-block-oik-block-countdown .my-content {
+  border: 1px transparent solid;
+  padding: 4px 8px;
+  margin: -4px -8px; }
+
+.wp-block-oik-block-countdown .is-selected .my-content,
+.wp-block-oik-block-countdown .my-content:focus {
+  border: 1px #f7b733 dashed;
+  background: rgba(255, 255, 255, 0.8); }
+
+.wp-block-oik-block-countdown .is-selected .my-content:hover,
+.wp-block-oik-block-countdown .my-content:focus {
   border: 1px #f7b733 solid; }
 .wp-block-oik-block-static .sorry.warning {
   background: #C44D58;
