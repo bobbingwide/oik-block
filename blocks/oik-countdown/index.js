@@ -33,18 +33,27 @@ const RawHTML = wp.element.RawHTML;
 const blockAttributes = {
 	since: {
 		type: 'string',
+		default: '',
 	},
 	until: {
 		type: 'string',
+		default: '',
 	},
 	url: {
 		type: 'string',
+		default: '',
 	},
 	description: {
+		type: 'string',
+		default: '',
 	},
 	expiryText: {
+		type: 'string',
+		default: '',
 	},
 	format: {
+		type: 'string',
+		default: '',
 	},
 	
 };
@@ -113,7 +122,7 @@ export default registerBlockType(
 					//for (var key of Object.keys( atts )) {
 					//	var value = atts[key];
 					//	console.log( value );
-					//children.push( <TextControl label="User" value={props.attributes.user} id="hm001" instanceId="fm-user" onChange={onChangeUser}  /> );
+					//children.push( <TextControl label="User" value={props.attributes.user} key="hm001" instanceId="fm-user" onChange={onChangeUser}  /> );
 									
 					//}
 					
@@ -141,18 +150,18 @@ export default registerBlockType(
   					!! props.focus && (
               <InspectorControls key="ic-countdown">
 								<PanelBody key="pb-countdown">
-								<TextControl label="Since" value={props.attributes.since} id="cd-since" onChange={onChangeSince} />
-								<TextControl label="Until" value={props.attributes.until} id="cd-until" onChange={onChangeUntil} />
-								<TextControl label="URL" value={props.attributes.url} id="cd-url" onChange={onChangeURL} />
-                <TextControl label="Description" value={props.attributes.description} id="cd-desc" onChange={onChangeDescription} />
-								<TextControl label="Expiry Text" value={props.attributes.expirytext} id="cd-expirytext" onChange={onChangeExpiryText}  /> 
-								<TextControl label="Format" value={props.attributes.format} id="cd-format" onChange={onChangeFormat} /> 
+								<TextControl label="Since" value={props.attributes.since} key="cd-since" onChange={onChangeSince} />
+								<TextControl label="Until" value={props.attributes.until} key="cd-until" onChange={onChangeUntil} />
+								<TextControl label="URL" value={props.attributes.url} key="cd-url" onChange={onChangeURL} />
+                <TextControl label="Description" value={props.attributes.description} key="cd-desc" onChange={onChangeDescription} />
+								<TextControl label="Expiry Text" value={props.attributes.expirytext} key="cd-expirytext" onChange={onChangeExpiryText}  /> 
+								<TextControl label="Format" value={props.attributes.format} key="cd-format" onChange={onChangeFormat} /> 
 								 </PanelBody>
               </InspectorControls>
   					),
 					
 					
-            <div className={ props.className }>
+            <div className={ props.className } key="chatts">
 						{chatts}
 						</div>
           ];
