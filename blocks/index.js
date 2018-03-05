@@ -1,14 +1,9 @@
 /**
  * Import registerBlockType common styles
  */
-import './register-block-type/style.scss';
-import './register-block-type/editor.scss';
+//import './register-block-type/style.scss';
+//import './register-block-type/editor.scss';
 
-/**
- * Import registerBlockType blocks
- */
-//import './register-block-type/00-demo';
-//import './register-block-type/01-title';
 
 /**
  * Import our own blocks from now on
@@ -19,15 +14,8 @@ import './oik-googlemap';    // From oik bw_show_googlemap
 import './oik-person';       // From oik-user bw_user  and bw_follow_me etc
 import './oik-contact-form'; // From oik bw_contact_form
 import './oik-follow-me';    // From oik bw_follow_me
+import './oik-countdown';    // From oik bw_countdown
 
-
-//import './register-block-type/02-category';
-//import './register-block-type/03-icon';
-//import './register-block-type/04-keywords';
-//import './register-block-type/05-edit';
-//import './register-block-type/06-save';
-//import './register-block-type/07-attributes';
-//import './register-block-type/08-all';
 
 /**
  * Import example blocks
