@@ -44,7 +44,7 @@ export default registerBlockType(
         category: 'common',
 
         // Dashicons Options - https://goo.gl/aTM1DQ
-        icon: 'admin-form',
+        icon: 'forms',
 
         // Limit to 3 Keywords / Phrases
         keywords: [
