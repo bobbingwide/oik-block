@@ -26,6 +26,8 @@ const {
 const RawHTML = wp.element.RawHTML;
 const Fragment = wp.element.Fragment;
 
+import { partial } from 'lodash';
+
 
 /**
  * Attempt to find an easier way to define each attribute
@@ -38,6 +40,10 @@ const blockAttributes = {
 		default: 'default',
 	},
 	id: {
+		type: 'string',
+		default: '',
+	},
+	effect: {
 		type: 'string',
 		default: '',
 	},
@@ -87,6 +93,19 @@ export default registerBlockType(
 						props.setAttributes( { id: event } );
 					};
 					
+					/**
+					 * Attempt a generic function to apply a change
+					 * using the partial technique
+					 */ 
+					//onChange={ partial( handleChange, 'someKey' ) }
+
+					function onChangeAttr( key, value ) {
+						//var nextAttributes = {};
+						//nextAttributes[ key ] = value;
+						//setAttributes( nextAttributes );
+						props.setAttributes( { key : value } );
+					};
+					
 					
 				
 					var atts = props.attributes;
@@ -106,6 +125,7 @@ export default registerBlockType(
 								<PanelBody key="pb-nivo">
 								<TextControl label="Theme" value={props.attributes.theme} id="theme" onChange={onChangeTheme} />
 								<TextControl label="IDs" value={props.attributes.id} onChange={onChangeId} />
+								<TextControl label="Effect" value={props.attributes.effect} onChange={ partial( onChangeAttr, 'effect' )} />
 								 </PanelBody>
               </InspectorControls>
   					),
