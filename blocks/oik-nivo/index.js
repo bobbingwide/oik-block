@@ -37,6 +37,10 @@ const blockAttributes = {
 		type: 'string',
 		default: 'default',
 	},
+	id: {
+		type: 'string',
+		default: '',
+	},
 	
 };
 
@@ -58,7 +62,7 @@ export default registerBlockType(
         category: 'common',
 
         // Dashicons Options - https://goo.gl/aTM1DQ
-        icon: 'gallery',
+        icon: 'slides',
 
         // Limit to 3 Keywords / Phrases
         keywords: [
@@ -79,6 +83,10 @@ export default registerBlockType(
 						props.setAttributes( { theme: event } );
 					};
 					
+					const onChangeId = ( event ) => {
+						props.setAttributes( { id: event } );
+					};
+					
 					
 				
 					var atts = props.attributes;
@@ -97,6 +105,7 @@ export default registerBlockType(
               <InspectorControls key="ic-nivo">
 								<PanelBody key="pb-nivo">
 								<TextControl label="Theme" value={props.attributes.theme} id="theme" onChange={onChangeTheme} />
+								<TextControl label="IDs" value={props.attributes.id} onChange={onChangeId} />
 								 </PanelBody>
               </InspectorControls>
   					),

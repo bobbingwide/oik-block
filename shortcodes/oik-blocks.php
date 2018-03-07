@@ -32,11 +32,16 @@ function oik_block_blocks( $atts, $content, $tag ) {
 		if ( is_single( $post_id ) ) {
 			$post = get_post( $post_id );
 			h4( "Blocks", "widget-title widgettitle" );
-			e( $post->post_title );	
+			e( $post->post_title );
+			br();	
+			$post->post_content = str_replace( "\r", "\\r", $post->post_content );
+			$post->post_content = str_replace( "\n", "\\n", $post->post_content );
+			$post->post_content = str_replace( "\t", "\\t", $post->post_content );
 			e( esc_html( $post->post_content ) );
-			oik_block_registered_blocks();
+			//bw_trace2( $post->post
+			//oik_block_registered_blocks();
 		
-			oik_block_report_blocks( $post->post_content );
+			//oik_block_report_blocks( $post->post_content );
 		}
 	}
 	
