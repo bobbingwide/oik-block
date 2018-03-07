@@ -5,7 +5,7 @@ index.js defines the blocks that are built for this plugin.
 ## Summary of blocks
 
 Block | Shortcode(s) | Purpose
------ | --------
+----- | -------- | -----
 github | [github] | Wrapper to [github] shortcode
 oik-address | [bw_address] | Address block
 oik-contact-form | [bw_contact_form] | Contact form 
