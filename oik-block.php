@@ -252,7 +252,9 @@ function oik_block_loaded() {
  * Registers action/filter hooks for oik's dynamic blocks
  */
 function oik_block_register_dynamic_blocks() {
-  register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
+	if ( function_exists( "register_block_type" ) ) {
+		register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
+	}
 }
 
 oik_block_loaded();
