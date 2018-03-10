@@ -27,6 +27,7 @@ class component_counter {
 		//print_r( $this->components );
 		echo "Type,Component,Count" . PHP_EOL;
 		$components = 0;
+		$total = 0;
 		foreach ( $this->components as $type => $data ) {
 			foreach ( $data as $component => $count ) {
 				echo "$type,$component,$count" . PHP_EOL;
