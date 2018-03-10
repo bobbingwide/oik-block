@@ -1,0 +1,192 @@
+Shortcode,Desc,#parameters,Component
+OIK,Spells out the <span class="bw_oik"><abbr  title="OIK Information Kit">oik</abbr></span> backronym,0,oik
+api,Simple API link,1,oik-shortcodes
+apis,Link to API definitions,3,oik-shortcodes
+artisteer,Styled form of Artisteer,0,oik-bob-bing-wide
+audio,Displays uploaded audio file as an audio player,4,oik-sc-help
+bp,Styled form of BuddyPress,0,oik-bob-bing-wide
+bw,Expand to the logo for Bobbing Wide,1,oik
+bw_abbr,Format an abbreviation,0,oik
+bw_accordion,Display posts in an accordion,17,oik
+bw_acronym,Format an acronym,0,oik
+bw_action,bw_shortcode_event,0,oik-bob-bing-wide
+bw_address,Display the address,3,oik
+bw_admin,Display the Admin contact name,0,oik
+bw_alt_slogan,Alternative slogan,0,oik
+bw_api,Dynamic API syntax help,3,oik-shortcodes
+bw_attachments,List attachments with links,20,oik
+bw_autop,Dynamically re-enable/disable automatic paragraph generation,1,oik-css
+bw_background,Use attached image as the background,5,oik-css
+bw_block,Format an Artisteer block,5,oik
+bw_blockquote,Format a blockquote,2,oik
+bw_blog,Select blog to process,1,oik-ms
+bw_blogs,List blogs or display content for selected blogs,1,oik-ms
+bw_bookmarks,List bookmarks,4,oik
+bw_business,Display your Business name,0,oik
+bw_button,Show a link as a button,4,oik
+bw_cite,Cite a blockquote,2,oik
+bw_code,Display the help and syntax for a shortcode,6,oik
+bw_codes,Display the currently available shortcodes,1,oik
+bw_company,Company name,0,oik
+bw_contact,Primary contact name,1,oik
+bw_contact_button,Contact form button,5,oik
+bw_contact_form,Display a contact form for the specific user,5,oik
+bw_copyright,Format a Copyright statement,5,core
+bw_count,Count posts for the selected post type,2,oik
+bw_countdown,Countdown timer,5,oik
+bw_crumbs,Display breadcrumbs,0,oik-bob-bing-wide
+bw_css,Add internal CSS styling,2,oik-css
+bw_csv,Display CSV data in a table or list,6,oik-bob-bing-wide
+bw_cycle,Display pages using jQuery cycle,23,oik
+bw_dash,Display a dash icon,2,oik-cons
+bw_directions,Display a 'Google directions' button.,1,oik
+bw_domain,Display the domain name,0,oik
+bw_eblock,end a [bw_block],0,oik
+bw_editcss,Edit Custom CSS file button,0,oik
+bw_email,Email primary contact (formal),6,oik
+bw_email_signature,Format the email signature,0,core
+bw_emergency,Emergency telephone number,8,oik
+bw_facebook,Facebook link,0,oik
+bw_fax,Fax number,8,oik
+bw_field,Format custom fields without labels,3,oik-fields
+bw_fields,Format custom fields, with labels,2,oik-fields
+bw_flickr,Flickr link,0,oik
+bw_follow_me,Display defined social media follow me links,3,oik
+bw_formal,Formal company name,0,oik
+bw_geo,Latitude and Longitude,1,oik
+bw_geshi,Generic Syntax Highlighting,2,oik-css
+bw_google,Google+ link,0,oik
+bw_google-plus,Google+ link,0,oik
+bw_google_plus,Google+ link,0,oik
+bw_googleplus,Google+ link,0,oik
+bw_graphviz,Display a GraphViz diagram,2,oik-bob-bing-wide
+bw_group,Display summary of selected items,2,oik-fields
+bw_iframe,Embed a page in an iframe,9,oik
+bw_images,Display attached images,20,oik
+bw_instagram,Follow me on Instagram,0,oik
+bw_jq,Perform a jQuery method,8,oik
+bw_link,Display a link to a post.,5,oik
+bw_linkedin,Follow me on LinkedIn,0,oik
+bw_list,Simple list of pages/posts or custom post types,19,oik
+bw_login,Display the login form or protected content,2,oik
+bw_loginout,Display the Login or Logout link,0,oik
+bw_logo,Display the company logo,4,oik
+bw_mailto,Mailto (inline),6,oik
+bw_mob,Mobile phone number (inline),8,oik
+bw_mobile,Mobile phone number (block),8,oik
+bw_more,Read more button to progressively reveal content,2,oik-read-more
+bw_navi,Simple paginated list,19,oik
+bw_new,Display a form to create a new post,3,oik-fields
+bw_option,Display the value of an option field,2,oik-bob-bing-wide
+bw_otd,Display 'On this day' in history related content ,19,oik-dates
+bw_page,Add page button,3,oik-bob-bing-wide
+bw_pages,Display page thumbnails and excerpts as links,20,oik
+bw_parent,Display a link back to the parent page,1,oik
+bw_pdf,Display attached PDF files,19,oik
+bw_picasa,Follow me on Picasa,0,oik
+bw_pinterest,Follow me on Pinterest,0,oik
+bw_plug,Show plugin information,5,oik-bob-bing-wide
+bw_popup,Display a popup after a timed delay,23,oik-popup
+bw_portfolio,Display matched portfolio files,18,oik
+bw_post,Add Post button,3,oik-bob-bing-wide
+bw_posts,Display posts,18,oik
+bw_power,Powered by WordPress,0,oik
+bw_qrcode,Display an uploaded QR code image,4,oik
+bw_qv,bw_shortcode_event,0,core
+bw_register,Display a link to the Registration form, if Registration is enabled,0,oik
+bw_related,Display related content,5,oik-fields
+bw_rpt,bw_shortcode_event,0,oik-bob-bing-wide
+bw_rwd,Dynamically generate oik responsive web design CSS classes,1,oik-rwd
+bw_search,Display search form,0,oik-bob-bing-wide
+bw_show_googlemap,Show Google map [bw_show_googlemap],8,oik
+bw_skype,Skype name,8,oik
+bw_slogan,Primary slogan,0,oik
+bw_squeeze,bw_shortcode_event,0,oik-squeeze
+bw_table,Display custom post data in a tabular form,19,oik
+bw_tabs,Display posts in tabbed blocks,17,oik
+bw_tel,Telephone number (inline),8,oik
+bw_telephone,Telephone number (block),8,oik
+bw_terms,Display taxonomy terms links,3,oik-a2z
+bw_testimonials,Display testimonials,20,oik-testimonials
+bw_text,bw_shortcode_event,0,oik-bob-bing-wide
+bw_thumbs,List pages as fluid thumbnail links,19,oik
+bw_tides,Display times and tides for a UK location,3,uk-tides
+bw_tree,Simple tree of pages/posts or custom post types,17,oik
+bw_twitter,Follow me on Twitter,0,oik
+bw_user,Display information about a user,2,oik-user
+bw_users,Display information about site users,8,oik-user
+bw_wpadmin,Site: link to wp-admin,0,oik
+bw_wtf,WTF,3,oik
+bw_youtube,Follow me on YouTube,0,oik
+bwtrace,Trace facility form,2,oik
+bwtroff,Force trace off,0,oik
+bwtron,Force trace on,0,oik
+caption,Display the caption for an image. Standard WordPress shortcode,4,core
+classes,Link to class definitions,3,oik-shortcodes
+clear,Clear divs ,0,core
+clone,Display the clone tree/form for a post,4,oik-clone
+cloned,Display clones of this content,3,oik-clone
+codes,Create links to related shortcodes,4,oik-shortcodes
+cookies,Display table of cookies, by category,4,cookie-cat
+div,start a &lt;div&gt; tag,2,core
+drupal,bw_shortcode_event,0,oik-bob-bing-wide
+dumptag,trac_29608_shortcode_dumptag,0,core
+ediv,end a &lt;div&gt; with &lt;/div&gt;,0,core
+embed,Embed media,3,core
+etag,End a tag started with [stag],1,core
+file,Display reference for a file,1,oik-shortcodes
+files,Link to files definitions,3,oik-shortcodes
+footer_backtotop,Produces the 'Return to Top' link,5,oik-sc-help
+footer_childtheme_link,Display link to child theme, if defined,2,oik-sc-help
+footer_copyright,Display copyright notice,4,oik-sc-help
+footer_genesis_link,Display link to the Genesis Framework.,2,oik-sc-help
+footer_home_link,genesis_footer_home_link_shortcode,0,core
+footer_loginout,Display link to WordPress.,3,oik-sc-help
+footer_site_title,genesis_footer_site_title_shortcode,0,core
+footer_studiopress_link,Display link to StudioPress.,2,oik-sc-help
+footer_wordpress_link,Display link to WordPress.,2,oik-sc-help
+gallery,Display the attached images in a gallery,10,core
+github,Link to GitHub,5,oik-bob-bing-wide
+gpslides,Display a Slideshow Gallery Pro slideshow,0,oik
+hook,bw_shortcode_event,0,oik-shortcodes
+hooks,Link to hook definitions,3,oik-shortcodes
+lartisteer,Link to Artisteer ,0,oik-bob-bing-wide
+lbp,Link to BuddyPress,0,oik-bob-bing-wide
+lbw,Link to Bobbing Wide sites,0,oik
+ldrupal,Link to drupal.org,0,oik-bob-bing-wide
+loik,Link to [oik]-plugins,0,oik
+lwp,Link to WordPress.org,0,oik-bob-bing-wide
+lwpms,Link to WordPress Multi Site,0,oik-bob-bing-wide
+md,Format Markdown,0,oik-shortcodes
+ngslideshow,NextGen gallery slideshow,0,core
+nivo,Display the nivo slideshow for attachments or other post types.,29,oik-nivo-slider
+noautop,trac_29608_noautop,0,core
+oik,Expand to the logo for oik,0,oik
+oik_edd_apikey,get API key form for EDD,0,oik-edd
+oikp_download,Produce a download button for a plugin,2,oik-plugins
+oikth_download,Produce a download button for a theme,2,oik-themes
+paragraph,trac_29608_shortcode_paragraph,0,core
+parsed_source,bw_shortcode_event,0,oik-shortcodes
+paypal,Paypal shortcodes,11,oik
+playlist,Playlist,12,core
+post_author,Display post author name,2,oik-sc-help
+post_author_link,Display post author link,2,oik-sc-help
+post_author_posts_link,Display link to author's posts,2,oik-sc-help
+post_categories,Display category links list,3,oik-sc-help
+post_comments,Display link to post comments,6,oik-sc-help
+post_date,Display post publication date,4,oik-sc-help
+post_edit,Display edit post link,3,oik-sc-help
+post_modified_date,Display post last modified date,4,oik-sc-help
+post_modified_time,Display post last modified time,4,oik-sc-help
+post_tags,Display tag links list,3,oik-sc-help
+post_terms,Display linked post taxonomy terms list,4,oik-sc-help
+post_time,Display post publication time,4,oik-sc-help
+sdiv,Start a div,2,core
+sediv,Start and end a div,0,core
+stag,Start a tag,3,core
+video,Embed video files,7,core
+wp,Display a styled form of WordPress. ,0,oik-bob-bing-wide
+wp_caption,Display the caption for an image. Standard WordPress shortcode,4,core
+wpms,Styled form of WordPress Multi Site,0,oik-bob-bing-wide
+29608,trac_29608,0,core
+190,,#plugins,760 
