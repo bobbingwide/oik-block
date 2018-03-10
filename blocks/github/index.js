@@ -11,7 +11,7 @@ const { registerBlockType, Editable } = wp.blocks;
 // Set the h2 header for the block since it is reused
 const blockHeader = <h3>{ __( 'GitHub Issue' ) }</h3>;
 
-var TextControl = wp.blocks.InspectorControls.TextControl;
+var TextControl = wp.components.TextControl;
 
 /**
  * Register example block
