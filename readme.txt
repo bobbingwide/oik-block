@@ -19,10 +19,16 @@ Some of these are crying out to be converted into advanced WordPress blocks.
 
 This is just the start. 
 
-This plugin is currently being used for education, demonstration and experimentation.
+This plugin is currently being used for education, demonstration, experimentation and estimation.
 
-Originally based on Zac Gordon's course, the code has been altered to work with the latest version of the Gutenberg plugin,
-upon which it is currently dependent until it's merged into core.
+The code is being developed to work with latest version of the Gutenberg plugin,
+upon which it is currently dependent, until the plugin is merged into core.
+
+At some time in the future all references to Gutenberg may be eliminated.
+
+We'll refer to Gutenberg as the new editor.
+And each block will be called a block.
+
 
 
 == Installation ==

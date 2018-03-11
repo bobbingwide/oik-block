@@ -199,14 +199,19 @@ function oik_block_dynamic_alt_block_render( $attributes ) {
 }
 
 /**
+ * Implements "gutenberg_can_edit_post_type" for oik-blocks 
+ * 
  * Here we'll implement logic to test whether or not we're going to allow Gutenberg to edit the content
  *
- * If there are no blocks then we use the user's or system options.
+ * Decisions to be implemented include:
+ * - If there are no blocks then we use the user's or system options.
+ * - If the post type supports revisions then we may not want to use Gutenberg
+ * - If the post has been marked as "Classic-editor"
  *
  */
 function oik_block_gutenberg_can_edit_post_type( $can_edit, $post_type ) {
 	bw_trace2();
-	//gob();
+	$can_edit = post_type_supports( $post_type, "revisions" );
 	return $can_edit;
 }
 
@@ -225,6 +230,7 @@ function oik_block_oik_loaded() {
 function oik_block_oik_add_shortcodes() {
   bw_add_shortcode( "blocks", "oik_block_blocks", oik_path("shortcodes/oik-blocks.php", "oik-block"), false );
 	bw_add_shortcode( "guts", "oik_block_guts", oik_path( "shortcodes/oik-guts.php", "oik-block" ), false );
+	bw_add_shortcode( "content", "oik_block_content", oik_path( "shortcodes/oik-content.php", "oik-block" ), false );
 }
 
 
