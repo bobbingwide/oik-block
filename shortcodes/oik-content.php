@@ -42,7 +42,10 @@ function oik_block_content( $atts=null, $content=null, $tag=null ) {
 		$count = oik_block_count_posts( $post_type );
 		$row[] = $count;
 		$total += $count;
-		$row[] = oik_block_post_type_compatible( $post_type, $post_type_object, $row );
+		$editor = oik_block_post_type_compatible( $post_type, $post_type_object, $row );
+		$row[] = $editor;
+		
+		oik_block_count_editable( $count, $editor );
 		
 		
 		bw_tablerow( $row );
@@ -50,6 +53,8 @@ function oik_block_content( $atts=null, $content=null, $tag=null ) {
 	bw_tablerow( array( "Total", "", "", "", "", $total, "?" ) );
 	etag( "tbody" );
 	etag( "table" );
+	
+	oik_block_report_editable();
 	return bw_ret();
 }
 
@@ -143,6 +148,37 @@ function oik_block_post_compatible( $post ) {
 	return "Blocks";
 	 
 }
+
+function oik_block_count_editable( $count, $editor ) {
+	global $bw_editable_plugins, $bw_editable_counts;
+	if ( !isset( $bw_editable_counts[$editor] ) ) {
+		$bw_editable_counts[ $editor ] = 0;
+	}
+	$bw_editable_counts[ $editor ] += $count;
+	
+	if ( !isset( $bw_editable_plugins[ $editor ] ) ) {
+		$bw_editable_plugins[ $editor ] = 0;
+	}
+	$bw_editable_plugins[ $editor ]++;
+}
+
+function oik_block_report_editable() {
+	
+	global $bw_editable_plugins, $bw_editable_counts;
+	
+	stag( "table" );
+	bw_table_header( bw_as_array( "Editor,Types,Count") ); 
+	stag( "tbody" );
+	foreach ( $bw_editable_plugins as $editable => $count ) {
+		bw_tablerow( array(  $editable, $count, $bw_editable_counts[ $editable ] ) );
+	// print_r( $bw_editable_plugins );
+	// print_r( $bw_editable_counts );
+	
+	}
+	etag( "tbody" );
+	etag( "table" );
+}	
+		
 	
 
 
