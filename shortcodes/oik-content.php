@@ -22,7 +22,7 @@
  */
 
 function oik_block_content( $atts=null, $content=null, $tag=null ) {
-
+	oik_block_reset_editable();
 	//$post_types = bw_list_registered_post_types();
 	oik_require( "shortcodes/oik-table.php" );
 	stag( "table" );
@@ -80,11 +80,14 @@ function oik_block_content( $atts=null, $content=null, $tag=null ) {
  * @return string Editor to use for the post type 
  */
 function oik_block_post_type_compatible( $post_type, $post_type_object ) {
-  if ( !( $post_type_object->show_ui ) ) {
-		return "n/a";
-	}
 	if ( $post_type == "attachment" ) {
 		return "Media";
+	}
+	if ( $post_type == "revision" ) {
+		return "Revisions";
+	}
+  if ( !( $post_type_object->show_ui ) ) {
+		return "n/a";
 	}
 	if ( !( $post_type_object->show_in_rest ) ) {
 		return "Classic-editor";
@@ -149,6 +152,13 @@ function oik_block_post_compatible( $post ) {
 	 
 }
 
+function oik_block_reset_editable() {
+
+	unset( $GLOBALS[ 'bw_editable_plugins' ] );
+	unset( $GLOBALS[ 'bw_editable_counts' ] );
+}
+	
+
 function oik_block_count_editable( $count, $editor ) {
 	global $bw_editable_plugins, $bw_editable_counts;
 	if ( !isset( $bw_editable_counts[$editor] ) ) {
@@ -175,6 +185,7 @@ function oik_block_report_editable() {
 	// print_r( $bw_editable_counts );
 	
 	}
+	bw_tablerow( array( "Total", array_sum( $bw_editable_plugins ), array_sum( $bw_editable_counts ) ) );
 	etag( "tbody" );
 	etag( "table" );
 }	
