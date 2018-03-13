@@ -14,7 +14,8 @@
       {
         "pragma": "wp.element.createElement"
       }
-    ]
+    ],
+		["lodash"]
   ],
   "env": {
     "default": {
