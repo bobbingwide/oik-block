@@ -251,6 +251,8 @@ function oik_block_loaded() {
 	add_action( "oik_loaded", "oik_block_oik_loaded" );
 	
 	oik_block_register_dynamic_blocks();
+	
+	add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
 
 }
 
@@ -262,6 +264,25 @@ function oik_block_register_dynamic_blocks() {
 		register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
 	}
 }
+
+/** 
+ * Implements "add_meta_boxes" for oik-block 
+ *
+ * Adds the meta box to enable the user to set the preferred editor for the post
+ * 
+ */
+function oik_block_add_meta_boxes( $post_type, $post ) {
+
+  //$clone = post_type_supports( $post_type, "clone" );
+  //if ( $clone ) {
+		
+    oik_require( "admin/oik-block-meta-box.php", "oik-block" );
+		
+    add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default' );
+		
+}
+
+
 
 oik_block_loaded();
 
