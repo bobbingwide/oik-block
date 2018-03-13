@@ -20,13 +20,14 @@ const {
   PanelRow,
   FormToggle,
 	TextControl,
+	SelectControl,
 
 } = wp.components;
 
 const RawHTML = wp.element.RawHTML;
 const Fragment = wp.element.Fragment;
 
-import { partial } from 'lodash';
+import { map, partial } from 'lodash';
 
 
 /**
@@ -49,6 +50,18 @@ const blockAttributes = {
 	},
 	
 };
+
+
+/**
+ * These are the different options for the Theme select list
+ * 
+ * But I don't know how map() works so it all appears to be arse about face.
+ */
+const themeOptions = 
+{ default: "Default",
+  bar: "Bar",
+};
+
 
 
 
@@ -96,6 +109,9 @@ export default registerBlockType(
 					/**
 					 * Attempt a generic function to apply a change
 					 * using the partial technique
+					 * 
+					 * key needs to be in [] otherwise it becomes a literal
+					 *
 					 */ 
 					//onChange={ partial( handleChange, 'someKey' ) }
 
@@ -103,7 +119,7 @@ export default registerBlockType(
 						//var nextAttributes = {};
 						//nextAttributes[ key ] = value;
 						//setAttributes( nextAttributes );
-						props.setAttributes( { key : value } );
+						props.setAttributes( { [key] : value } );
 					};
 					
 					
@@ -123,10 +139,16 @@ export default registerBlockType(
   					!! props.focus && (
               <InspectorControls key="ic-nivo">
 								<PanelBody key="pb-nivo">
-								<TextControl label="Theme" value={props.attributes.theme} id="theme" onChange={onChangeTheme} />
-								<TextControl label="IDs" value={props.attributes.id} onChange={onChangeId} />
-								<TextControl label="Effect" value={props.attributes.effect} onChange={ partial( onChangeAttr, 'effect' )} />
-								 </PanelBody>
+									<TextControl label="Theme" value={props.attributes.theme} id="theme" onChange={onChangeTheme} />
+									<TextControl label="IDs" value={props.attributes.id} onChange={onChangeId} />
+									<TextControl label="Effect" value={props.attributes.effect} onChange={ partial( onChangeAttr, 'effect' )} /> 
+									 
+																	
+									<SelectControl label="t2" value={props.attributes.theme}
+										options={ map( themeOptions, ( key, label ) => ( { value: label, label: key } ) ) }
+										onChange={partial( onChangeAttr, 'theme' )}
+									/>
+								</PanelBody>
               </InspectorControls>
   					),
 					
