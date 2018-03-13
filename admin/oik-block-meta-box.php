@@ -5,18 +5,40 @@
  * @package oik-block
  */
  
+ 
+/**
+ * Displays the Preferred editor meta box
+ * 
+ * 
+ * The Preferred editor is not forced on the user. 
+ * It displays the setting for the preferred editor to use for the current post
+ * and explanations for that setting. 
+ * 
+ */
 function oik_block_meta_box( $post, $metabox ) {
   oik_require( "shortcodes/oik-content.php", "oik-block" );
 	
+	oik_block_show_in_rest( $post ); 
 	oik_block_revisions( $post );
 
-	BW_::p( __( "Editor selection", "oik-block" ) );
+	//BW_::p( __( "Editor selection", "oik-block" ) );
+	
+	$preferred_editor = oik_block_get_preferred_editor( $post );
+	$preferred_editor_options = oik_block_get_preferred_editor_options();
+	
+  stag( 'table', "form-table" );
+	BW_::bw_select( "_oik_block_editor", "Preferred Editor", $preferred_editor, array( "#options" => $preferred_editor_options ) );
+	
+  etag( "table" );
 	
 	bw_flush();
 	
 
 }
 
+/**
+ * Displays opinion regarding support for 'revisions'
+ */
 function oik_block_revisions( $post ) {
 
   $revisions = post_type_supports( $post->post_type, "revisions" );
@@ -25,6 +47,83 @@ function oik_block_revisions( $post ) {
 	}else {
 		p( "Revisions not supported. Block editor not recommended" );
   }
+}
+
+/**
+ * Displays opinion regarding "show_in_rest" 
+ */
+function oik_block_show_in_rest( $post ) {
+	$post_type_object = get_post_type_object( $post->post_type );
+	if ( $post_type_object->show_in_rest ) {
+		p( "Block editor supported. Show in REST enabled." );
+	} else {
+		p( "Classic required. Show in REST not enabled." );
+	}
+}
+
+
+/**
+ * Obtains the currently set value for the Preferred editor
+ * 
+ * @param object $post Selected post
+ * @return string code for the preferred editor
+ */
+function oik_block_get_preferred_editor( $post ) {
+	$preferred_editor = null;
+	$preferred_editor = get_post_meta( $post->ID, "_oik_block_editor", true );
+	
+	return $preferred_editor;
+}
+
+/**
+ * Returns set of Editor options
+ *
+ * @return array Associative array of options
+ */
+function oik_block_get_preferred_editor_options() {
+	$options = array( "A" => __( "Any", "oik_block" )
+									, "B" => __( "Block", "oik_block" )
+									, "C" => __( "Classic", "oik_block" )
+									);
+	return $options;
+}
+
+/**
+ * Gathers expert opinions to determine the preferred editor.
+ * 
+ * Each opinion is an editor_opinion object of the form:
+ * 
+ * string $preferred_editor values A=Any / Ambivalent, B=Block, C=Classic, other=tbc
+ * bool $mandatory true if there's no choice in the matter
+ * string $observation
+ * string $choice_of_action
+ * 
+ * Opinions are gathered using the 'oik_block_gather_opinions' filter passing $opinions, $post
+ 
+ */
+function oik_block_gather_editor_opinions( $post ) {
+
+	$opinions = array();
+	$opinions = apply_filters( "oik_block_gather_editor_opinions", $opinions, $post );
+	return $opinions;
+
+}
+
+/**
+ * Opinions are analysed to determine which is the most sensible choice
+ * 
+ * @array $opinions
+ * @return $preferred_editor
+ */
+function oik_block_analyse_editor_opinions( $opinions ) {
+
+}
+
+function oik_block_display__editor_opinions( $opinions ) {
+	foreach ( $opinions as $opinion ) {
+		$opinion->display();
+	}
+
 }
 
 

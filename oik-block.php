@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: oik-block
- * Plugin URI: https://gutenberg.courses
+ * Plugin URI: https://www.oik-plugins.com/oik-plugins/oik-block
  * Description: Prototype blocks for content originally created with oik shortcodes
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
@@ -252,7 +252,14 @@ function oik_block_loaded() {
 	
 	oik_block_register_dynamic_blocks();
 	
-	add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
+	
+	
+  if ( !defined('DOING_AJAX') ) {
+    add_action( "save_post", "oik_block_save_post", 10, 3 );
+		add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
+    //add_action( "edit_attachment", "oik_clone_edit_attachment", 10, 1 );
+    //add_action( "add_attachment", "oik_clone_add_attachment", 10, 1 );
+  }
 
 }
 
@@ -280,6 +287,24 @@ function oik_block_add_meta_boxes( $post_type, $post ) {
 		
     add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default' );
 		
+}
+
+/**
+ * Implements save for the oik_block meta box
+ *
+ * We invoke the logic as a lazy function.
+ *
+ * @param ID $id - the ID of the post being updated
+ * @param post $post - the post object
+ * @param bool $update - true more often than not
+ */
+function oik_block_save_post( $id, $post, $update ) {
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		// Ignore autosaves
+	} else {
+		oik_require( "admin/oik-block-save-post.php", "oik-block" );
+		oik_block_lazy_save_post( $id, $post, $update );
+	}
 }
 
 

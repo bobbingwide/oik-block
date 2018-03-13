@@ -9,16 +9,23 @@
 /**
  * Implements [content] shortcode
  * 
- * Displays the website content summary
- * to enable analysis of the site for Gutenberg compatibility
+ * Displays the website content summary to enable analysis of the site for Gutenberg compatibility
  * 
  * 
- * 
- * Post type | UI | REST | Revisions | Editor | Count	|	Compatible?
+ * Post-type | UI | REST | Revisions | Editable | Count	| Editor
  * --------- | -- | ---- | --------- | ------ | ------ | ------------
- * wp_block  | N  | Y    | ?         | Y      | nnnn		| Y / N / ?
- * post      | Y  | Y    | Y         | Y      | nnnn   | Y
+ * post |  1 | 1 | 1 | 1 | 1 | Gutenberg
+ * page | 1 | 1 | 1 | 1 | 1 | Gutenberg
+ * attachment | 1 | 1 |  |  | 0 | Media
+ * revision | | | | | 1 | Revisions
+ * nav_menu_item | | | | 1 | 0 | n/a
+ * custom_css | | | 1 | | 0 | n/a
+ * customize_changeset | | | | | 0 | n/a
+ * oembed_cache | | | | 1 | 0 | n/a
+ * Total | | | | | 3 | ?
  * 
+ * @param array $atts shortcode attributes
+ * @param 
  */
 
 function oik_block_content( $atts=null, $content=null, $tag=null ) {
@@ -71,7 +78,7 @@ function oik_block_content( $atts=null, $content=null, $tag=null ) {
  * 
  * Additional tests are performed in the "gutenberg_can_edit_post_type" filter.
  * 
- * - If the post type does't support "revisions" then there could be a problem.
+ * - If the post type doesn't support "revisions" then there could be a problem.
  * - Meta boxes for the post type are incompatible
  * - Associated fields support REST 
  * 
@@ -122,43 +129,16 @@ function oik_block_count_posts( $post_type ) {
 }
 
 /**
- * Determines the compatibility of all posts in the post type
- * 
- * @param string $post_type
- * @return array( #Blocks, #Compatible, #Incompatible, #Unknown )
+ * Resets the globals for the summary table
  */
-function oik_block_posts_compatible( $post_type ) {
-	$args = array( "post_type" => $post_type
-							, "post_status" => "any"
-							, "post_parent" => -1
-							, "posts_per_page" => -1
-							);
-	$posts = bw_get_posts( $args );
-	$compatibilities = array( "Blocks" => 0
-													, "Compatible" => 0
-													, "Incompatible" => 0
-													, "Unknown" => 0
-													);
-	foreach ( $posts as $post ) {
-		$compatible = oik_block_post_compatible( $post );
-		$compatibilities[ $compatible ]++;
-	}
-	return $compatibilities;
-}
-
-function oik_block_post_compatible( $post ) {
- 
-	return "Blocks";
-	 
-}
-
 function oik_block_reset_editable() {
-
 	unset( $GLOBALS[ 'bw_editable_plugins' ] );
 	unset( $GLOBALS[ 'bw_editable_counts' ] );
 }
-	
 
+/**
+ * Counts the editable posts by $editor
+ */
 function oik_block_count_editable( $count, $editor ) {
 	global $bw_editable_plugins, $bw_editable_counts;
 	if ( !isset( $bw_editable_counts[$editor] ) ) {
@@ -172,6 +152,22 @@ function oik_block_count_editable( $count, $editor ) {
 	$bw_editable_plugins[ $editor ]++;
 }
 
+/**
+ * Displays the summary report of editable content
+ * 
+ * For example... for a brand new site. 
+ 
+ * Editor | Types | Count
+ * ----- | ------ | --------
+ * Gutenberg | 2 | 2
+ * Media | 1 | 0
+ * Revisions | 1 | 1
+ * n/a | 5 | 0
+ * Classic | 0 | 0
+ * Total | 9 | 3
+ *
+ * 
+ */
 function oik_block_report_editable() {
 	
 	global $bw_editable_plugins, $bw_editable_counts;
