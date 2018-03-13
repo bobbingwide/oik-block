@@ -64,12 +64,12 @@ export default registerBlockType(
 			
 				edit: props=> {
 					
-          return [
+          return (
 					
             <div className={ props.className }>
 							<p>This is where the Contact form will appear.</p>
             </div>
-          ];
+          );
         },
 				
 			save() {
