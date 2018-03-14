@@ -50,10 +50,11 @@
 .wp-block-oik-block-person .is-selected .my-content:hover,
 .wp-block-oik-block-person .my-content:focus {
   border: 1px #f7b733 solid; }
-.wp-block-oik-block-contact-form .my-content {
+.wp-block-oik-block-contact-form p {
   border: 1px transparent solid;
   padding: 4px 8px;
-  margin: -4px -8px; }
+  margin: -4px -8px;
+  background-color: #f5f5f5; }
 
 .wp-block-oik-block-contact-form .is-selected .my-content,
 .wp-block-oik-block-contact-form .my-content:focus {
