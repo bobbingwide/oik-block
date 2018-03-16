@@ -137,7 +137,7 @@ etag,End a tag started with [stag],1,core
 file,Display reference for a file,1,oik-shortcodes
 files,Link to files definitions,3,oik-shortcodes
 footer_backtotop,Produces the 'Return to Top' link,5,oik-sc-help
-footer_childtheme_link,Display link to child theme, if defined,2,oik-sc-help
+footer_childtheme_link,Display link to child theme if defined,2,oik-sc-help
 footer_copyright,Display copyright notice,4,oik-sc-help
 footer_genesis_link,Display link to the Genesis Framework.,2,oik-sc-help
 footer_home_link,genesis_footer_home_link_shortcode,0,core
