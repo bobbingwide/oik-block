@@ -3,9 +3,14 @@
 /**
  * @copyright (C) BobbingWide 2018
  * @package oik-block
+ 
+ * Syntax: oikwp counter.php > somefile
  *
  * Counts instances of plugins and themes in subdirectory installs
  * 
+ * Produces output for two reports: 
+ * - sites.csv - version,site,#plugins,#themes 
+ * - components.csv
  */
  
  

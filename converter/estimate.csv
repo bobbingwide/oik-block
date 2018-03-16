@@ -1,5 +1,5 @@
 Shortcode,Desc,#parameters,Component
-OIK,Spells out the <span class="bw_oik"><abbr  title="OIK Information Kit">oik</abbr></span> backronym,0,oik
+OIK,Spells out the OIK Information Kit backronym,0,oik
 api,Simple API link,1,oik-shortcodes
 apis,Link to API definitions,3,oik-shortcodes
 artisteer,Styled form of Artisteer,0,oik-bob-bing-wide
