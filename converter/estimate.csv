@@ -93,7 +93,7 @@ bw_posts,Display posts,18,oik
 bw_power,Powered by WordPress,0,oik
 bw_qrcode,Display an uploaded QR code image,4,oik
 bw_qv,bw_shortcode_event,0,core
-bw_register,Display a link to the Registration form, if Registration is enabled,0,oik
+bw_register,Display a link to the Registration form if Registration is enabled,0,oik
 bw_related,Display related content,5,oik-fields
 bw_rpt,bw_shortcode_event,0,oik-bob-bing-wide
 bw_rwd,Dynamically generate oik responsive web design CSS classes,1,oik-rwd
