@@ -49,7 +49,7 @@ bw_emergency,Emergency telephone number,8,oik
 bw_facebook,Facebook link,0,oik
 bw_fax,Fax number,8,oik
 bw_field,Format custom fields without labels,3,oik-fields
-bw_fields,Format custom fields, with labels,2,oik-fields
+bw_fields,Format custom fields with labels,2,oik-fields
 bw_flickr,Flickr link,0,oik
 bw_follow_me,Display defined social media follow me links,3,oik
 bw_formal,Formal company name,0,oik
