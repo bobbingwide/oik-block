@@ -50,7 +50,7 @@ function oik_block_opinions_loaded() {
 	}
 	
 	oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
-	add_action( "oik_block_prepare_opinions",  "oik_block_prepare_opinions" );
+	add_action( "oik_block_prepare_opinions", "oik_block_prepare_opinions" );
 	
 	if ( $post_id ) {
 		$post = get_post( $post_id );
@@ -108,6 +108,7 @@ function oik_block_prepare_opinions() {
 //	oik_require( "opinions/class-oik-block-type-opinions.php", "oik-block" );
 //	oik_require( "opinions/class-oik-block-post-opinions.php", "oik-block" );
 //	oik_require( "opinions/class-oik-block-user-opinions.php", "oik-block" );
+	$site_opinions = new oik_block_site_opinions();
 }
 
  

@@ -10,23 +10,33 @@ class oik_block_site_opinions {
 
 	/**
 	 * Editor | Mandatory | Level | 
-	 * ------ | --------- | ----- | 
+	 *  ------ | --------- | -----  | 
 	 */
 	private $thoughts = array( "WordPress_version" 
 													 , "gutenberg_available" 
 													 );
 
 	public function __construct() {
-		add_filter( "oik_block_site_opinions", $this->form_opinions, 10 );
+		echo __CLASS__ . PHP_EOL;
+		add_filter( "oik_block_gather_site_opinions", array( $this, "form_opinions" ), 10 );
 	}	
 	
 	/**
+	 * Forms the opinions for this class
 	 *
+	 * This method could be in a higher level class
+	 * 
 	 */
 	public function form_opinions( $opinions ) {
 		bw_trace2();
 		foreach ( $this->thoughts as $thought ) {
-			$opinion = $this->$thought();
+		 if ( method_exists( $this, $thought ) ) {
+				$opinion = $this->$thought();
+			} else {
+				gob();
+			}
+			 
+			 
 			if ( $opinion ) {
 				$opinions[] = $opinion;
 			}
@@ -38,7 +48,7 @@ class oik_block_site_opinions {
 	public function WordPress_version() {
 		global $wp_version;
 		if ( version_compare( $wp_version, "4.9", ">=" ) ) {
-			return new oik_block_editor_opinion( 'A', false, 'S', "Block editor compatible" );
+			return new oik_block_editor_opinion( 'A', false, 'S', "WordPress $wp_version is Block editor compatible" );
 		} else {
 			return new oik_block_editor_opinion( 'C', true, 'S', 'WordPress version too low $wp_version', "Upgrade WordPress" );
 		}

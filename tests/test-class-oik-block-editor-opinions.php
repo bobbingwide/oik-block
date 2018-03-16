@@ -24,6 +24,13 @@ class Tests_class_oik_block_editor_opinions extends BW_UnitTestCase {
 		$this->assertInstanceOf( "oik_block_editor_opinions", $opinions );
 	}
 	
+	/**
+	 * Test that we can add opinions
+	 */
+	function test_add_opinions() {
+		///
+	}
+	
 	function test_gather_site_opinions() {
 		$opinions = $this->opinions();
 		$opinions->gather_site_opinions();
