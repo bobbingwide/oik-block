@@ -127,7 +127,7 @@ clear,Clear divs ,0,core
 clone,Display the clone tree/form for a post,4,oik-clone
 cloned,Display clones of this content,3,oik-clone
 codes,Create links to related shortcodes,4,oik-shortcodes
-cookies,Display table of cookies, by category,4,cookie-cat
+cookies,Display table of cookies by category,4,cookie-cat
 div,start a &lt;div&gt; tag,2,core
 drupal,bw_shortcode_event,0,oik-bob-bing-wide
 dumptag,trac_29608_shortcode_dumptag,0,core
