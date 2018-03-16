@@ -49,7 +49,7 @@ bw_emergency,Emergency telephone number,8,oik
 bw_facebook,Facebook link,0,oik
 bw_fax,Fax number,8,oik
 bw_field,Format custom fields without labels,3,oik-fields
-bw_fields,Format custom fields, with labels,2,oik-fields
+bw_fields,Format custom fields with labels,2,oik-fields
 bw_flickr,Flickr link,0,oik
 bw_follow_me,Display defined social media follow me links,3,oik
 bw_formal,Formal company name,0,oik
@@ -93,7 +93,7 @@ bw_posts,Display posts,18,oik
 bw_power,Powered by WordPress,0,oik
 bw_qrcode,Display an uploaded QR code image,4,oik
 bw_qv,bw_shortcode_event,0,core
-bw_register,Display a link to the Registration form, if Registration is enabled,0,oik
+bw_register,Display a link to the Registration form if Registration is enabled,0,oik
 bw_related,Display related content,5,oik-fields
 bw_rpt,bw_shortcode_event,0,oik-bob-bing-wide
 bw_rwd,Dynamically generate oik responsive web design CSS classes,1,oik-rwd
@@ -127,7 +127,7 @@ clear,Clear divs ,0,core
 clone,Display the clone tree/form for a post,4,oik-clone
 cloned,Display clones of this content,3,oik-clone
 codes,Create links to related shortcodes,4,oik-shortcodes
-cookies,Display table of cookies, by category,4,cookie-cat
+cookies,Display table of cookies by category,4,cookie-cat
 div,start a &lt;div&gt; tag,2,core
 drupal,bw_shortcode_event,0,oik-bob-bing-wide
 dumptag,trac_29608_shortcode_dumptag,0,core
@@ -137,7 +137,7 @@ etag,End a tag started with [stag],1,core
 file,Display reference for a file,1,oik-shortcodes
 files,Link to files definitions,3,oik-shortcodes
 footer_backtotop,Produces the 'Return to Top' link,5,oik-sc-help
-footer_childtheme_link,Display link to child theme, if defined,2,oik-sc-help
+footer_childtheme_link,Display link to child theme if defined,2,oik-sc-help
 footer_copyright,Display copyright notice,4,oik-sc-help
 footer_genesis_link,Display link to the Genesis Framework.,2,oik-sc-help
 footer_home_link,genesis_footer_home_link_shortcode,0,core

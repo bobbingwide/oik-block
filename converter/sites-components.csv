@@ -445,7 +445,7 @@ plugins,oik-republish,2,bobbingwide,1,,ourlistenersclub
 plugins,paypal-framework,1,Aaron D. Campbell,1,,ourlistenersclub 
 plugins,paypal-responder,1,,1,,ourlistenersclub 
 plugins,wp-clean-up,1,BoLiQuan,1,,ourlistenersclub 
-plugins,wp-crontrol,1,<a href="http://www.scompt.com/">Edward Dale</a> & <a href="http://lud.icro.us/">John Blackbourn</a>,1,,ourlistenersclub 
+plugins,wp-crontrol,1,Edward Dale John Blackbourn,1,,ourlistenersclub 
 plugins,wp-slimstat,3,Camu,1,,ourlistenersclub 
 plugins,woocommerce-extra-charges-to-payment-gateways,2,,1,,owcs 
 plugins,woocommerce-germanized,1,Vendidero,1,,owcs 
@@ -687,7 +687,7 @@ plugins,woocommerce-uk-counties,1,Lee Willis,1,,wordpress
 plugins,wordpress-develop-tests-svn-symlink,1,,1,,wordpress 
 plugins,wp-browscap,1,,1,,wordpress 
 plugins,wp-downloads,1,,1,,wordpress 
-plugins,WP-Parser,2,Ryan McCue Paul Gibbs Andrey "Rarst" Savchenko and Contributors,1,,wordpress 
+plugins,WP-Parser,2,Ryan McCue Paul Gibbs Andrey Rarst Savchenko and Contributors,1,,wordpress 
 plugins,y,1,,1,,wordpress 
 plugins,z,1,bobbingwide,1,,wordpress 
 plugins,jetpack-renamed,1,,1,1,wp-a2z 
@@ -703,7 +703,7 @@ plugins,import-html-pages,1,,1,,wp35
 plugins,link-manager,1,WordPress,1,,wp35 
 plugins,members,2,Justin Tadlock,1,,wp35 
 plugins,oa-social-login,1,Claude Schlesser,1,,wp35 
-plugins,user-photo,1,<a href="http://weston.ruter.net/">Weston Ruter</a>,1,,wp35 
+plugins,user-photo,1,Weston Ruter,1,,wp35 
 plugins,wordpress-simple-survey,1,,1,,wp35 
 plugins,wp-memory-usage,1,Alex Rabe,1,,wp35 
 plugins,all-in-one-favicon,1,Arne Franken,1,,wp47 
