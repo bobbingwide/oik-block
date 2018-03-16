@@ -113,8 +113,16 @@ class oik_block_editor_opinion {
 		$row[] = $this->level;
 		$row[] = $this->observation;
 		$row[] = $this->choice_of_action;
-		bw_tablerow( $row );
-	} 
+		$this->tablerow( $row );
+	}
+	
+	public function tablerow( $row ) {
+		if ( "cli" == php_sapi_name() ) {
+			echo implode( " | ", $row ) . PHP_EOL;
+		} else {
+			bw_tablerow( $row );
+		} 
+	}
 
 
 

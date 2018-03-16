@@ -48,14 +48,16 @@ class oik_block_site_opinions {
 	public function WordPress_version() {
 		global $wp_version;
 		if ( version_compare( $wp_version, "4.9", ">=" ) ) {
-			return new oik_block_editor_opinion( 'A', false, 'S', "WordPress $wp_version is Block editor compatible" );
+			return new oik_block_editor_opinion( 'A', false, 'S', "WordPress $wp_version is Block editor compatible." );
 		} else {
-			return new oik_block_editor_opinion( 'C', true, 'S', 'WordPress version too low $wp_version', "Upgrade WordPress" );
+			return new oik_block_editor_opinion( 'C', true, 'S', 'WordPress version too low: $wp_version', "Upgrade WordPress" );
 		}
 		
-	} 
+	}
 	
-	
+	/**
+	 * @TODO Check the WordPress version once something has been committed to core. 
+	 */
 	public function gutenberg_available() {
 		if ( function_exists(  "the_gutenberg_project" ) ) {
 			return new oik_block_editor_opinion( 'A', false, "S", "Block editor available" );

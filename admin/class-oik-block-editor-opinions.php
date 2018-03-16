@@ -93,7 +93,7 @@ class oik_block_editor_opinions {
 	
 	
 	/**
-	 *
+	 * This is (probably)  the routine to gather opinions for each indivindual post in the loop of posts
 	 */ 
 	public function gather_opinions( $post ) {
 	}
@@ -104,22 +104,36 @@ class oik_block_editor_opinions {
 	public function report() {
 		$this->report_header();
 		foreach ( $this->opinions as $opinion ) {
-			//var_dump( $opinion );
 			$opinion->report();
 		}
 		$this->report_footer();
 	
 	}
 	
+	/**
+	 * @TODO - shared libary capability
+	 */
 	public function report_header() {
-		oik_require( "shortcodes/oik-table.php" );
-		bw_table_header( bw_as_array( "Editor,Mandatory?,Level,Opinion,Notes") ); 
-		stag( "tbody" );
+		if ( "cli" == php_sapi_name() ) {
+			echo "Editor | Mandatory? | Level | Opinion | Notes " . PHP_EOL;
+			echo "------ | ---------- | ----- | ------- | ----- " . PHP_EOL;
+		} else {
+			oik_require( "shortcodes/oik-table.php" );
+			bw_table_header( bw_as_array( "Editor,Mandatory?,Level,Opinion,Notes") ); 
+			stag( "tbody" );
+		}	
 	}
 	
+	/**
+	 * @TODO - shared library capability
+	 */
 	public function report_footer() {
-		etag( "tbody" );
-		etag( "table" );
+		if ( "cli" == php_sapi_name() ) {
+			echo PHP_EOL;
+		} else {
+			etag( "tbody" );
+			etag( "table" );
+		}
 	}
 
 
