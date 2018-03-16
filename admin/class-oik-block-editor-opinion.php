@@ -106,10 +106,19 @@ class oik_block_editor_opinion {
 		return $this->preferred_editor;
 	}
 	
+	public function get_mandatory() {
+		if ( $this->mandatory ) {
+			$mandatory = "M";
+		} else {
+			$mandatory = "O";
+		}
+		return $mandatory;
+	}
+	
 	public function report() {
 		$row = array();
-		$row[] = $this->preferred_editor;
-		$row[] = $this->mandatory;
+		$row[] = $this->get_preferred_editor();
+		$row[] = $this->get_mandatory();
 		$row[] = $this->level;
 		$row[] = $this->observation;
 		$row[] = $this->choice_of_action;

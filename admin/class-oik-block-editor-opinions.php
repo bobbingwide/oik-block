@@ -47,9 +47,14 @@ class oik_block_editor_opinions {
 	 * Adds an array of opinions to the array of opinions
 	 * 
 	 * Does it need to create the opinion?
+	 * 
+	 * Simple concatentation using the array union operator doesn't work for unkeyed arrays
+	 * So do we need to append each entry individually or is there another array function? 
 	 */
 	public function add_opinions( $opinions ) {
-		$this->opinions += $opinions;
+		bw_trace2();
+		$this->opinions = array_merge( $this->opinions, $opinions );
+		bw_trace2( $this->opinions, "opinions now", false );
 	}
 	
 	/**
@@ -63,7 +68,13 @@ class oik_block_editor_opinions {
 	}
 	
 	/**
+	 * Gathers the opinions at Site level
 	 * 
+	 * This includes analysis of relevant 
+	 * - plugins ( active and inactive ), mu-plugins
+	 * - registered hooks
+	 * - options
+	 * - Multisite configuration
 	 */
 	public function gather_site_opinions() {
 		$opinions = array();
@@ -71,16 +82,37 @@ class oik_block_editor_opinions {
 		$this->add_opinions( $opinions );
 	}
 	
+	
+	/**
+	 * Gathers the opinions at Post type level
+	 * 
+	 * This includes analysis of relevant: 
+	 * - post registration details
+	 * - taxonomies
+	 * - meta boxes
+	 * - options
+	 * - registered fields
+	 */
 	public function gather_post_type_opinions( $post_type ) {
 		$opinions = array();
-		$opinions[] = new oik_block_editor_opinion();
 		$opinions = apply_filters( "oik_block_gather_type_opinions", $opinions, $post_type );
 		$this->add_opinions( $opinions );
 	}
 	
+	
+	/**
+	 * Gathers the opinions at Post level
+	 * 
+	 * This includes analysis of the:
+	 * - post content
+	 * - post meta data 
+	 * - attachments 
+	 */
 	public function gather_post_opinions( $post ) {
 		$opinions = array();
+		//$opinions[] = new oik_block_editor_opinion();
 		$opinions = apply_filters( "oik_block_gather_post_opinions", $opinions, $post );
+		bw_trace2( $opinions, "opinions", false  );
 		$this->add_opinions( $opinions );
 	}
 	

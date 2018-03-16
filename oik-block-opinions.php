@@ -108,7 +108,9 @@ function oik_block_prepare_opinions() {
 	$site_opinions = new oik_block_site_opinions();
   oik_require( "opinions/class-oik-block-type-opinions.php", "oik-block" );
 	$type_opinions = new oik_block_type_opinions();
-//	oik_require( "opinions/class-oik-block-post-opinions.php", "oik-block" );
+	oik_require( "opinions/class-oik-block-post-opinions.php", "oik-block" );
+	$post_opinions = new oik_block_post_opinions();
+	
 //	oik_require( "opinions/class-oik-block-user-opinions.php", "oik-block" );
 }
 
