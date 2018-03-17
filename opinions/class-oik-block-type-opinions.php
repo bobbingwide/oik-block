@@ -25,7 +25,7 @@ class oik_block_type_opinions {
 	public function __construct() {
 		echo __CLASS__ . PHP_EOL;
 		$this->post_type = null;
-		add_filter( "oik_block_gather_type_opinions", array( $this, "form_opinions" ), 10, 2 );
+		add_filter( "oik_block_gather_type_opinions", array( $this, "form_opinions" ), 1, 2 );
 	}	
 	
 	/**

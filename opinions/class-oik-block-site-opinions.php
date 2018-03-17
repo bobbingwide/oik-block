@@ -20,7 +20,7 @@ class oik_block_site_opinions {
 
 	public function __construct() {
 		echo __CLASS__ . PHP_EOL;
-		add_filter( "oik_block_gather_site_opinions", array( $this, "form_opinions" ), 10 );
+		add_filter( "oik_block_gather_site_opinions", array( $this, "form_opinions" ), 1 );
 	}	
 	
 	/**
