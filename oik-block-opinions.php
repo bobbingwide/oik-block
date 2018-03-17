@@ -34,12 +34,20 @@ function oik_block_opinions_loaded() {
 	$post_type_or_id = oik_batch_query_value_from_argv( 1, null );
 	$post_type_or_id = trim( $post_type_or_id );
 	$subcommand = oik_batch_query_value_from_argv( 2, null );
+	
+	oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
+	add_action( "oik_block_prepare_opinions", "oik_block_prepare_opinions" );
+	
+	
 	if ( $post_type_or_id ) {
 	
 		echo $post_type_or_id . PHP_EOL;
 	} else {
 		echo "Syntax: oikwp oik-block-opinions.php [ post_type | post_id ] subcommand url=domain path=path" . PHP_EOL;
+		oik_block_opinions_site();
+	
 		die();
+		
 	}
 	
 	if ( is_numeric( $post_type_or_id ) ) {
@@ -57,8 +65,6 @@ function oik_block_opinions_loaded() {
 		} 
 	}
 	
-	oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
-	add_action( "oik_block_prepare_opinions", "oik_block_prepare_opinions" );
 	
 	if ( $post_id ) {
 		$post = get_post( $post_id );
@@ -105,6 +111,17 @@ function oik_block_opinions_subcommand( $subcommand ) {
 function oik_block_options_validate_post_type( $post_type ) {
 	$post_type_object = get_post_type_object( $post_type );
 	return $post_type_object;
+}
+
+function oik_block_opinions_site() {
+
+	$opinions = oik_block_editor_opinions::instance();
+	$opinions->gather_site_opinions();
+	$opinions->consider_site_opinions();
+	$opinions->report();
+	
+	$opinions->report_summary();
+
 }
 
 /**

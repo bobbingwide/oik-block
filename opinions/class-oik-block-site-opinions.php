@@ -9,11 +9,13 @@ class oik_block_site_opinions {
 
 
 	/**
-	 * Editor | Mandatory | Level | 
-	 *  ------ | --------- | -----  | 
+	 * Array of Site level thoughts
 	 */
 	private $thoughts = array( "WordPress_version" 
 													 , "gutenberg_available" 
+													 , "mu_plugin_support"
+													 , "active_network_plugin_support"
+													 , "active_plugin_support"
 													 );
 
 	public function __construct() {
@@ -28,7 +30,7 @@ class oik_block_site_opinions {
 	 * 
 	 */
 	public function form_opinions( $opinions ) {
-		bw_trace2();
+		//bw_trace2();
 		foreach ( $this->thoughts as $thought ) {
 		 if ( method_exists( $this, $thought ) ) {
 				$opinion = $this->$thought();
@@ -41,7 +43,7 @@ class oik_block_site_opinions {
 				$opinions[] = $opinion;
 			}
 		}
-		bw_trace2();
+		//bw_trace2();
 		return $opinions;
 	}
 	
@@ -65,6 +67,40 @@ class oik_block_site_opinions {
 		else {
 			return new oik_block_editor_opinion( 'C', true, 'S', "Block editor not available", "Install and activate gutenberg plugin" );
 		}
+	}
+	
+	/**
+	 * It may not be possible to determine tested up to for mu-plugins
+	 * so all we can do is comment on their existence
+	 */
+	
+	public function mu_plugin_support() {
+		$mu_plugins = wp_get_mu_plugins();
+		if ( count( $mu_plugins ) ) {
+			return new oik_block_editor_opinion( 'A', false, 'S', 'Site has Must Use plugins' );
+		} else {
+			//
+		}
+	
+	}
+	
+	/**
+	 * 
+	 */
+	
+	public function active_network_plugin_support() {
+	
+	}
+	
+	/**
+	 * Looks at "Requires at least" and "Tested up to" from the readme.txt file for the plugin
+	 *
+	 * If Requires at least is > 4.9 then that's great
+	 * If Tested up to is > 4.9 then that's great
+	 * If it's >= 5.0 then that's even better
+	 * 
+	 */
+	public function active_plugin_support() {
 	}
 
 
