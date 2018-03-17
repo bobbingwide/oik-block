@@ -96,7 +96,6 @@ class oik_block_editor_opinions {
 	/**
 	 * 
 	 */
-	
 	public function report_summary() {
 		echo "Site decision: " .  $this->site_decision . PHP_EOL;
 		echo "Post type decision: " . $this->post_type_decision . PHP_EOL;
@@ -117,9 +116,9 @@ class oik_block_editor_opinions {
 	 
 	 */
 	public function implement_decision( $post ) {
-		$decision = $this->consider_opinions();
+		//$decision = $this->consider_opinions();
 		$current_decision = $this->get_current_decision( $post );
-		$this->update_decision( $post, $decision );
+		$this->update_decision( $post, $this->post_decision );
 	}
 	
 	/**
@@ -206,7 +205,10 @@ class oik_block_editor_opinions {
 	public function gather_all_post_opinions( $post_type ) {
 		$posts = $this->fetch_posts( $post_type );
 		foreach ( $posts as $post ) {
-			$opinions = $this->gather_opinions( $post );
+			$this->reset_opinions();
+			$this->gather_post_opinions( $post );
+			$this->consider_post_opinions();
+			$this->implement_decision( $post );
 			
 		}
 	
@@ -241,6 +243,12 @@ class oik_block_editor_opinions {
 		$opinions = array();
 		//$opinions[] = new oik_block_editor_opinion();
 		$opinions = apply_filters( "oik_block_gather_post_opinions", $opinions, $post );
+		
+	$opinions->gather_post_opinions( $post );
+	$opinions->consider_post_opinions();
+	$opinions->report_summary();
+	$opinions->report();
+	$opinions->implement_decision( $post );
 		
 		
 	}

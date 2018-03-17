@@ -124,7 +124,7 @@ function oik_block_opinions_post_type( $post_type ) {
 	$opinions->reset_opinions();
 	$opinions->report_summary();
 	
-	//$opinions->gather_all_post_opinions( $post_type );
+	$opinions->gather_all_post_opinions( $post_type );
 }
 
 
