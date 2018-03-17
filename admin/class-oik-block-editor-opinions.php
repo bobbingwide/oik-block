@@ -9,6 +9,10 @@ class oik_block_editor_opinions {
 
 
 	public $opinions = array();
+	public $site_decision = null;
+	public $post_type_decision = null;
+	public $post_decision = null;
+	public $user_decision = null;
 	
 	/**
 	 * @var dependencies_cache the true instance
@@ -57,6 +61,22 @@ class oik_block_editor_opinions {
 		bw_trace2( $this->opinions, "opinions now", false );
 	}
 	
+	public function reset_opinions() {
+		$this->opinions = array();
+	}
+	
+	public function consider_site_opinions() {
+		$this->site_decision = $this->consider_opinions( "AO" );
+	}
+	
+	public function consider_post_type_opinions() {
+		$this->post_type_decision = $this->consider_opinions( $this->site_decision );
+	}
+	
+	public function consider_post_opinions() {
+		$this->post_decision = $this->consider_opinions( $this->post_type_decision );
+	}
+	
 	/**
 	 * Considers the opinions to come to a decision
 	 * 
@@ -66,17 +86,25 @@ class oik_block_editor_opinions {
 	 * Initial opinion is 'AO'. There are 36 combinations.
 	 * 
 	 */ 
-	public function consider_opinions() {
-		$decision = 'AO';
+	public function consider_opinions( $decision="AO") {
 		foreach ( $this->opinions as $opinion ) {
 			$decision = $opinion->consider( $decision ); 
 		}
 		return $decision;
 	}
 	
+	/**
+	 * 
+	 */
+	
 	public function report_summary() {
-		$decision = $this->consider_opinions();
-		echo "Decision: $decision" . PHP_EOL;
+		echo "Site decision: " .  $this->site_decision . PHP_EOL;
+		echo "Post type decision: " . $this->post_type_decision . PHP_EOL;
+		if ( $this->post_decision ) {
+			echo "Post decision: " . $this->post_decision . PHP_EOL;
+		}
+		//$decision = $this->consider_opinions();
+		//echo "Decision: $decision" . PHP_EOL;
 	}
 	
 	/**
@@ -106,11 +134,15 @@ class oik_block_editor_opinions {
 		if ( !$decision ) {
 			$decision = "AO";
 		}
+		printf( 'Decision: %1$s %2$s', $post->ID, $decision ); 
+		echo PHP_EOL;
 		return $decision;
 	}
 	
 	public function update_decision( $post, $decision ) {
 		update_post_meta( $post->ID, "_oik_block_editor", $decision );
+		printf( 'Updated decision: %1$s %2$s',  $post->ID,  $decision );
+		echo PHP_EOL;
 		
 	}
 		
@@ -170,13 +202,47 @@ class oik_block_editor_opinions {
 		$opinions = apply_filters( "oik_block_gather_user_opinions", $opinions, $user );
 		$this->add_opinions( $opinions );
 	}
+	
+	public function gather_all_post_opinions( $post_type ) {
+		$posts = $this->fetch_posts( $post_type );
+		foreach ( $posts as $post ) {
+			$opinions = $this->gather_opinions( $post );
+			
+		}
+	
+	}
+	
+	
+	/**
+	 * Fetch all posts where post_meta is not set
+	 */
+	public function fetch_posts( $post_type ) {
+	
+		$args = array( "post_type" => $post_type
+								, "post_status" => "any"
+								, "posts_per_page" => -1
+								, "meta_key" =>  "_oik_block_editor"
+								, "meta_compare" => "NOT EXISTS" 
+								, "meta_value" => "1"	 // ignored
+								);
+		$posts = get_posts( $args );
+		return $posts;
+	
+	}
 
 	
 	
 	/**
-	 * This is (probably)  the routine to gather opinions for each indivindual post in the loop of posts
+	 * This is (probably)  the routine to gather opinions for each individual post in the loop of posts
 	 */ 
 	public function gather_opinions( $post ) {
+		echo $post->ID . PHP_EOL;
+		
+		$opinions = array();
+		//$opinions[] = new oik_block_editor_opinion();
+		$opinions = apply_filters( "oik_block_gather_post_opinions", $opinions, $post );
+		
+		
 	}
 	
 	/**
