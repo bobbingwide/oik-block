@@ -80,13 +80,11 @@ function oik_block_options_validate_post_type( $post_type ) {
  */
 function oik_block_opinions_post_type( $post_type ) {
 	$opinions = oik_block_editor_opinions::instance();
-	
 	$opinions->gather_site_opinions();
 	$opinions->gather_post_type_opinions( $post_type );
 	$opinions->gather_all_post_opinions( $post_type );
 	$opinions->report();
-	//$opinions->report_summary();
-
+	$opinions->report_summary();
 }
 
 
@@ -101,6 +99,8 @@ function oik_block_opinions_post( $post, $post_type ) {
 	$opinions->gather_post_type_opinions( $post_type );
 	$opinions->gather_post_opinions( $post );
 	$opinions->report();
+	$opinions->report_summary();
+	$opinions->implement_decision( $post );
 }
 
 function oik_block_prepare_opinions() {

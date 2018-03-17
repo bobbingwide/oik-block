@@ -69,7 +69,6 @@ class oik_block_editor_opinion {
 	 * Advice on what to do
 	 */
 	public $choice_of_action;
-	 
 	
 	public function __construct( $preferred_editor='A', $mandatory=false, $level="P", $observation="", $choice_of_action="" ) {
 		$this->set_preferred_editor( $preferred_editor );
@@ -113,6 +112,47 @@ class oik_block_editor_opinion {
 			$mandatory = "O";
 		}
 		return $mandatory;
+	}
+	
+	
+	/**
+	 * 
+	 * Current | Next opinion | New current | Notes
+	 * ------- | ------------ | ----------- | -------
+	 * AO      | AO           | AO
+	 * AM      | 
+	 * BO      |
+	 * BM      |
+	 * CO      | 
+	 * CM      | 
+	 */
+	public function consider( $current_decision ) {
+		$decisions = array( "AOAM" => "AM"
+		                  , "AOBM" => "BM"
+											, "AOCM" => "CM"
+											, "AMBM" => "BM"  
+		                  , "AMCM" => "CM"
+											, "BOAO" => "AO"
+											, "BOAM" => "AM"
+											, "BOBM" => "BM"
+											, "BOCO" => "AO"
+											, "BOCM" => "CM"
+											, "BMAM" => "BM"
+											, "BMCM" => "CM" // Oops
+											, "COAO" => "AO"
+											, "COAM" => "AM"
+											, "COBO" => "AO"
+											, "COBM" => "BM"
+											, "COCM" => "CM"
+											, "CMAM" => "CM" // Oops
+											, "CMBM" => "CM" // Oops
+											);
+		$next_opinion = $this->get_preferred_editor();
+		$next_opinion .= $this->get_mandatory();
+		
+		$new_decision = bw_array_get( $decisions, $current_decision . $next_opinion, $current_decision );
+		
+		return $new_decision;
 	}
 	
 	public function report() {

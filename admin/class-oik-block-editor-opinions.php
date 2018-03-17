@@ -60,12 +60,61 @@ class oik_block_editor_opinions {
 	/**
 	 * Considers the opinions to come to a decision
 	 * 
+	 * It shouldn't matter at which level the opinion is set
+	 * but it does matter which opinion has precedence. 
+	 * We'll consider the "opinion" as two chars combining the Editor and Mandatory fields
+	 * Initial opinion is 'AO'. There are 36 combinations.
 	 * 
 	 */ 
 	public function consider_opinions() {
-		$decision = 'C';
+		$decision = 'AO';
+		foreach ( $this->opinions as $opinion ) {
+			$decision = $opinion->consider( $decision ); 
+		}
 		return $decision;
 	}
+	
+	public function report_summary() {
+		$decision = $this->consider_opinions();
+		echo "Decision: $decision" . PHP_EOL;
+	}
+	
+	/**
+	 * Implements the decision of the considered opinions
+	 *
+	 * Do we need to fetch the current decision? 
+	 *  
+	 * @param object $post the post object that's been analysed in context
+	 * 
+	 
+	 */
+	public function implement_decision( $post ) {
+		$decision = $this->consider_opinions();
+		$current_decision = $this->get_current_decision( $post );
+		$this->update_decision( $post, $decision );
+	}
+	
+	/**
+	 * Fetch the current decision 
+	 * 
+	 * If not set then we'll need to determine it
+	 * If it is, then we'll just re-determine it
+	 */
+	
+	public function get_current_decision( $post ) {
+		$decision = get_post_meta( $post->ID, "_oik_block_editor", true );
+		if ( !$decision ) {
+			$decision = "AO";
+		}
+		return $decision;
+	}
+	
+	public function update_decision( $post, $decision ) {
+		update_post_meta( $post->ID, "_oik_block_editor", $decision );
+		
+	}
+		
+		
 	
 	/**
 	 * Gathers the opinions at Site level

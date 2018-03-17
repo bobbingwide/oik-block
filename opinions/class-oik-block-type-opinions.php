@@ -72,10 +72,10 @@ class oik_block_type_opinions {
 	public function show_in_rest() {
 		if ( $this->post_type_object->show_in_rest ) {
 			$this->can_edit = true;
-			return new oik_block_editor_opinion( 'A', false, 'T', "REST API not enabled" );
+			return new oik_block_editor_opinion( 'A', false, 'T', "REST API enabled." );
 		} else {
 			$this->can_edit = false;
-			return new oik_block_editor_opinion( 'C', true, 'T', "REST API not enabled", "Set show_in_rest true to enable the Block editor" );
+			return new oik_block_editor_opinion( 'C', true, 'T', "REST API not enabled.", "Set show_in_rest true to enable the Block editor" );
 		}
 	}
 	
