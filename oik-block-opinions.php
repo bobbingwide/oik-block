@@ -60,7 +60,7 @@ function oik_block_opinions_loaded() {
 		if ( $post_type_object ) {
 			echo "Processing post type: $post_type" . PHP_EOL;
 		} else {
-			echo "Unrecognised post type: $post_type" . PHP_EOL;
+			echo "Unrecognised/unsupported post type: $post_type" . PHP_EOL;
 			die();
 		} 
 	}
@@ -101,6 +101,11 @@ function oik_block_opinions_subcommand( $subcommand ) {
 		case "set":
 			
 			break;
+		case "reset":
+		
+			$opinions = oik_block_editor_opinions::instance();
+			$opinions->reset_decision();
+				
 		default:
 			echo "Invalid subcommand" . PHP_EOL;
 	}
@@ -109,6 +114,10 @@ function oik_block_opinions_subcommand( $subcommand ) {
 }
 
 function oik_block_options_validate_post_type( $post_type ) {
+	if ( $post_type === 'revision' ) {
+		echo "post type revision not supported" . PHP_EOL;
+		return null;
+	}
 	$post_type_object = get_post_type_object( $post_type );
 	return $post_type_object;
 }
@@ -121,6 +130,10 @@ function oik_block_opinions_site() {
 	$opinions->report();
 	
 	$opinions->report_summary();
+	
+	oik_require( "admin\class-oik-block-site-summary.php", "oik-block" );
+	$site_summary = new oik_block_site_summary();
+	$site_summary->report();
 
 }
 

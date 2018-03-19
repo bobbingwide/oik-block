@@ -9,7 +9,7 @@
 /**
  * Implements [content] shortcode
  * 
- * Displays the website content summary to enable analysis of the site for Gutenberg compatibility
+ * Displays the website content summary to enable analysis of the site for Gutenberg ( Block editor ) compatibility
  * 
  * 
  * Post-type | UI | REST | Revisions | Editable | Count	| Editor
@@ -32,9 +32,8 @@ function oik_block_content( $atts=null, $content=null, $tag=null ) {
 	oik_block_reset_editable();
 	//$post_types = bw_list_registered_post_types();
 	oik_require( "shortcodes/oik-table.php" );
-	stag( "table" );
-	bw_table_header( bw_as_array( "Post-type,UI,REST,Revisions,Editable,Count,Editor") ); 
-	stag( "tbody" );
+	oik_require( "libs/class-BW-table.php", "oik-block" );
+	BW_table::header( bw_as_array( "Post-type,UI,REST,Revisions,Editable,Count,Editor") ); 
 	$post_types =  get_post_types();
 	$total = 0;
 	foreach ( $post_types as $post_type ) {
@@ -55,11 +54,10 @@ function oik_block_content( $atts=null, $content=null, $tag=null ) {
 		oik_block_count_editable( $count, $editor );
 		
 		
-		bw_tablerow( $row );
+		BW_table::row( $row );
 	}
-	bw_tablerow( array( "Total", "", "", "", "", $total, "?" ) );
-	etag( "tbody" );
-	etag( "table" );
+	BW_table::row( array( "Total", "", "", "", "", $total, "?" ) );
+	BW_table::footer();
 	
 	oik_block_report_editable();
 	return bw_ret();
@@ -171,20 +169,29 @@ function oik_block_count_editable( $count, $editor ) {
 function oik_block_report_editable() {
 	
 	global $bw_editable_plugins, $bw_editable_counts;
-	
-	stag( "table" );
-	bw_table_header( bw_as_array( "Editor,Types,Count") ); 
-	stag( "tbody" );
+	BW_table::header( bw_as_array( "Editor,Types,Count") ); 
 	foreach ( $bw_editable_plugins as $editable => $count ) {
-		bw_tablerow( array(  $editable, $count, $bw_editable_counts[ $editable ] ) );
-	// print_r( $bw_editable_plugins );
-	// print_r( $bw_editable_counts );
-	
+		BW_table::row( array(  $editable, $count, $bw_editable_counts[ $editable ] ) );
 	}
-	bw_tablerow( array( "Total", array_sum( $bw_editable_plugins ), array_sum( $bw_editable_counts ) ) );
-	etag( "tbody" );
-	etag( "table" );
-}	
+	BW_table::row( array( "Total", array_sum( $bw_editable_plugins ), array_sum( $bw_editable_counts ) ) );
+	
+	BW_table::footer();
+}
+
+
+/**
+ * Wrapper to table formatting for cli, csv and HTML 
+ */	
+function oik_block_table_header( $header ) {
+	BW_table::header( $header );
+}
+
+function oik_block_table_row( $row ) {
+
+	oik_require( "libs/class-BW-tablephp", "oik-block" );
+	BW_table::row( $row );
+
+}
 		
 	
 

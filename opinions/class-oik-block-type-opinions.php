@@ -11,8 +11,10 @@ class oik_block_type_opinions {
 	/**
 	 * Array of methods to invoke to when gathering our thoughts and forming opinions.
 	 */
-	private $thoughts = array( "supports_editor"
+	private $thoughts = array( "show_UI"
 													 , "show_in_rest"
+													 , "supports_revisions"
+													 , "supports_editor"
 													 , "can_edit_post_type" 
 													 , "taxonomies_are_rest" 
 													 );
@@ -56,6 +58,33 @@ class oik_block_type_opinions {
 		return $opinions;
 	}
 	
+	public function show_UI() {
+		if ( $this->post_type_object->show_ui ) {
+			return null; 
+		} else {
+			return new oik_block_editor_opinion( 'A', false, $this->level, "show_ui is true" );
+		}
+	}
+	
+	public function show_in_rest() {
+		if ( $this->post_type_object->show_in_rest ) {
+			$this->can_edit = true;
+			return new oik_block_editor_opinion( 'A', false, 'T', "REST API enabled." );
+		} else {
+			$this->can_edit = false;
+			return new oik_block_editor_opinion( 'C', true, 'T', "REST API not enabled.", "Set show_in_rest true to enable the Block editor" );
+		}
+	}
+	
+	public function supports_revisions() {
+		if ( post_type_supports( $this->post_type, 'revisions' ) ) {
+			return null;
+		} else {
+			return new oik_block_editor_opinion( 'C', false, $this->level, "Post type does not support 'revisions'" );
+		}
+	}
+			
+	
 	/**
 	 * If the post type doesn't support the editor then we should force 'C'
 	 * Do we have examples?
@@ -69,15 +98,7 @@ class oik_block_type_opinions {
 		}
 	}
 	
-	public function show_in_rest() {
-		if ( $this->post_type_object->show_in_rest ) {
-			$this->can_edit = true;
-			return new oik_block_editor_opinion( 'A', false, 'T', "REST API enabled." );
-		} else {
-			$this->can_edit = false;
-			return new oik_block_editor_opinion( 'C', true, 'T', "REST API not enabled.", "Set show_in_rest true to enable the Block editor" );
-		}
-	}
+	
 	
 	/**
 	 * Plugins may implement the gutenberg_can_edit_post_type filter so that we don't have to 
