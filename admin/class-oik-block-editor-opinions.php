@@ -144,8 +144,6 @@ class oik_block_editor_opinions {
 		echo PHP_EOL;
 		
 	}
-		
-		
 	
 	/**
 	 * Gathers the opinions at Site level

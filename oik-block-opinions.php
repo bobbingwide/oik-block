@@ -105,7 +105,7 @@ function oik_block_determine_level( $post_type_or_id ) {
 function oik_block_opinions_subcommand( $subcommand, $level, $post_type_or_id  ) {
 	if ( !$subcommand ) {
 		echo "Syntax: oikwp oik-block-opinions.php subcommand [ post_type | post_id ] url=domain path=path" . PHP_EOL;
-		echo "No subcommand specified. Defaulting to 'status'" . PHP_EOL;
+		echo "No subcommand specified. Defaulting to 'status'." . PHP_EOL;
 		$subcommand = "status";
 	}
 	
@@ -137,62 +137,6 @@ function oik_block_options_validate_post_type( $post_type ) {
 	}
 	$post_type_object = get_post_type_object( $post_type );
 	return $post_type_object;
-}
-
-function oik_block_opinions_site() {
-
-	$opinions = oik_block_editor_opinions::instance();
-	$opinions->gather_site_opinions();
-	$opinions->consider_site_opinions();
-	$opinions->report();
-	
-	$opinions->report_summary();
-	
-	oik_require( "admin\class-oik-block-site-summary.php", "oik-block" );
-	$site_summary = new oik_block_site_summary();
-	$site_summary->report();
-
-}
-
-/**
- * Gathers the opinions for each unopinionated post for the post type
- *
- * @param string $post_type 
- */
-function oik_block_opinions_post_type( $post_type ) {
-	$opinions = oik_block_editor_opinions::instance();
-	$opinions->gather_site_opinions();
-	$opinions->consider_site_opinions();
-	$opinions->report();
-	$opinions->reset_opinions();
-	$opinions->gather_post_type_opinions( $post_type );
-	$opinions->consider_post_type_opinions();
-	$opinions->report();
-	$opinions->reset_opinions();
-	$opinions->report_summary();
-	
-	$opinions->gather_all_post_opinions( $post_type );
-}
-
-
-/**
- * Gather the opinions for the selected post
- */
-function oik_block_opinions_post( $post, $post_type ) {
-	echo "Post: {$post->ID}. Type: $post_type" . PHP_EOL;
-
-	$opinions = oik_block_editor_opinions::instance();
-	$opinions->gather_site_opinions();
-	$opinions->consider_site_opinions();
-	$opinions->reset_opinions();
-	$opinions->gather_post_type_opinions( $post_type );
-	$opinions->consider_post_type_opinions();
-	$opinions->reset_opinions();
-	$opinions->gather_post_opinions( $post );
-	$opinions->consider_post_opinions();
-	$opinions->report_summary();
-	$opinions->report();
-	$opinions->implement_decision( $post );
 }
 
 function oik_block_prepare_opinions() {
