@@ -24,12 +24,17 @@ class oik_block_site_summary {
 		echo oik_block_content();
 	}
 	
+	/**
+	 * Reports the percentage compatible of the analysed posts
+	 */
+	
 	function report_analysis() {
 		$counts = $this->select_counts();
 		$total = array_sum( $counts );
 		$compatible = $this->compatible( $counts );
 		$percentage = $this->percentage( $compatible, $total );
-		printf( 'Percentage compatible: %1$s%%', $percentage ); 
+		
+		printf( 'Percentage compatible: %1$s', $percentage ); 
 		echo PHP_EOL;
 		printf( 'Analysed: %1$s ', $total );
 		echo PHP_EOL;
@@ -39,9 +44,9 @@ class oik_block_site_summary {
 		if ( $total ) {
 			$value *= 100;
 			$percentage = $value / $total;
-			$percentage = number_format( $percentage );
+			$percentage = number_format( $percentage ) . __( '%', 'oik_block' );
 		}	else {
-			$percentage = "na";
+			$percentage = 'na';
 		}
 		return $percentage;
 	}
@@ -70,19 +75,42 @@ class oik_block_site_summary {
 		}
 		//bw_trace2( $counts );
 		return $counts;
-			
-		
 	}
 	
-	
+	/**
+	 * Produces the overall gut feel for the site
+	 * 
+	 */
 	function gut_feel() {
-	
+		$this->report_analysis();
+		$this->report_potential();
 	}
 	
+	/**
+	 * Reports the Potential
+	 *   
+	 * Potential is the number of posts that could be edited using the Block editor
+	 * Currently stored in global arrays populated by oik_block_content().
+	 */
+	function report_potential() {
+		global $bw_editable_plugins, $bw_editable_counts;
+		$potential = bw_array_get( $bw_editable_counts, 'Block', 0 );
+		echo "Potential: " . $potential . PHP_EOL;
+		$total = array_sum( $bw_editable_counts );
+		$revisions = bw_array_get( $bw_editable_counts, 'Revisions', 0 );
+		$site = $total - $revisions;
+		echo "Site: " . $site . PHP_EOL;
+		$percentage = $this->percentage( $potential, $site );
+		echo "Block editor coverage: " . $percentage . PHP_EOL;
+	}
+	/**
+	 * Resets all decisions for the current site 
+	 */
 	function reset_decisions() {
-		echo "Deleting all decisions" . PHP_EOL;
+		global $wpdb;
+		echo "Deleting all Editor decisions" . PHP_EOL;
 		$where = array( "meta_key" => "_oik_block_editor" );
-		$deleted = $wpdb->delete( $wpdn->postmeta, $where );
+		$deleted = $wpdb->delete( $wpdb->postmeta, $where );
 		echo "Deleted: $deleted" . PHP_EOL;
 	}
 	

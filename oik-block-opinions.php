@@ -21,17 +21,25 @@ oik_block_opinions_loaded();
 
  
 /**
- * Function to invoke when oik-block-options is loaded
+ * Function to invoke when oik-block-opinions is loaded
+ *
+ * Waits until "run_oik-block-opinions.php" action is run.
  * 
  */
 function oik_block_opinions_loaded() {
+	add_action( "run_oik-block-opinions.php", "oik_block_opinions_run" );
+}
+
+/**
+ * Runs oik-block-opinions
+ */
+function oik_block_opinions_run() {
 	$subcommand = oik_batch_query_value_from_argv( 1, null );
 	$post_type_or_id = oik_batch_query_value_from_argv( 2, null );
 	$post_type_or_id = trim( $post_type_or_id );
 	
 	oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
 	add_action( "oik_block_prepare_opinions", "oik_block_prepare_opinions" );
-	
 	
 	$level = oik_block_determine_level( $post_type_or_id );
 	oik_block_opinions_subcommand( $subcommand, $level, $post_type_or_id );
@@ -43,15 +51,14 @@ function oik_block_opinions_loaded() {
  *
  * Level | Means
  * ----- | -------------
- * Site  | Perform the subcommand at the site level, including plugins, themes and content
- * Type  | Perform the subcommand at the post type level. Includes processing all posts for a post type
- * Post  | Perform the subcommand against an individual post
- * User  | Perform the subcommand for a selected user; --user=<id|login|email>
+ * site  | Perform the subcommand at the site level, including plugins, themes and content
+ * type  | Perform the subcommand at the post type level. Includes processing all posts for a post type
+ * post  | Perform the subcommand against an individual post
+ * user  | Perform the subcommand for a selected user; --user=<id|login|email>
  *
  * @param string $post_type_or_id post type or post ID
  * @return string $level 
  */
-	
 function oik_block_determine_level( $post_type_or_id ) {
 	$level = 'site';
 	if ( $post_type_or_id ) {
@@ -76,26 +83,26 @@ function oik_block_determine_level( $post_type_or_id ) {
 			} 
 		}
 	} else {
-	 // site or user;
+	 // 'site' or 'user' - @TODO Add logic for 'user' level
 	}
 	
 	return $level;
 }
-	
 
 /**
  * Implements subcommand at the required level
  *
- * Each level has its own subcommands class and methods
- * they all use oik_block_editor_opinions and oik_block_editor_opinion
+ * Each level has its own subcommands class and methods.
+ * They all use the oik_block_editor_opinions and oik_block_editor_opinion classes.
  
- * 
+ * @TODO Complete this table... somewhere
+ * @TODO Use  WP-CLI logic to determine valid subcommands by level
  * 
  * Subcommand	| Site | Type | Post | User
  
  * ---------- | ---- | ---- | ---- | -----
- * status			|  Y   |      |      | 
- * reset 
+ * status			|  Y   |  Y   |  Y   | 
+ * reset 			|	 Y	 |			|			 |
  * list
  * consider
  * decide
@@ -117,9 +124,6 @@ function oik_block_opinions_subcommand( $subcommand, $level, $post_type_or_id  )
 	if ( method_exists( $subcommands, $subcommand ) ) {
 		$subcommands->$subcommand( $post_type_or_id );
 	}
-	
-		
-	
 }
 
 
@@ -128,8 +132,9 @@ function oik_block_opinions_subcommand( $subcommand, $level, $post_type_or_id  )
  *
  * Note: 'revision' is not supported but other's which may not be editable are.
  * 
+ * @param string $post_type
+ * @return object post type object for a valid post type, except 'revision'
  */
-
 function oik_block_options_validate_post_type( $post_type ) {
 	if ( $post_type === 'revision' ) {
 		echo "post type revision not supported" . PHP_EOL;
@@ -139,6 +144,11 @@ function oik_block_options_validate_post_type( $post_type ) {
 	return $post_type_object;
 }
 
+/**
+ * Prepares for opinion gathering
+ *
+ * Opinion gathering is controlled by methods in class oik_block_editor_opinions
+ */
 function oik_block_prepare_opinions() {
 	oik_require( "opinions/class-oik-block-site-opinions.php", "oik-block" );
 	$site_opinions = new oik_block_site_opinions();

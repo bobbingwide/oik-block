@@ -98,7 +98,9 @@ class oik_block_editor_opinions {
 	 */
 	public function report_summary() {
 		echo "Site decision: " .  $this->site_decision . PHP_EOL;
-		echo "Post type decision: " . $this->post_type_decision . PHP_EOL;
+		if ( $this->post_type_decision ) {
+			echo "Post type decision: " . $this->post_type_decision . PHP_EOL;
+		}
 		if ( $this->post_decision ) {
 			echo "Post decision: " . $this->post_decision . PHP_EOL;
 		}

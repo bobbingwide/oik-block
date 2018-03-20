@@ -95,15 +95,15 @@ function oik_block_post_type_compatible( $post_type, $post_type_object ) {
 		return "n/a";
 	}
 	if ( !( $post_type_object->show_in_rest ) ) {
-		return "Classic-editor";
+		return "Classic";
 	}
 	
 	$can_edit = post_type_supports( $post_type, "editor" );
   $can_edit = apply_filters( "gutenberg_can_edit_post_type", $can_edit, $post_type );
 	if ( $can_edit ) {
-		$editor = "Gutenberg";
+		$editor = "Block";
 	} else {
-		$editor = "Classic-editor";
+		$editor = "Classic";
 	}
 	return $editor;
 }
@@ -157,7 +157,7 @@ function oik_block_count_editable( $count, $editor ) {
  
  * Editor | Types | Count
  * ----- | ------ | --------
- * Gutenberg | 2 | 2
+ * Block | 2 | 2
  * Media | 1 | 0
  * Revisions | 1 | 1
  * n/a | 5 | 0

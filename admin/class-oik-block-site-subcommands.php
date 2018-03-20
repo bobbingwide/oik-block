@@ -7,7 +7,11 @@
  
 class oik_block_site_subcommands extends oik_block_subcommands {
 
+	public $site_summary = null;
+
 	function __construct() {
+		oik_require( "admin\class-oik-block-site-summary.php", "oik-block" );
+		$this->site_summary = new oik_block_site_summary();
 	}
 	
 	public function status() {
@@ -15,10 +19,8 @@ class oik_block_site_subcommands extends oik_block_subcommands {
 	}
 	
 	public function reset() {
-	
-			$opinions = oik_block_editor_opinions::instance();
-			$opinions->reset_site_decision();
-	}
+		$this->site_summary->reset_decisions();
+	}	
 
 	public function list() {
 		echo __FUNCTION__ . "not implemented";
@@ -49,9 +51,8 @@ class oik_block_site_subcommands extends oik_block_subcommands {
 	
 		$opinions->report_summary();
 	
-		oik_require( "admin\class-oik-block-site-summary.php", "oik-block" );
-		$site_summary = new oik_block_site_summary();
-		$site_summary->report();
+		$this->site_summary->report();
+		$this->site_summary->gut_feel();
 
 	}
 
