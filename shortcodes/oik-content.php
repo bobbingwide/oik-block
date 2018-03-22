@@ -111,8 +111,9 @@ function oik_block_post_type_compatible( $post_type, $post_type_object ) {
 /**
  * Returns the sum total of all posts for a post type
  *
- * This includes all different statuses, including Trash.
- * The user may undelete the content from Trash.
+ * This includes all different statuses, including 'trash' and 'auto-draft'
+ * Althought the user may undelete the content from Trash we don't need to worry about them.
+ * There really shouldn't be that many Auto-drafts!
  *
  * @param string $post_type
  * @return integer total number of posts 
@@ -120,7 +121,9 @@ function oik_block_post_type_compatible( $post_type, $post_type_object ) {
 
 function oik_block_count_posts( $post_type ) {
 	$counts = (array) wp_count_posts( $post_type );
-	//bw_trace2( $counts, "counts" );
+	unset( $counts['auto-draft'] );
+	unset( $counts['trash'] );
+	bw_trace2( $counts, "counts" );
 	//$counts = implode( " ", $counts );
 	$total = array_sum( $counts );
 	return $total;
