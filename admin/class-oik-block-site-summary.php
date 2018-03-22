@@ -13,7 +13,7 @@ class oik_block_site_summary {
 	
 	function report() {
 		$this->report_content();
-		$this->report_analysis();
+		//$this->report_analysis();
 	}
 	
 	function report_content() {
@@ -33,6 +33,8 @@ class oik_block_site_summary {
 		$total = array_sum( $counts );
 		$compatible = $this->compatible( $counts );
 		$percentage = $this->percentage( $compatible, $total );
+		printf( 'Compatible: %1$s', $compatible );
+		echo PHP_EOL;
 		
 		printf( 'Percentage compatible: %1$s', $percentage ); 
 		echo PHP_EOL;
@@ -44,7 +46,7 @@ class oik_block_site_summary {
 		if ( $total ) {
 			$value *= 100;
 			$percentage = $value / $total;
-			$percentage = number_format( $percentage ) . __( '%', 'oik_block' );
+			$percentage = number_format( $percentage, 1 ) . __( '%', 'oik_block' );
 		}	else {
 			$percentage = 'na';
 		}
@@ -52,6 +54,7 @@ class oik_block_site_summary {
 	}
 		
 	function compatible( $counts ) {
+		//print_r( $counts );
 	
 		$compatible = bw_array_get( $counts, "AM", 0 );
 		$compatible += bw_array_get( $counts, "AO", 0 );
@@ -73,7 +76,7 @@ class oik_block_site_summary {
 		foreach ( $results as $result ) {
 			$counts[ $result->meta_value ] = $result->count;
 		}
-		//bw_trace2( $counts );
+		bw_trace2( $counts );
 		return $counts;
 	}
 	
