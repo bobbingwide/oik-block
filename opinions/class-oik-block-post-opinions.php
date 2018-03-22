@@ -7,34 +7,34 @@
  
 class oik_block_post_opinions {
 
-
 	/**
 	 * Array of methods to invoke when gathering our thoughts and forming opinions.
 	 *
-	 * Could potentially be used as true/false values rather than having multiple fields
-	 * e.g. if $this->test( "gutenberg_activated" )
-	 * 
 	 */
 	private $thoughts = array( "gutenberg_activated"
 													 , "gutenberg_content_has_blocks"
 													 , "gutenberg_content_has_dynamic_blocks"
 													 , "content_has_shortcodes"
+													 , "content_has_inline_shortcodes" 
 													 );
+													 
 	public $post = null; 
 	public $post_content = null; 	
 	
 	public $level = 'P'; // Post opinions	
 	
-	public $gutenberg_activated = false;
-	public $content_has_blocks = false;	
-	public $content_has_shortcodes = false;						
-
+	/**
+	 * Array of considered thoughts that are true.
+	 * - Set using $this->considered_true( __FUNCTION__ );
+	 * - Queried using $this->considered( "thought" ) - where "thought" is a valid thought.
+	 * - If the "thought" is not valid we'll get told quick enough
+	 */
+	private $considered_thoughts = array();
+	
 	public function __construct() {
-		echo __CLASS__ . PHP_EOL;
+		//echo __CLASS__ . PHP_EOL;
 		$this->post = null;
 		$this->post_content = null;
-		$this->gutenberg_activated = false;
-		$this->content_has_blocks = false;
 		add_filter( "oik_block_gather_post_opinions", array( $this, "form_opinions" ), 1, 2 );
 	}	
 	
@@ -67,22 +67,47 @@ class oik_block_post_opinions {
 	}
 	
 	/**
-	 * get_dynamic_block_names
+	 * Determines the result of a previous thought
+	 */
+	public function considered( $thought ) {
+		$considered_thought = bw_array_get( $this->considered_thoughts, $thought, false );
+		if ( !$considered_thought ) {	
+			if ( !method_exists( $this, $thought ) ) {
+				echo "Invalid thought: $thought" . PHP_EOL;
+				die();
+			}
+		}
+		return $considered_thought;
+	}
+	
+	/**
+	 * Records a thought as considered to be true
+	 */
+	public function considered_true( $thought ) {
+		$this->considered_thoughts[ $thought ] = true;
+	}
+	
+	/**
+	 * Determines if Gutenberg is activated
+	 *
+	 * @TODO Add logic when merge proposal created.
 	 */
   public function gutenberg_activated() {
-		if ( function_exists( "gutenberg_content_has_blocks" )  && function_exists( "get_dynamic_block_names" ) ) {
-			$this->gutenberg_activated = true;
+		if ( function_exists( "gutenberg_content_has_blocks" ) && function_exists( "get_dynamic_block_names" ) ) {
+			
+			$this->considered_true( __FUNCTION__ );
 		}	else {
 			return new oik_block_editor_opinion( 'C', false, $this->level, "Gutenberg not activated" );
 		}
 	}	
 	
 	/**
+	 * 
 	 */
 	public function gutenberg_content_has_blocks() {
-		if ( $this->gutenberg_activated ) {
+		if ( $this->considered( "gutenberg_activated" ) ) {
 			if ( gutenberg_content_has_blocks( $this->post_content ) ) {
-				$this->content_has_blocks = true;
+				$this->considered_true( __FUNCTION__ );
 				return new oik_block_editor_opinion( 'B', false, $this->level, "Content already contains blocks" );
 			} else {
 				
@@ -91,20 +116,77 @@ class oik_block_post_opinions {
 		} 		
 	}
 	
+	/**
+	 * 
+	 * @TODO Incomplete
+	 */
 	public function gutenberg_content_has_dynamic_blocks() {
-		if ( $this->gutenberg_activated && $this->content_has_blocks ) {
+		if ( $this->considered( "gutenberg_activated" ) && $this->considered( "gutenberg_content_has_blocks" ) ) {
 			$dynamic_blocks = get_dynamic_block_names();
+			
 			
 		}
 	}
 	
+	/**
+	 *
+	 */ 
 	public function content_has_shortcodes() {
 		if ( false === strpos( $this->post_content, '[' ) ) {
 			return new oik_block_editor_opinion( 'A', false, $this->level, "Content does not contain shortcodes" );
 		} else {
-			$this->content_has_shortcodes = true;
+			$this->considered_true( __FUNCTION__ );
 		}
 	}
+	
+	/**
+	 * Determines if the content has inline shortcodes that should not be converted to a core/shortcode block
+	 *
+	 * If the post already has blocks then we don't bother ourselves as this is considered OK
+	 * If it doesn't, and it has inline shortcodes then our opinion is 'CM' - even though we actually 
+	 * need to use the Block editor to perform the conversion. 
+	 * Seems a bit silly, but it's my gut feel I'm trying to evaluate and this is the easiest way of doing it.
+	 */
+	public function content_has_inline_shortcodes() {
+		if ( $this->considered( "content_has_shortcodes" ) &&
+				!$this->considered( "gutenberg_content_has_blocks" ) ) {
+			//echo __FUNCTION__;
+			$inline_shortcodes = $this->query_inline_shortcodes();
+			print_r( $inline_shortcodes );
+			$count = 0;
+			foreach ( $inline_shortcodes as $inline_shortcode ) {
+				$shortcode_present = $this->content_has_inline_shortcode( $inline_shortcode );	
+				if ( $shortcode_present ) {
+					$count++;
+				}
+			}
+			if ( $count ) {
+				$this->considered_true( __FUNCTION__ );
+				return new oik_block_editor_opinion( 'C', true, $this->level, sprintf( 'Inline shortcodes found. Count: %1$s', $count ), "Manual conversion required" ); 
+			}  
+		}
+	}
+	
+	/**
+	 * Search post_content for the inline shortcode with no parameters or with at least one
+	 *
+	 * We have to allow for similar inline shortcodes e.g. wp and wpms 
+	 */
+	private function content_has_inline_shortcode( $inline_shortcode ) {
+		$pos = strpos( $this->post_content, "[" . $inline_shortcode . "]" );
+		if ( $pos === false ) {
+			$pos = strpos( $this->post_content, "[" . $inline_shortcode . " " );
+		}
+		return $pos !== false; 
+	}
+	public function query_inline_shortcodes() {
+		$inline_shortcodes = array();
+		$inline_shortcodes = apply_filters( "oik_block_query_inline_shortcodes", $inline_shortcodes );
+		return $inline_shortcodes;
+	}
+	
+	
+	 
 	
 	/**
 	 * Here we extend the filtering to perform a specific test
@@ -116,7 +198,7 @@ class oik_block_post_opinions {
 	 */
 	
 	public function content_has_incompatible_shortcodes() {	
-		if ( $this->test( "content_has_shortcodes" ) ) {
+		if ( $this->considered( "content_has_shortcodes" ) ) {
 			return apply_filters( "oik_block_" . __FUNCTION__ , null, $post->post_content ); 
 		}
 	} 
