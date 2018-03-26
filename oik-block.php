@@ -223,7 +223,7 @@ function oik_block_gutenberg_can_edit_post_type( $can_edit, $post_type ) {
 function oik_block_oik_loaded() {
 	add_action( "oik_add_shortcodes", "oik_block_oik_add_shortcodes" );
 	add_filter( "oik_block_query_inline_shortcodes", "oik_block_query_inline_shortcodes" );
-	//add_filter( "oik_block_query_content_shortcodes", "oik_block_query_content_shortcodes" );
+	add_filter( "oik_block_query_incompatible_shortcodes", "oik_block_query_incompatible_shortcodes" );
 }
 
 /** 
@@ -324,6 +324,24 @@ function oik_block_query_inline_shortcodes( $inline_shortcodes ) {
 	$shortcode_converter = new Shortcode_converter();
 	$inline_shortcodes = $shortcode_converter->query_inline_shortcodes( $inline_shortcodes );
 	return $inline_shortcodes;
+}
+
+
+/**
+ * Queries incompatible shortcodes for oik and related plugins
+ * 
+ * @TODO Determine if we need to know the component for the shortcode.
+ * This may help us decide whether or not to deactivate the plugin
+ * See also the schunter plugin.
+ * 
+ * @param array $inline_shortcodes
+ * @return array $inline_shortcodes
+ */ 
+function oik_block_query_incompatible_shortcodes( $incompatible_shortcodes ) {
+	oik_require( "converter/class-shortcode-converter.php", "oik-block" );
+	$shortcode_converter = new Shortcode_converter();
+	$incompatible_shortcodes = $shortcode_converter->query_incompatible_shortcodes( $incompatible_shortcodes );
+	return $incompatible_shortcodes;
 }
 
 oik_block_loaded();

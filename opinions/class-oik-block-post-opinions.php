@@ -16,6 +16,7 @@ class oik_block_post_opinions {
 													 , "gutenberg_content_has_dynamic_blocks"
 													 , "content_has_shortcodes"
 													 , "content_has_inline_shortcodes" 
+													 , "content_has_incompatible_shortcodes"
 													 );
 													 
 	public $post = null; 
@@ -152,14 +153,8 @@ class oik_block_post_opinions {
 				!$this->considered( "gutenberg_content_has_blocks" ) ) {
 			//echo __FUNCTION__;
 			$inline_shortcodes = $this->query_inline_shortcodes();
-			print_r( $inline_shortcodes );
-			$count = 0;
-			foreach ( $inline_shortcodes as $inline_shortcode ) {
-				$shortcode_present = $this->content_has_inline_shortcode( $inline_shortcode );	
-				if ( $shortcode_present ) {
-					$count++;
-				}
-			}
+			//print_r( $inline_shortcodes );
+			$count = $this->count_shortcodes( $inline_shortcodes );
 			if ( $count ) {
 				$this->considered_true( __FUNCTION__ );
 				return new oik_block_editor_opinion( 'C', true, $this->level, sprintf( 'Inline shortcodes found. Count: %1$s', $count ), "Manual conversion required" ); 
@@ -167,26 +162,65 @@ class oik_block_post_opinions {
 		}
 	}
 	
+	private function count_shortcodes( $shortcodes ) {
+		$count = 0;
+		foreach ( $shortcodes as $shortcode ) {
+			$shortcode_present = $this->content_has_shortcode( $shortcode );	
+			if ( $shortcode_present ) {
+				$count++;
+			}
+		}
+		return $count;
+	}
+	
+	
 	/**
-	 * Search post_content for the inline shortcode with no parameters or with at least one
+	 * Search post_content for the shortcode with no parameters or with at least one
 	 *
-	 * We have to allow for similar inline shortcodes e.g. wp and wpms 
+	 * We have to allow for similar shortcodes e.g. wp and wpms 
 	 */
-	private function content_has_inline_shortcode( $inline_shortcode ) {
-		$pos = strpos( $this->post_content, "[" . $inline_shortcode . "]" );
+	private function content_has_shortcode( $shortcode ) {
+		$pos = strpos( $this->post_content, "[" . $shortcode . "]" );
 		if ( $pos === false ) {
-			$pos = strpos( $this->post_content, "[" . $inline_shortcode . " " );
+			$pos = strpos( $this->post_content, "[" . $shortcode . " " );
 		}
 		return $pos !== false; 
 	}
+	
+	
 	public function query_inline_shortcodes() {
 		$inline_shortcodes = array();
 		$inline_shortcodes = apply_filters( "oik_block_query_inline_shortcodes", $inline_shortcodes );
 		return $inline_shortcodes;
 	}
 	
+	public function query_incompatible_shortcodes() {
+		$incompatible_shortcodes = array();
+		$incompatible_shortcodes = apply_filters( "oik_block_query_incompatible_shortcodes", $incompatible_shortcodes );
+		return $incompatible_shortcodes;
+	} 
 	
-	 
+	
+	/**
+	 * Determines if the content has incompatible shortcodes
+	 *
+	 * Where the incompatibility is with the core/shortcode block.
+	 * And the solution is to convert it to a different block, that may be a custom block if core doesn't provide it.
+	 *
+	 */
+	public function content_has_incompatible_shortcodes() {	
+		if ( $this->considered( "content_has_shortcodes" ) &&
+				!$this->considered( "gutenberg_content_has_blocks" ) ) {
+			//echo __FUNCTION__;
+			$incompatible_shortcodes = $this->query_incompatible_shortcodes();
+			$count = $this->count_shortcodes( $incompatible_shortcodes );
+			if ( $count ) {
+				$this->considered_true( __FUNCTION__ );
+				return new oik_block_editor_opinion( 'C', true, $this->level, sprintf( 'Incompatible shortcodes found. Count: %1$s', $count ), "Manual conversion required" ); 
+			}
+		} 
+	}
+	
 	
 	/**
 	 * Here we extend the filtering to perform a specific test
@@ -196,11 +230,12 @@ class oik_block_post_opinions {
 	 * rather than
 	 * oik_block_gather_post_options
 	 */
+	public function do_we_need_this() {
 	
-	public function content_has_incompatible_shortcodes() {	
-		if ( $this->considered( "content_has_shortcodes" ) ) {
+	 
+			
 			return apply_filters( "oik_block_" . __FUNCTION__ , null, $post->post_content ); 
-		}
+		
 	} 
 	
 

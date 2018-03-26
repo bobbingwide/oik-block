@@ -8,7 +8,8 @@
 class Shortcode_converter {
 
 	public $mixed_shortcodes = null;
-	public $inline_shortcodes = null;  																				
+	public $inline_shortcodes = null;  
+	public $incompatible_shortcodes = null;																				
 	
 	public function __construct()  {
 	}
@@ -29,9 +30,8 @@ class Shortcode_converter {
 		$shortcode_list = implode( " ", $shortcodes );
 		$this->mixed_shortcodes = explode( " ", $shortcode_list ); 
 		bw_trace2( $this->mixed_shortcodes, "mixed shortcodes" );
-		
 	}
-	
+
 	/**
 	 * Sets the array of inline shortcodes
 	 */
@@ -49,6 +49,18 @@ class Shortcode_converter {
 		$this->inline_shortcodes = explode( " ", $shortcode_list );
 		bw_trace2( $this->inline_shortcodes, "inline shortcodes" );
 	}
+
+	/**
+	 * Sets the array of incompatible shortcodes
+	 */
+	public function set_incompatible_shortcodes() {
+		$shortcodes['oik-bob-bing-wide'] = "bw_csv bw_graphviz"; 
+		$shortcodes['oik-css'] = "bw_css bw_geshi";
+		$shortcodes['oik-shortcodes'] = "bw_api";
+		$shortcode_list = implode( " ", $shortcodes );
+		$this->incompatible_shortcodes = explode( " ", $shortcode_list );
+		bw_trace2( $this->incompatible_shortcodes, "incompatible shortcodes" );
+	}
 	
 	public function query_inline_shortcodes( $inline_shortcodes ) {
 		$this->set_inline_shortcodes();
@@ -58,5 +70,17 @@ class Shortcode_converter {
 			//}
 		}
 		return $inline_shortcodes;
+	}
+	
+	
+	public function query_incompatible_shortcodes( $incompatible_shortcodes ) {
+		$this->set_incompatible_shortcodes();
+		
+		foreach ( $this->incompatible_shortcodes as $shortcode ) { 
+			//if ( $shortcode ) {
+				$incompatible_shortcodes[ $shortcode ] = $shortcode;
+			//}
+		}
+		return $incompatible_shortcodes;
 	}
 }
