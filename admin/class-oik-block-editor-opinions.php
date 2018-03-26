@@ -228,6 +228,9 @@ class oik_block_editor_opinions {
 								, "meta_value" => "1"	 // ignored
 								);
 		$posts = get_posts( $args );
+		printf( 'Analysing: %1$s %2$s', count( $posts), $post_type );
+		echo PHP_EOL;
+		
 		return $posts;
 	
 	}
