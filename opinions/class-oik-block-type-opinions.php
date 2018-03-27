@@ -115,16 +115,23 @@ class oik_block_type_opinions {
 	} 
 	
 	/**
-	 * @TODO All the taxonomies need to be 'show_in_rest' for the Block editor to be available
+	 * All the taxonomies need to be 'show_in_rest' for the Block editor to be available
+	 *
+	 * @TODO This routine stops checking when it finds one taxonomy that is not show in rest. 
+	 *
 	 */
 	public function taxonomies_are_rest()  {
-		// foreach ( taxonomy )
-	 if ( true ) { 
-			return new oik_block_editor_opinion( 'A', false, 'T', "Taxonomy is show_in_rest" );
-		} else {
-			return new oik_block_editor_opinion( 'C', true, 'T', "Taxonomy is not show_in_rest" );
+		$taxonomies = get_object_taxonomies( $this->post_type );
+		foreach ( $taxonomies as $taxonomy ) {
+			$taxonomy_object = get_taxonomy( $taxonomy );
+			if ( !( $taxonomy_object->show_in_rest) ) { 
+				return new oik_block_editor_opinion( 'C', true, 'T', sprintf( 'Taxonomy %1$s is not show_in_rest', $taxonomy ) );
+			}	
 		}
+		return new oik_block_editor_opinion( 'A', false, 'T', "Taxonomies are show_in_rest" );
 	}
+	
+	
 
 
 }
