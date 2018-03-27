@@ -7,7 +7,7 @@
  
 class BW_table {
 
-	static $format;
+	static $format = 'html';
 	static $cols;
 	
 	/**
