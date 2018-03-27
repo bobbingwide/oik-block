@@ -109,12 +109,22 @@ function oik_block_post_type_compatible( $post_type, $post_type_object ) {
 }
 
 /**
- * Returns the sum total of all posts for a post type
+ * Returns the sum total of all posts worth processing for a post type
  *
- * This includes all different statuses, including 'trash' and 'auto-draft'
+ * wp_count_posts includes all different statuses, including 'trash', 'auto-draft' and 'spam'.
  * Althought the user may undelete the content from Trash we don't need to worry about them.
  * There really shouldn't be that many Auto-drafts!
- *
+ * And we don't care about spam.
+ * 
+ * Post statuses that are worth considering include
+ * `
+    [publish] => 10
+    [future] => 0
+    [draft] => 0
+    [pending] => 0
+    [private] => 0
+    [inherit] => 0
+ * `
  * @param string $post_type
  * @return integer total number of posts 
  */
@@ -123,6 +133,7 @@ function oik_block_count_posts( $post_type ) {
 	$counts = (array) wp_count_posts( $post_type );
 	unset( $counts['auto-draft'] );
 	unset( $counts['trash'] );
+	unset( $counts['spam'] );
 	bw_trace2( $counts, "counts" );
 	//$counts = implode( " ", $counts );
 	$total = array_sum( $counts );
