@@ -56,10 +56,10 @@ function oik_block_editor_scripts() {
 	//gob();
 
     // Make paths variables so we don't write em twice ;)
-    $blockPath = '/assets/js/editor.blocks.js';
-    //$blockPath = '/assets/js/dummy.blocks.js';
+    $blockPath = 'blocks/build/js/editor.blocks.js';
+    //$blockPath = '/blocks/build/js/dummy.blocks.js';
 		
-    $editorStylePath = '/assets/css/blocks.editor.css';
+    $editorStylePath = 'blocks/build/css/blocks.editor.css';
 
     // Enqueue the bundled block JS file
 		
@@ -108,7 +108,7 @@ function oik_block_editor_scripts() {
  */
 function oik_block_frontend_scripts()
 {
-    $blockPath = '/assets/js/frontend.blocks.js';
+    $blockPath = 'blocks/build/js/frontend.blocks.js';
     // Make paths variables so we don't write em twice ;)
 		
 		 bw_backtrace();
@@ -138,7 +138,7 @@ function oik_block_frontend_scripts()
 }
 
 function oik_block_frontend_styles() {
-    $stylePath = '/assets/css/blocks.style.css';
+    $stylePath = 'blocks/build/css/blocks.style.css';
     // Enqueue frontend and editor block styles
     wp_enqueue_style(
         'oik_block-blocks-css',
