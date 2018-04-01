@@ -17,6 +17,8 @@ class oik_block_type_opinions {
 													 , "supports_editor"
 													 , "can_edit_post_type" 
 													 , "taxonomies_are_rest" 
+													 , "taxonomy_term_count_reasonable"
+													 , "author_count_reasonable"
 													 );
 	public $post_type = null;		
 	public $post_type_object = null;	 
@@ -131,7 +133,45 @@ class oik_block_type_opinions {
 		return new oik_block_editor_opinion( 'A', false, 'T', "Taxonomies are show_in_rest" );
 	}
 	
+	/** 
+	 * The REST API is limited to querying 100 terms at a time.
+	 * If there are more than 100 terms it's better to use the Classic Editor
+	 *
+	 * Count terms for all taxonomies, even if show_in_rest is false.
+	 */
+	public function taxonomy_term_count_reasonable() {
+		$taxonomies = get_object_taxonomies( $this->post_type );
+		$counts = array();
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_terms( array( "taxonomy" => $taxonomy, "hide_empty" => false ) );
+			$count = count( $terms );
+			if ( $count > 100 ) { 
+				return new oik_block_editor_opinion( 'C', true, 'T', sprintf( 'Taxonomy %1$s has too many terms: %2$d', $taxonomy, $count ) );
+			}	
+			$counts[] = $count;
+		}
+		return new oik_block_editor_opinion( 'A', false, 'T', sprintf( 'Taxonomies term counts are reasonable: %1$s', implode( ",", $counts ) ) );
+	}
 	
+	/**
+	 * Note: wp_list_authors() doesn't cater for user's with commas in their name!
+	 * @TODO We should use get_users() instead.
+	 */
+	public function author_count_reasonable() {
+		$author_supported = post_type_supports( $this->post_type, "author" );
+		if ( $author_supported ) {
+			$args = array( "echo" => false, "style" => 'csv', "html" => false, "hide_empty" => false, "show_fullname" => true );
+			$authors = wp_list_authors( $args );
+			$author_array = explode( ",", $authors );
+			//print_r( $author_array );
+			$count = count( $author_array );
+			if ( $count > 100 ) {
+				return new oik_block_editor_opinion( 'C', true, 'T', sprintf( 'Too many authors: %1$d', $count ) );
+			} else {
+				return new oik_block_editor_opinion( 'A', false, 'T', sprintf( 'Author counts are reasonable: %1$d', $count ) );
+			}
+		}
+	}	
 
 
 }
