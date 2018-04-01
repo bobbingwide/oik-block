@@ -2,7 +2,7 @@
 /**
  * Plugin Name: oik-block
  * Plugin URI: https://www.oik-plugins.com/oik-plugins/oik-block
- * Description: Prototype blocks for content originally created with oik shortcodes
+ * Description: WordPress blocks for oik shortcodes
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
  * Version: 0.0.0
