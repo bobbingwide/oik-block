@@ -26,19 +26,19 @@ class oik_block_site_subcommands extends oik_block_subcommands {
 		echo __FUNCTION__ . "not implemented";
 	}
 	
-	public function consider() {
+	public function decide() {
 		oik_require( "shortcodes/oik-content.php", "oik-block" );
 		$post_types = get_post_types();
 		foreach ( $post_types as $post_type ) {
 			$post_type_object = get_post_type_object( $post_type );
 			$editor = oik_block_post_type_compatible( $post_type, $post_type_object );
 			if ( $editor == "Block" ) {
-				oik_block_opinions_subcommand( "consider", "type", $post_type );
+				oik_block_opinions_subcommand( "decide", "type", $post_type );
 			}
 		}
 	}
 	
-	public function decide() {
+	public function consider() {
 		gob();
 	}
 	

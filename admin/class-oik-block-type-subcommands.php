@@ -33,11 +33,14 @@ class oik_block_type_subcommands extends oik_block_subcommands {
 		
 		$opinions->gather_post_type_opinions( $this->post_type_or_id );
 		$opinions->consider_post_type_opinions();
-		$opinions->gather_all_post_opinions( $this->post_type_or_id );
 	}
 	
 	public function decide() {
-		gob();
+		$this->consider();
+	
+		$opinions = oik_block_editor_opinions::instance();
+		$opinions->gather_all_post_opinions( $this->post_type_or_id );
+		
 	}
 	
 	public function test() {
