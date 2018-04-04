@@ -18,13 +18,16 @@
 function oik_block_meta_box( $post, $metabox ) {
   oik_require( "shortcodes/oik-content.php", "oik-block" );
 	
-	oik_block_show_in_rest( $post ); 
-	oik_block_revisions( $post );
+	oik_block_display_post_opinions( $post );
+	
+	//oik_block_show_in_rest( $post ); 
+	//oik_block_revisions( $post );
 
-	//BW_::p( __( "Editor selection", "oik-block" ) );
 	
 	$preferred_editor = oik_block_get_preferred_editor( $post );
 	$preferred_editor_options = oik_block_get_preferred_editor_options();
+	//BW_::p( __( "Editor selection", "oik-block" ) );
+	//e( $preferred_editor );
 	
   stag( 'table', "form-table" );
 	BW_::bw_select( "_oik_block_editor", "Preferred Editor", $preferred_editor, array( "#options" => $preferred_editor_options ) );
@@ -35,6 +38,18 @@ function oik_block_meta_box( $post, $metabox ) {
 	
 
 }
+
+
+function oik_block_display_post_opinions( $post ) {
+	//oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
+	//add_action( "oik_block_prepare_opinions", "oik_block_meta_box_prepare_opinions" );
+	oik_require( "oik-block-opinions.php", "oik-block" );
+	oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
+	add_action( "oik_block_prepare_opinions", "oik_block_prepare_opinions" );
+	oik_block_opinions_subcommand( "consider", "type", $post->post_type );
+	oik_block_opinions_subcommand( "consider", "post", $post->ID  );
+}
+
 
 /**
  * Displays opinion regarding support for 'revisions'
@@ -81,9 +96,12 @@ function oik_block_get_preferred_editor( $post ) {
  * @return array Associative array of options
  */
 function oik_block_get_preferred_editor_options() {
-	$options = array( "A" => __( "Any", "oik_block" )
-									, "B" => __( "Block", "oik_block" )
-									, "C" => __( "Classic", "oik_block" )
+	$options = array( "AM" => __( "Any (Mandatory)", "oik-block" )
+									, "AO" => __( "Any", "oik-block" )
+									, "BM" => __( "Block (Mandatory)", "oik-block" )
+									, "BO" => __( "Block", "oik-block" )
+									, "CM" => __( "Classic (Mandatory)", "oik-block" )
+									, "CO" => __( "Classic", "oik-block" )
 									);
 	return $options;
 }

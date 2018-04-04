@@ -13,6 +13,7 @@ class oik_block_post_subcommands extends oik_block_subcommands {
 	
 	public function status() {
 		//oik_block_opinions_site();
+		
 		$post = get_post( $this->post_type_or_id );
 		if ( $post ) {
 			$post_type = $post->post_type;
@@ -27,6 +28,21 @@ class oik_block_post_subcommands extends oik_block_subcommands {
 		}
 	}
 	
+	public function get_valid_post() {
+		$post = get_post( $this->post_type_or_id );
+		if ( $post ) {
+			$post_type = $post->post_type;
+			if ( $post_type === 'revision' ) {
+				printf( 'Post ID %1$s is a revision', $post_id );
+				echo PHP_EOL;
+			}
+		} else {
+			echo "Post ID not found: $post_id" . PHP_EOL;
+		}
+		return $post;
+	}
+		
+	
 	
 	public function reset() {
 		
@@ -37,7 +53,11 @@ class oik_block_post_subcommands extends oik_block_subcommands {
 	}
 	
 	public function consider() {
-		gob();
+		$post = $this->get_valid_post();
+		$opinions = oik_block_editor_opinions::instance();
+		$opinions->gather_post_opinions( $post );
+		$opinions->consider_post_opinions();
+		$opinions->report();
 	}
 	
 	public function decide() {
