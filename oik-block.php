@@ -167,13 +167,19 @@ function oik_block_dynamic_block_contact_form( $attributes ) {
 
 }
 
+/**
+ * Server rendering dynamic CSS block with content
+ * 
+ * Assumes that the oik-css plugin is installed.
+ * The plugin doesn't need to be activated.
+ * 
+ * @param array $attributes
+ * @return string generated HTML
+ */
 function oik_block_dynamic_block_css( $attributes ) {
 	bw_backtrace();
 	bw_trace2();
-	//gob();
-	
 	$content = oik_block_fetch_dynamic_content( "wp:oik-block/css" );
-	
 	oik_require( "shortcodes/oik-css.php", "oik-css" );
 	$html = oik_css( $attributes, $content );
 	return $html;
@@ -183,28 +189,39 @@ function oik_block_dynamic_block_css( $attributes ) {
  * Returns the content of the dynamic block
  * 
  * This is a quick and dirty hack while we're waiting on a fix for Gutenberg issue #5760
+ *
+ * Assumptions:
+ * - The block doesn't contain nested blocks of the same name
+ * - The block has an end block marker ( e.g. <!-- /wp:oik-block/css --> )
  * 
- * - It assumes that there's only one block named $blockname in the content.
- * - It assumes that the block doesn't contain nested blocks of the same name
- * - It assumes that the block has an end block marker
- * - It assumes that the block doesn't have any attributes. @TODO Oops! 
+ * Supports:
+ * - Multiple blocks of the same name
+ * - Should support attributes... 
+ * 
  * 
  * @param string $blockname - of the form wp:prefix/block e.g. wp:oik-block/css
- * @return string the dynamic content
+ * @return string the dynamic content for the block
  */ 
 function oik_block_fetch_dynamic_content( $blockname ) {
-	$content = null;
-	$post = get_post();
-	//print_r( $post );
-	//echo esc_html( $post->post_content );
-	$content = $post->post_content;
-	$start = strpos( $content, "<!-- " . $blockname );
-	$content = substr( $content, $start + strlen( $blockname) + 4 );
-	$end_comment = strpos( $content, " -->" );
-	$content = substr( $content, $end_comment + 4 );
-	$end = strpos( $content, "<!-- /" . $blockname );
-	$content = substr( $content, 0, $end - 4 );
-	return $content;
+	static $content = null;
+	if ( null === $content ) {
+		$content = null;
+		$post = get_post();
+		if ( $post ) {
+			$content = $post->post_content;
+		}
+	}
+	if ( $content ) {
+		$start = strpos( $content, "<!-- " . $blockname );
+		$content = substr( $content, $start + strlen( $blockname ) + 4 );
+		$end_comment = strpos( $content, " -->" );
+		$content = substr( $content, $end_comment + 4 );
+		$end = strpos( $content, "<!-- /" . $blockname );
+		$block_content = substr( $content, 0, $end - 4 );
+		$content = substr( $content, $end + strlen( $blockname ) + 11 );
+		//echo $content;
+	}
+	return $block_content;
 }
 
 
