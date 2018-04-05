@@ -63,8 +63,12 @@ export default registerBlockType(
 				
           css: {
             type: 'string',
-            source: 'html',
+ 
           },
+					text: {
+						type: 'string',
+						default: '',
+					},
 					
         },
 				
@@ -75,19 +79,36 @@ export default registerBlockType(
 		},
 			
 		edit: withInstanceId(
-			( { attributes, setAttributes, instanceId } ) => {
-				const inputId = `blocks-shortcode-input-${ instanceId }`;
+			( { attributes, setAttributes, instanceId, focus } ) => {
+				const inputId = `blocks-css-input-${ instanceId }`;
+				
+				
+				const onChangeText = ( value ) => {
+						setAttributes( { text: value } );
+				};
+				
+				const onChangeCSS = ( value ) => {
+					setAttributes( { css: value } );
+				};
 	
-				return (
-					<div className="wp-block-shortcode">
+				return [
+				
+  					!! focus && (
+              <InspectorControls key="css">
+								<PanelBody>
+									<TextControl label="Text" value={attributes.text} onChange={onChangeText} />
+								</PanelBody>
+              </InspectorControls>
+  					),
+					<div className="wp-block-oik-block-css wp-block-shortcode" key="css-input">
 						<PlainText
 							id={ inputId }
 							value={ attributes.css }
 							placeholder={ __( 'Write CSS' ) }
-							onChange={ ( css ) => setAttributes( { css } ) }
+							onChange={onChangeCSS}
 						/>
 					</div>
-				);
+				];
 			}
 		),
 				
@@ -103,7 +124,8 @@ export default registerBlockType(
 		 * We intend to render this dynamically but we need the content created by the user
 		 */
 		save( { attributes } ) {
-			return <RawHTML>{ attributes.css }</RawHTML>;
+			//console.log( attributes.css );
+			return <RawHTML></RawHTML>;
 		},
 	},
 );

@@ -177,9 +177,10 @@ function oik_block_dynamic_block_contact_form( $attributes ) {
  * @return string generated HTML
  */
 function oik_block_dynamic_block_css( $attributes ) {
-	bw_backtrace();
-	bw_trace2();
-	$content = oik_block_fetch_dynamic_content( "wp:oik-block/css" );
+	//bw_backtrace();
+	$content = bw_array_get( $attributes, "css" );
+	bw_trace2( $content, "Content" );
+	//$content = oik_block_fetch_dynamic_content( "wp:oik-block/css" );
 	oik_require( "shortcodes/oik-css.php", "oik-css" );
 	$html = oik_css( $attributes, $content );
 	return $html;
@@ -217,9 +218,9 @@ function oik_block_fetch_dynamic_content( $blockname ) {
 		$end_comment = strpos( $content, " -->" );
 		$content = substr( $content, $end_comment + 4 );
 		$end = strpos( $content, "<!-- /" . $blockname );
-		$block_content = substr( $content, 0, $end - 4 );
+		$block_content = substr( $content, 0, $end );
 		$content = substr( $content, $end + strlen( $blockname ) + 11 );
-		//echo $content;
+		bw_trace2( $content, "content" );
 	}
 	return $block_content;
 }
