@@ -16,6 +16,7 @@ import './oik-contact-form'; // From oik bw_contact_form
 import './oik-follow-me';    // From oik bw_follow_me
 import './oik-countdown';    // From oik bw_countdown
 import './oik-nivo';         // From oik-nivo-slider nivo
+import './oik-css';          // From oik-css bw_css
 
 
 /**

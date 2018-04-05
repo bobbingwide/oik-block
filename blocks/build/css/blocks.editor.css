@@ -103,3 +103,17 @@
 .wp-block-oik-block-nivo .is-selected .my-content:hover,
 .wp-block-oik-block-nivo .my-content:focus {
   border: 1px #f7b733 solid; }
+.wp-block-oik-block-css p {
+  border: 1px transparent solid;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  background-color: #f5f5f5; }
+
+.wp-block-oik-block-css .is-selected .my-content,
+.wp-block-oik-block-css .my-content:focus {
+  border: 1px #f7b733 dashed;
+  background: rgba(255, 255, 255, 0.8); }
+
+.wp-block-oik-block-css .is-selected .my-content:hover,
+.wp-block-oik-block-css .my-content:focus {
+  border: 1px #f7b733 solid; }

@@ -167,6 +167,45 @@ function oik_block_dynamic_block_contact_form( $attributes ) {
 
 }
 
+function oik_block_dynamic_block_css( $attributes ) {
+	bw_backtrace();
+	bw_trace2();
+	//gob();
+	
+	$content = oik_block_fetch_dynamic_content( "wp:oik-block/css" );
+	
+	oik_require( "shortcodes/oik-css.php", "oik-css" );
+	$html = oik_css( $attributes, $content );
+	return $html;
+}
+
+/**
+ * Returns the content of the dynamic block
+ * 
+ * This is a quick and dirty hack while we're waiting on a fix for Gutenberg issue #5760
+ * 
+ * - It assumes that there's only one block named $blockname in the content.
+ * - It assumes that the block doesn't contain nested blocks of the same name
+ * - It assumes that the block has an end block marker
+ * - It assumes that the block doesn't have any attributes. @TODO Oops! 
+ * 
+ * @param string $blockname - of the form wp:prefix/block e.g. wp:oik-block/css
+ * @return string the dynamic content
+ */ 
+function oik_block_fetch_dynamic_content( $blockname ) {
+	$content = null;
+	$post = get_post();
+	//print_r( $post );
+	//echo esc_html( $post->post_content );
+	$content = $post->post_content;
+	$start = strpos( $content, "<!-- " . $blockname );
+	$content = substr( $content, $start + strlen( $blockname) + 4 );
+	$end_comment = strpos( $content, " -->" );
+	$content = substr( $content, $end_comment + 4 );
+	$end = strpos( $content, "<!-- /" . $blockname );
+	$content = substr( $content, 0, $end - 4 );
+	return $content;
+}
 
 
 /**
@@ -203,15 +242,14 @@ function oik_block_dynamic_alt_block_render( $attributes ) {
  * 
  * Here we'll implement logic to test whether or not we're going to allow Gutenberg to edit the content
  *
- * Decisions to be implemented include:
- * - If there are no blocks then we use the user's or system options.
- * - If the post type supports revisions then we may not want to use Gutenberg
- * - If the post has been marked as "Classic-editor"
+ * If the post type doesn't support revisions then we may not want to use Gutenberg,
+ * but this shouldn't prevent us from allowing the user to edit the content using the block editor.
+ * Disabling the test for now. Herb 2018/04/04
  *
  */
 function oik_block_gutenberg_can_edit_post_type( $can_edit, $post_type ) {
 	bw_trace2();
-	$can_edit = post_type_supports( $post_type, "revisions" );
+	//$can_edit = post_type_supports( $post_type, "revisions" );
 	return $can_edit;
 }
 
@@ -271,6 +309,7 @@ function oik_block_loaded() {
 function oik_block_register_dynamic_blocks() {
 	if ( function_exists( "register_block_type" ) ) {
 		register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
+		register_block_type( 'oik-block/css', [ 'render_callback' => 'oik_block_dynamic_block_css' ] );
 	}
 }
 
