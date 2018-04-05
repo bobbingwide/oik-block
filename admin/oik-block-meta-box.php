@@ -30,7 +30,7 @@ function oik_block_meta_box( $post, $metabox ) {
 	//e( $preferred_editor );
 	
   stag( 'table', "form-table" );
-	BW_::bw_select( "_oik_block_editor", "Preferred Editor", $preferred_editor, array( "#options" => $preferred_editor_options ) );
+	BW_::bw_select( "_oik_block_editor", "Preferred Editor", $preferred_editor, array( "#options" => $preferred_editor_options, "#optional" => true ) );
 	
   etag( "table" );
 	
