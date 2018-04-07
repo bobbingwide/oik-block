@@ -31,7 +31,7 @@ const RawHTML = wp.element.RawHTML;
 //var TextControl = wp.blocks.InspectorControls.TextControl;
 
 /**
- * Register the oik-block/css block
+ * Register the oik-block/csv block
  * 
  * registerBlockType is a function which takes the name of the block to register
  * and an object that contains the properties of the block.
@@ -39,29 +39,30 @@ const RawHTML = wp.element.RawHTML;
  */
 export default registerBlockType(
     // Namespaced, hyphens, lowercase, unique name
-		'oik-block/css', 
+		'oik-block/csv', 
     {
         // Localize title using wp.i18n.__()
-        title: __( 'CSS' ),
+        title: __( 'CSV' ),
 				
-				description: 'Inline CSS',
+				description: 'Displays CSV content',
 
         // Category Options: common, formatting, layout, widgets, embed
         category: 'layout',
 
         // Dashicons Options - https://goo.gl/aTM1DQ
-        icon: 'admin-appearance',
+        icon: 'media-spreadsheet',
 
         // Limit to 3 Keywords / Phrases
         keywords: [
-            __( 'CSS' ),
+            __( 'CSV' ),
+						__( 'list' ),
             __( 'oik' ),
         ],
 
         // Set for each piece of dynamic data used in your block
         attributes: {
 				
-          css: {
+          content: {
             type: 'string',
  
           },
@@ -80,15 +81,15 @@ export default registerBlockType(
 			
 		edit: withInstanceId(
 			( { attributes, setAttributes, instanceId, focus } ) => {
-				const inputId = `blocks-css-input-${ instanceId }`;
+				const inputId = `blocks-csv-input-${ instanceId }`;
 				
 				
 				const onChangeText = ( value ) => {
 						setAttributes( { text: value } );
 				};
 				
-				const onChangeCSS = ( value ) => {
-					setAttributes( { css: value } );
+				const onChangeContent = ( value ) => {
+					setAttributes( { content: value } );
 				};
 	
 				return [
@@ -100,32 +101,25 @@ export default registerBlockType(
 								</PanelBody>
               </InspectorControls>
   					),
-					<div className="wp-block-oik-block-css wp-block-shortcode" key="css-input">
+					<div className="wp-block-oik-block-csv wp-block-shortcode" key="css-input">
 						<PlainText
 							id={ inputId }
-							value={ attributes.css }
-							placeholder={ __( 'Write CSS' ) }
-							onChange={onChangeCSS}
+							value={ attributes.content }
+							placeholder={ __( 'Enter your CSV data' ) }
+							onChange={onChangeContent}
 						/>
 					</div>
 				];
 			}
 		),
 				
-			saver() {
-				 // Rendering in PHP but we still need the content
-					return ( 
-					<p>div  color: re; </p>
-					);
-			},
-		
 
 		/**
-		 * We intend to render this dynamically but we need the content created by the user
+		 * We intend to render this dynamically. The content created by the user
+		 * is stored in the content attribute.
+		 * 
 		 */
 		save( { attributes } ) {
-			//console.log( attributes.css );
-			//return <RawHTML></RawHTML>;
 			return null;
 		},
 	},

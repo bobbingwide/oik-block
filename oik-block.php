@@ -178,11 +178,30 @@ function oik_block_dynamic_block_contact_form( $attributes ) {
  */
 function oik_block_dynamic_block_css( $attributes ) {
 	//bw_backtrace();
-	$content = bw_array_get( $attributes, "css" );
+	$content = bw_array_get( $attributes, "css", null );
 	bw_trace2( $content, "Content" );
 	//$content = oik_block_fetch_dynamic_content( "wp:oik-block/css" );
 	oik_require( "shortcodes/oik-css.php", "oik-css" );
 	$html = oik_css( $attributes, $content );
+	return $html;
+}
+
+
+/**
+ * Server rendering dynamic CSV block
+ * 
+ * Assumes that the oik-bob-bing-wide plugin is installed.
+ * The plugin doesn't need to be activated.
+ * 
+ * @param array $attributes
+ * @return string generated HTML
+ */
+function oik_block_dynamic_block_csv( $attributes ) {
+	//bw_backtrace();
+	$content = bw_array_get( $attributes, "content", null );
+	bw_trace2( $content, "Content" );
+	oik_require( "shortcodes/oik-csv.php", "oik-bob-bing-wide" );
+	$html = bw_csv( $attributes, $content );
 	return $html;
 }
 
@@ -328,6 +347,7 @@ function oik_block_register_dynamic_blocks() {
 	if ( function_exists( "register_block_type" ) ) {
 		register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
 		register_block_type( 'oik-block/css', [ 'render_callback' => 'oik_block_dynamic_block_css' ] );
+		register_block_type( 'oik-block/csv', [ 'render_callback' => 'oik_block_dynamic_block_csv' ] );
 	}
 }
 

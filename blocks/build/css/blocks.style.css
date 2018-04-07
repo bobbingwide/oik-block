@@ -20,3 +20,7 @@ div.bw_contact_form {
 */
 div.bw_css {
   background-color: #f5f5f5; }
+/* oik-csv/style.scss
+*/
+div.bw_csv {
+  width: 100%; }
