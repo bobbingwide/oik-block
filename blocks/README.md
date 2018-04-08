@@ -4,6 +4,7 @@
 ## Build folder
 
 The `build` folder contains the run-time components:
+
 Folder | File | Contents
 ------ | ----- | -------
 css    | blocks.editor.css | Styles used in the Block editor
@@ -44,13 +45,48 @@ style.scss | blocks.style.css | Styling for the front end
 
 ## Build process
 
-To build the JavaScript code in the blocks folder you need to use npm (Node Package Manager).
-First you must install npm.
+To build the JavaScript code in the blocks folder you need to use npm (Node Package Manager),
+which is part of Node.js. 
 
+Check what versions you have using `node -v` and `npm -v`.
+```
+C:\Users\Herb>node -v
+v8.9.4
+
+C:\Users\Herb>npm -v
+5.6.0
+```
+
+If you don't already have it download and install Node.js. See https://nodejs.org/en/download/
+
+
+ 
+Then you need to install the dependencies locally.
+
+```
 npm install
+```
 
+Run this command from the plugin's directory. 
 
+This will install a gazillion files into the `node_modules` folder, creating over 2000 sub-directories.
+
+If you're unfamiliar with npm, then you may want to read something about it.
+See [What is npm?](https://docs.npmjs.com/getting-started/what-is-npm) 
+and [npm javascript package manager](and https://docs.npmjs.com/cli/npm)
+
+To build the blocks into the run time code you then need to run either
+
+```
 npm run dev
+```
+
+or 
+
+```
+npm run build
+```
+
 
 
 
