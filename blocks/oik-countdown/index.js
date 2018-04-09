@@ -47,7 +47,7 @@ const blockAttributes = {
 		type: 'string',
 		default: '',
 	},
-	expiryText: {
+	expirytext: {
 		type: 'string',
 		default: '',
 	},
