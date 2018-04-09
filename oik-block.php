@@ -5,7 +5,7 @@
  * Description: WordPress blocks for oik shortcodes
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
- * Version: 0.0.0
+ * Version: 0.0.0-alpha-20180409
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *

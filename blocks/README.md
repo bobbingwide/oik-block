@@ -1,21 +1,6 @@
 # oik blocks
 
 
-## Build folder
-
-The `build` folder contains the run-time components:
-
-Folder | File | Contents
------- | ----- | -------
-css    | blocks.editor.css | Styles used in the Block editor
-css    | blocks.style.css | Styles used in the front end
-images | js-wapuu.svg | wapuu SVG file - from Zac's course
-js     | dummy.blocks.js | Dummy editor.blocks.js for testing Issue #4678
-js     | editor.blocks.js | Built JS for the Editor
-js     | frontend.blocks.js | Built JS for the front end
-
-
-
 ## Summary of blocks
 
 `index.js` defines the blocks that are built for this plugin.
@@ -42,6 +27,22 @@ File |  Target | Contents
 editor.scss | blocks.editor.css | Styling for the editor
 index.js | editor.blocks.js | REACT JS for the block
 style.scss | blocks.style.css | Styling for the front end
+
+
+
+## Build folder
+
+The `build` folder contains the run-time components:
+
+Folder | File | Contents
+------ | ----- | -------
+css    | blocks.editor.css | Styles used in the Block editor
+css    | blocks.style.css | Styles used in the front end
+images | js-wapuu.svg | wapuu SVG file - from Zac's course
+js     | dummy.blocks.js | Dummy editor.blocks.js for testing Issue #4678
+js     | editor.blocks.js | Built JS for the Editor
+js     | frontend.blocks.js | Built JS for the front end
+
 
 ## Build process
 

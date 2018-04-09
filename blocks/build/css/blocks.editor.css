@@ -81,15 +81,6 @@
   border: 1px transparent solid;
   padding: 4px 8px;
   margin: -4px -8px; }
-
-.wp-block-oik-block-countdown .is-selected .my-content,
-.wp-block-oik-block-countdown .my-content:focus {
-  border: 1px #f7b733 dashed;
-  background: rgba(255, 255, 255, 0.8); }
-
-.wp-block-oik-block-countdown .is-selected .my-content:hover,
-.wp-block-oik-block-countdown .my-content:focus {
-  border: 1px #f7b733 solid; }
 .wp-block-oik-block-nivo .my-content {
   border: 1px transparent solid;
   padding: 4px 8px;
