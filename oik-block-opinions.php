@@ -41,6 +41,8 @@ function oik_block_opinions_run() {
 	oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );
 	add_action( "oik_block_prepare_opinions", "oik_block_prepare_opinions" );
 	
+	ini_set('memory_limit','1024M');
+	
 	$level = oik_block_determine_level( $post_type_or_id );
 	oik_block_opinions_subcommand( $subcommand, $level, $post_type_or_id );
 	
