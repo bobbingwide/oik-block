@@ -17,6 +17,7 @@ class oik_block_site_opinions {
 													 , "active_network_plugin_support"
 													 , "active_plugin_support"
 													 , "summarise_plugin_compatibility"
+													 , "replaced_hook_checker"
 													 );
 
 	public function __construct() {
@@ -434,6 +435,17 @@ class oik_block_site_opinions {
 		}
 		//print_r( $counts );
 	}
-
+	
+	/** 
+	 * Checks replaced hooks
+	 * 
+	 */
+	public function replaced_hook_checker() {
+ 		oik_require( "opinions/class-oik-block-hook-checker.php", "oik-block" );
+		$hook_checker = new oik_block_hook_checker();
+		$hook_checker->analyse();
+		$opinions = $hook_checker->get_opinions();
+		return $opinions;
+	}
 
 }
