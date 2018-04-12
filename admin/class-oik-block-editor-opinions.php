@@ -84,6 +84,7 @@ class oik_block_editor_opinions {
 	 * but it does matter which opinion has precedence. 
 	 * We'll consider the "opinion" as two chars combining the Editor and Mandatory fields
 	 * Initial opinion is 'AO'. There are 36 combinations.
+	 *
 	 * 
 	 */ 
 	public function consider_opinions( $decision="AO") {

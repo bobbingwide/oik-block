@@ -159,8 +159,9 @@ class oik_block_editor_opinion {
 	 * CO      | CM           | CM          | Next opinion is Mandatory - so overrides current
 	 * CM      | AM           | CM          | Oops! Ambivalent Mandatory doesn't really make sense.
 	 *
-	 * There are 36 possible combinations.
-	 * The $decisions array is sparsely populated with situations where the decision would change
+	 * -There are 36 possible combinations.
+	 * - The $decisions array is sparsely populated with situations where the decision would change
+	 * - In order to come to correct decision we may need to have sorted the opinions ( ASC ).
 	 */
 	public function consider( $current_decision ) {
 		$decisions = array( "AOAM" => "AM"

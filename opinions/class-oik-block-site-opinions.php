@@ -126,7 +126,10 @@ class oik_block_site_opinions {
 			
 			$this->accumulate_plugin_opinions( $plugin_name, $tut_opinion, $gc_opinion );
 		}
+		$summarised_opinion = $this->summarise_plugin_opinions();
+		// Do we add this to the array or what?
 		return $this->plugin_opinions;
+		//return $summarised_opinion;
 	}
 	
 	/**
@@ -139,20 +142,46 @@ class oik_block_site_opinions {
 	 * - Probably a Mandatory one
 	 */
 	function accumulate_plugin_opinions( $plugin, $tut_opinion, $gc_opinion ) {
-		$observation =  "Plugin: $plugin: $gc_opinion,$tut_opinion";
+		$observation =  sprintf( 'Plugin: %1$s GC: %2$s, %3$s, %4$s', $plugin, $this->gc, $tut_opinion, $gc_opinion );
 		$opinion = new oik_block_editor_opinion( 'A', false, 'S', $observation );
-		
 		$deliberation = "AO";
 		$opinion->set_opinion( $tut_opinion );
 		$deliberation = $opinion->consider( $deliberation );
 		$opinion->set_opinion( $gc_opinion );
-		//$now = $opinion->get_opinion();
 		$deliberation = $opinion->consider( $deliberation );
 		$opinion->set_opinion( $deliberation );
-		$opinion->observation .= $this->gc;
-		
 		$this->plugin_opinions[] = $opinion;
 	}
+	
+	/**
+	 * Summarises plugin opinions
+	 * 
+	 * So we can potentially hide the details
+	 *
+	 */
+	function summarise_plugin_opinions() {
+		$summary = array();
+		foreach ( $this->plugin_opinions as $opinion ) {
+			$decision = $opinion->get_opinion();
+			if ( !isset( $summary[ $decision ] ) ) {
+				$summary[ $decision ] = 0;
+			}
+			$summary[ $decision ]++; 
+		}
+		$count_no = bw_array_get( $summary, "CM", 0 );
+		$count_likely_no = bw_array_get( $summary, "CO", 0 );
+		$total = count( $this->plugin_opinions );
+		$notes = sprintf( 'Incompatible: %1$d, likely: %2$d, total: %3$d', $count_no, $count_likely_no, $total );
+		if ( $count_no > 0 ) {
+			$summarised_opinion = new oik_block_editor_opinion( "C", true, "S", "Incompatible plugins", $notes );
+		} elseif ( $count_likely_no > 0 ) {
+			$summarised_opinion = new oik_block_editor_opinion( "C", false, "S", "Likely incompatible plugins", $notes );
+		} else {
+			$summarised_opinion = new oik_block_editor_opinion( "A", false, "S", "Active plugins appear OK", $notes );
+		}
+		return $summarised_opinion;
+	}
+		
 	
 	/**
 	 * Loads the readme.txt file, if present
@@ -260,12 +289,7 @@ class oik_block_site_opinions {
 	 * with the local plugin's decision taking precedence
 	 * 
 	 * From this value we return the mapping to an opinion
-	 
-	 
-	 Daniel Bachhuber's compatibility database suggests multiple values for the Gutenberg compatible setting, 
-	 which we'll map to Opinions as below
-	 
-	 if
+
 	 
 
 	*/
@@ -276,7 +300,7 @@ class oik_block_site_opinions {
 			$this->gc = $gutenberg_compatible;
 		}
 		if ( $this->gc ) {
-			$mapping = $this->map_gutenberg_compatible_to_opinion( $gc );
+			$mapping = $this->map_gutenberg_compatible_to_opinion( $this->gc );
 		} else {
 			$mapping = null;
 		}
@@ -304,19 +328,25 @@ class oik_block_site_opinions {
 	/**
 	 * Maps the Gutenberg compatible value to an opinion
 	 *
-	 * Gutenberg compatible | Opinion 
-	 * -------------------- | -------
-	 * No                   | CO
-	 * Yes                  | AO
-	 * Likely-no            | CO
-	 * Likely-yes           | AO
-	 * Testing              | AO
-	 * Unknown              | AO
+	 * Daniel Bachhuber's compatibility database suggests multiple values for the Gutenberg compatible setting, 
+	 * which we'll map to Opinions as below
+	 *
+	 * Gutenberg compatible | Opinion | Notes
+	 * -------------------- | ------- | -------------
+	 * No                   | CM  		| Could be a bit strong! Let's find out
+	 * Yes                  | AO      | 
+	 * Likely-no            | CO			| 
+	 * Likely-yes           | AO			| 
+	 * Testing              | AO			| Assume OK
+	 * Unknown              | AO			| Assume OK
+	 *
+	 * @param string $gutenberg_compatible
+	 * @return string mapping to an opinion
 	 */
 	public function map_gutenberg_compatible_to_opinion( $gutenberg_compatible ) {
 		$gc = strtolower( $gutenberg_compatible );
 		$gc = str_replace( "-", "_", $gc );
-		$mapping = array( "no" => "CO" 
+		$mapping = array( "no" => "CM" 
 										, "yes" => "AO"
 										, "likely_no" => "CO"
 										, "likely_yes" => "AO"
