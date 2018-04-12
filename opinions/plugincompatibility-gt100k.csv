@@ -1,0 +1,307 @@
+Plugin,Gutenberg-Compatible,Compatibility Reason,Active Installs
+wordpress-seo,no,Meta box doesn't work as expected,5000000
+akismet,yes,Doesn't include editor functionality,5000000
+contact-form-7,yes,Doesn't include editor functionality,5000000
+wordpress-importer,likely_yes,Doesn't include editor functionality,4000000
+jetpack,no,Some editor UI is missing,4000000
+all-in-one-seo-pack,no,Meta box doesn't work as expected,3000000
+woocommerce,no,"Meta box doesn't work as expected, Some editor UI is missing",3000000
+wp-super-cache,likely_yes,Doesn't include editor functionality,2000000
+duplicate-post,yes,Doesn't include editor functionality,2000000
+google-sitemap-generator,yes,Doesn't include editor functionality,2000000
+limit-login-attempts,yes,"Existing functionality works in Gutenberg, Doesn't include editor functionality",2000000
+tinymce-advanced,yes,Existing functionality works in Gutenberg,2000000
+wordfence,yes,Doesn't include editor functionality,2000000
+siteorigin-panels,likely_no,Some editor UI is missing,1000000
+all-in-one-wp-migration,likely_yes,Doesn't include editor functionality,1000000
+duplicator,likely_yes,Doesn't include editor functionality,1000000
+google-analytics-dashboard-for-wp,likely_yes,Doesn't include editor functionality,1000000
+google-analytics-for-wordpress,likely_yes,Doesn't include editor functionality,1000000
+mailchimp-for-wp,likely_yes,Doesn't include editor functionality,1000000
+really-simple-captcha,likely_yes,Doesn't include editor functionality,1000000
+updraftplus,likely_yes,Doesn't include editor functionality,1000000
+w3-total-cache,likely_yes,Doesn't include editor functionality,1000000
+wp-smushit,likely_yes,Doesn't include editor functionality,1000000
+hello-dolly,no,Some editor UI is missing,1000000
+nextgen-gallery,no,Some editor UI is missing,1000000
+advanced-custom-fields,yes,Existing functionality works in Gutenberg,1000000
+disable-comments,yes,Existing functionality works in Gutenberg,1000000
+ninja-forms,yes,,1000000
+regenerate-thumbnails,yes,Doesn't include editor functionality,1000000
+so-widgets-bundle,yes,Doesn't include editor functionality,1000000
+black-studio-tinymce-widget,likely_yes,Doesn't include editor functionality,900000
+ml-slider,likely_yes,Some editor UI is missing,900000
+wpforms-lite,no,Some editor UI is missing,900000
+better-wp-security,yes,Doesn't include editor functionality,900000
+redirection,yes,Doesn't include editor functionality,900000
+wp-multibyte-patch,yes,Doesn't include editor functionality,900000
+wp-pagenavi,yes,Doesn't include editor functionality,900000
+wp-mail-smtp,likely_yes,Doesn't include editor functionality,800000
+shortcodes-ultimate,likely_no,Meta box doesn't work as expected,700000
+really-simple-ssl,likely_yes,Doesn't include editor functionality,700000
+wp-optimize,likely_yes,Doesn't include editor functionality,700000
+breadcrumb-navxt,yes,,700000
+backwpup,likely_yes,Doesn't include editor functionality,600000
+coming-soon,likely_yes,Doesn't include editor functionality,600000
+googleanalytics,likely_yes,Doesn't include editor functionality,600000
+loginizer,likely_yes,Doesn't include editor functionality,600000
+tablepress,likely_yes,Some editor UI is missing,600000
+worker,likely_yes,Doesn't include editor functionality,600000
+the-events-calendar,no,Doesn't include editor functionality,600000
+all-in-one-wp-security-and-firewall,yes,Doesn't include editor functionality,600000
+ewww-image-optimizer,yes,Doesn't include editor functionality,600000
+force-regenerate-thumbnails,yes,Doesn't include editor functionality,600000
+loco-translate,yes,Doesn't include editor functionality,600000
+optinmonster,yes,Existing functionality works in Gutenberg,600000
+broken-link-checker,likely_yes,Doesn't include editor functionality,500000
+contact-widgets,likely_yes,Some editor UI is missing,500000
+elementor,likely_yes,Some editor UI is missing,500000
+instagram-feed,likely_yes,,500000
+wp-fastest-cache,likely_yes,Doesn't include editor functionality,500000
+wp-maintenance-mode,likely_yes,Doesn't include editor functionality,500000
+yith-woocommerce-wishlist,likely_yes,Doesn't include editor functionality,500000
+add-to-any,yes,Existing functionality works in Gutenberg,500000
+autoptimize,yes,Doesn't include editor functionality,500000
+cookie-notice,yes,Doesn't include editor functionality,500000
+custom-post-type-ui,yes,Existing functionality works in Gutenberg,500000
+redux-framework,yes,Doesn't include editor functionality,500000
+duplicate-page,likely_yes,Some editor UI is missing,400000
+image-widget,likely_yes,Doesn't include editor functionality,400000
+insert-headers-and-footers,likely_yes,Existing functionality works in Gutenberg,400000
+iwp-client,likely_yes,Doesn't include editor functionality,400000
+maintenance,likely_yes,Doesn't include editor functionality,400000
+woocommerce-gateway-paypal-express-checkout,likely_yes,Doesn't include editor functionality,400000
+wp-statistics,likely_yes,Doesn't include editor functionality,400000
+beaver-builder-lite-version,no,Some editor UI is missing,400000
+post-types-order,yes,Doesn't include editor functionality,400000
+user-role-editor,yes,Doesn't include editor functionality,400000
+wp-google-maps,yes,"Existing functionality works in Gutenberg, Doesn't include editor functionality",400000
+easy-fancybox,likely_no,Some editor UI is missing,300000
+photo-gallery,likely_no,Some editor UI is missing,300000
+bbpress,likely_yes,Doesn't include editor functionality,300000
+better-search-replace,likely_yes,Doesn't include editor functionality,300000
+easy-google-fonts,likely_yes,Existing functionality works in Gutenberg,300000
+flamingo,likely_yes,Doesn't include editor functionality,300000
+google-analyticator,likely_yes,Doesn't include editor functionality,300000
+mainwp-child,likely_yes,Doesn't include editor functionality,300000
+meta-box,likely_yes,Existing functionality works in Gutenberg,300000
+sg-cachepress,likely_yes,Doesn't include editor functionality,300000
+widget-importer-exporter,likely_yes,Doesn't include editor functionality,300000
+woocommerce-gateway-stripe,likely_yes,Doesn't include editor functionality,300000
+wordpress-popular-posts,likely_yes,Doesn't include editor functionality,300000
+wp-clone-by-wp-academy,likely_yes,Doesn't include editor functionality,300000
+wp-db-backup,likely_yes,Doesn't include editor functionality,300000
+wysija-newsletters,no,Some editor UI is missing,300000
+antispam-bee,yes,Doesn't include editor functionality,300000
+polylang,yes,Existing functionality works in Gutenberg,300000
+simple-301-redirects,yes,Doesn't include editor functionality,300000
+simple-custom-css,yes,"Existing functionality works in Gutenberg, Doesn't include editor functionality",300000
+sucuri-scanner,yes,Doesn't include editor functionality,300000
+taxonomy-terms-order,yes,Existing functionality works in Gutenberg,300000
+velvet-blues-update-urls,yes,Doesn't include editor functionality,300000
+widget-logic,yes,Doesn't include editor functionality,300000
+woosidebars,yes,Doesn't include editor functionality,300000
+formidable,likely_no,Meta box doesn't work as expected,200000
+popup-maker,likely_no,Some editor UI is missing,200000
+addthis,likely_yes,Existing functionality works in Gutenberg,200000
+adminimize,likely_yes,Doesn't include editor functionality,200000
+backupwordpress,likely_yes,Doesn't include editor functionality,200000
+custom-facebook-feed,likely_yes,Doesn't include editor functionality,200000
+disqus-comment-system,likely_yes,Existing functionality works in Gutenberg,200000
+easy-wp-smtp,likely_yes,Doesn't include editor functionality,200000
+genesis-simple-edits,likely_yes,Some editor UI is missing,200000
+gotmls,likely_yes,Existing functionality works in Gutenberg,200000
+litespeed-cache,likely_yes,Doesn't include editor functionality,200000
+login-lockdown,likely_yes,Doesn't include editor functionality,200000
+php-code-widget,likely_yes,Doesn't include editor functionality,200000
+pirate-forms,likely_yes,Existing functionality works in Gutenberg,200000
+pretty-link,likely_yes,Some editor UI is missing,200000
+recent-tweets-widget,likely_yes,Existing functionality works in Gutenberg,200000
+social-networks-auto-poster-facebook-twitter-g,likely_yes,,200000
+types,likely_yes,Existing functionality works in Gutenberg,200000
+woocommerce-services,likely_yes,Doesn't include editor functionality,200000
+wp-migrate-db,likely_yes,Doesn't include editor functionality,200000
+wps-hide-login,likely_yes,Doesn't include editor functionality,200000
+wptouch,likely_yes,Doesn't include editor functionality,200000
+page-links-to,no,Meta box doesn't work as expected,200000
+youtube-embed-plus,no,Some editor UI is missing,200000
+admin-menu-editor,yes,Doesn't include editor functionality,200000
+amp,yes,Doesn't include editor functionality,200000
+buddypress,yes,Doesn't include editor functionality,200000
+cookie-law-info,yes,Existing functionality works in Gutenberg,200000
+custom-sidebars,yes,Existing functionality works in Gutenberg,200000
+enable-media-replace,yes,Doesn't include editor functionality,200000
+imsanity,yes,Existing functionality works in Gutenberg,200000
+intuitive-custom-post-order,yes,Doesn't include editor functionality,200000
+megamenu,yes,Doesn't include editor functionality,200000
+newsletter,yes,Doesn't include editor functionality,200000
+one-click-demo-import,yes,Doesn't include editor functionality,200000
+ps-auto-sitemap,yes,Doesn't include editor functionality,200000
+quick-pagepost-redirect-plugin,yes,Doesn't include editor functionality,200000
+responsive-lightbox,yes,Doesn't include editor functionality,200000
+simple-lightbox,yes,Doesn't include editor functionality,200000
+simple-page-ordering,yes,Doesn't include editor functionality,200000
+simple-social-icons,yes,Existing functionality works in Gutenberg,200000
+so-css,yes,Doesn't include editor functionality,200000
+table-of-contents-plus,yes,Doesn't include editor functionality,200000
+wp-instagram-widget,yes,Doesn't include editor functionality,200000
+wp-postviews,yes,Doesn't include editor functionality,200000
+wp-user-avatar,yes,Doesn't include editor functionality,200000
+yet-another-related-posts-plugin,yes,Existing functionality works in Gutenberg,200000
+auto-post-thumbnail,likely_no,,100000
+insert-php,likely_no,,100000
+mappress-google-maps-for-wordpress,likely_no,JavaScript error prevents use,100000
+qtranslate-x,likely_no,JavaScript error prevents use,100000
+quick-adsense,likely_no,Some editor UI is missing,100000
+smart-slider-3,likely_no,Some editor UI is missing,100000
+virtue-toolkit,likely_no,Some editor UI is missing,100000
+accelerated-mobile-pages,likely_yes,Some editor UI is missing,100000
+all-in-one-event-calendar,likely_yes,Doesn't include editor functionality,100000
+anti-spam,likely_yes,Doesn't include editor functionality,100000
+bwp-google-xml-sitemaps,likely_yes,Doesn't include editor functionality,100000
+contact-form-7-honeypot,likely_yes,Doesn't include editor functionality,100000
+contact-form-plugin,likely_yes,Some editor UI is missing,100000
+custom-permalinks,likely_yes,Some editor UI is missing,100000
+download-manager,likely_yes,Doesn't include editor functionality,100000
+duracelltomi-google-tag-manager,likely_yes,Doesn't include editor functionality,100000
+easy-facebook-likebox,likely_yes,Doesn't include editor functionality,100000
+easy-theme-and-plugin-upgrades,likely_yes,Doesn't include editor functionality,100000
+enhanced-media-library,likely_yes,"Existing functionality works in Gutenberg, Doesn't include editor functionality",100000
+events-manager,likely_yes,Doesn't include editor functionality,100000
+facebook-comments-plugin,likely_yes,Doesn't include editor functionality,100000
+facebook-pagelike-widget,likely_yes,Doesn't include editor functionality,100000
+form-maker,likely_yes,Some editor UI is missing,100000
+ga-google-analytics,likely_yes,Doesn't include editor functionality,100000
+godaddy-email-marketing-sign-up-forms,likely_yes,Doesn't include editor functionality,100000
+google-captcha,likely_yes,Doesn't include editor functionality,100000
+google-language-translator,likely_yes,Existing functionality works in Gutenberg,100000
+google-maps-widget,likely_yes,Doesn't include editor functionality,100000
+header-footer,likely_yes,Existing functionality works in Gutenberg,100000
+hide-title,likely_yes,"Doesn't include editor functionality, Meta box doesn't work as expected",100000
+kirki,likely_yes,Doesn't include editor functionality,100000
+master-slider,likely_yes,Some editor UI is missing,100000
+menu-icons,likely_yes,Doesn't include editor functionality,100000
+nextend-facebook-connect,likely_yes,Doesn't include editor functionality,100000
+option-tree,likely_yes,Doesn't include editor functionality,100000
+password-protected,likely_yes,Doesn't include editor functionality,100000
+recent-posts-widget-with-thumbnails,likely_yes,Doesn't include editor functionality,100000
+rename-wp-login,likely_yes,Doesn't include editor functionality,100000
+responsive-menu,likely_yes,Doesn't include editor functionality,100000
+rustolat,likely_yes,Some editor UI is missing,100000
+search-and-replace,likely_yes,Doesn't include editor functionality,100000
+siteguard,likely_yes,Doesn't include editor functionality,100000
+slideshow-jquery-image-gallery,likely_yes,Some editor UI is missing,100000
+spacer,likely_yes,Some editor UI is missing,100000
+sydney-toolbox,likely_yes,Doesn't include editor functionality,100000
+tawkto-live-chat,likely_yes,Doesn't include editor functionality,100000
+theme-my-login,likely_yes,Doesn't include editor functionality,100000
+themeisle-companion,likely_yes,Doesn't include editor functionality,100000
+tiny-compress-images,likely_yes,Some editor UI is missing,100000
+title-remover,likely_yes,Doesn't include editor functionality,100000
+under-construction-page,likely_yes,Doesn't include editor functionality,100000
+vaultpress,likely_yes,Doesn't include editor functionality,100000
+visual-form-builder,likely_yes,Some editor UI is missing,100000
+white-label-cms,likely_yes,Doesn't include editor functionality,100000
+woocommerce-pdf-invoices-packing-slips,likely_yes,Doesn't include editor functionality,100000
+wordpress-23-related-posts-plugin,likely_yes,Some editor UI is missing,100000
+wp-add-custom-css,likely_yes,Existing functionality works in Gutenberg,100000
+wp-dbmanager,likely_yes,Doesn't include editor functionality,100000
+wp-edit,likely_yes,Existing functionality works in Gutenberg,100000
+wp-file-manager,likely_yes,Doesn't include editor functionality,100000
+wp-google-fonts,likely_yes,Doesn't include editor functionality,100000
+wp-google-map-plugin,likely_yes,Doesn't include editor functionality,100000
+wp-lightbox-2,likely_yes,Doesn't include editor functionality,100000
+wp-polls,likely_yes,Some editor UI is missing,100000
+wp-postratings,likely_yes,Doesn't include editor functionality,100000
+wp-slimstat,likely_yes,Doesn't include editor functionality,100000
+xml-sitemap-feed,likely_yes,Doesn't include editor functionality,100000
+yith-woocommerce-ajax-navigation,likely_yes,Doesn't include editor functionality,100000
+addquicktag,no,Doesn't include editor functionality,100000
+better-font-awesome,no,Some editor UI is missing,100000
+fancybox-for-wordpress,no,Some editor UI is missing,100000
+foobox-image-lightbox,no,Some editor UI is missing,100000
+foogallery,no,Some editor UI is missing,100000
+maxbuttons,no,Some editor UI is missing,100000
+mce-table-buttons,no,Doesn't include editor functionality,100000
+pdf-embedder,no,Some editor UI is missing,100000
+portfolio-post-type,no,Some editor UI is missing,100000
+revision-control,no,Some editor UI is missing,100000
+sidekick,no,Some editor UI is missing,100000
+wp-editor,no,Doesn't include editor functionality,100000
+ad-inserter,testing,,100000
+advanced-excerpt,testing,,100000
+blogger-importer,testing,,100000
+column-shortcodes,testing,,100000
+contact-form-7-datepicker,testing,,100000
+cornerstone,testing,,100000
+envira-gallery-lite,testing,,100000
+mailchimp,testing,,100000
+shareaholic,testing,,100000
+sumome,testing,,100000
+ultimate-social-media-icons,testing,,100000
+unyson,testing,,100000
+woocommerce-gateway-paypal-powered-by-braintree,testing,,100000
+404-to-301,yes,Doesn't include editor functionality,100000
+all-404-redirect-to-homepage,yes,Doesn't include editor functionality,100000
+all-in-one-favicon,yes,Doesn't include editor functionality,100000
+auto-terms-of-service-and-privacy-policy,yes,Doesn't include editor functionality,100000
+automatic-updater,yes,Doesn't include editor functionality,100000
+caldera-forms,yes,Existing functionality works in Gutenberg,100000
+call-now-button,yes,Doesn't include editor functionality,100000
+child-theme-configurator,yes,Doesn't include editor functionality,100000
+cloudflare,yes,Doesn't include editor functionality,100000
+cmb2,yes,Doesn't include editor functionality,100000
+content-views-query-and-display-post-page,yes,Existing functionality works in Gutenberg,100000
+count-per-day,yes,Doesn't include editor functionality,100000
+custom-css-js,yes,Doesn't include editor functionality,100000
+cyr3lat,yes,Doesn't include editor functionality,100000
+disable-google-fonts,yes,Doesn't include editor functionality,100000
+display-posts-shortcode,yes,Existing functionality works in Gutenberg,100000
+email-address-encoder,yes,Doesn't include editor functionality,100000
+email-subscribers,yes,Doesn't include editor functionality,100000
+exclude-pages,yes,Existing functionality works in Gutenberg,100000
+facebook,yes,Doesn't include editor functionality,100000
+favicon-by-realfavicongenerator,yes,Doesn't include editor functionality,100000
+genesis-enews-extended,yes,Doesn't include editor functionality,100000
+gtranslate,yes,Doesn't include editor functionality,100000
+iframe,yes,Existing functionality works in Gutenberg,100000
+imagify,yes,Doesn't include editor functionality,100000
+instagram-slider-widget,yes,Doesn't include editor functionality,100000
+list-category-posts,yes,"Existing functionality works in Gutenberg, Doesn't include editor functionality",100000
+members,yes,Existing functionality works in Gutenberg,100000
+nav-menu-roles,yes,Doesn't include editor functionality,100000
+no-category-base-wpml,yes,Doesn't include editor functionality,100000
+oauth-twitter-feed-for-developers,yes,Doesn't include editor functionality,100000
+official-statcounter-plugin-for-wordpress,yes,Existing functionality works in Gutenberg,100000
+p3-profiler,yes,Doesn't include editor functionality,100000
+post-duplicator,yes,Doesn't include editor functionality,100000
+pubsubhubbub,yes,Doesn't include editor functionality,100000
+q2w3-fixed-widget,yes,Existing functionality works in Gutenberg,100000
+recent-posts-widget-extended,yes,Doesn't include editor functionality,100000
+relevanssi,yes,Doesn't include editor functionality,100000
+remove-query-strings-from-static-resources,yes,Doesn't include editor functionality,100000
+search-regex,yes,"Existing functionality works in Gutenberg, Doesn't include editor functionality",100000
+seo-image,yes,Doesn't include editor functionality,100000
+seo-ultimate,yes,Existing functionality works in Gutenberg,100000
+simple-custom-post-order,yes,Doesn't include editor functionality,100000
+simple-share-buttons-adder,yes,Doesn't include editor functionality,100000
+simple-tags,yes,Existing functionality works in Gutenberg,100000
+social-media-feather,yes,Existing functionality works in Gutenberg,100000
+social-media-widget,yes,Doesn't include editor functionality,100000
+ssl-insecure-content-fixer,yes,Doesn't include editor functionality,100000
+stops-core-theme-and-plugin-updates,yes,Existing functionality works in Gutenberg,100000
+svg-support,yes,Existing functionality works in Gutenberg,100000
+theme-check,yes,Doesn't include editor functionality,100000
+uk-cookie-consent,yes,Doesn't include editor functionality,100000
+underconstruction,yes,Doesn't include editor functionality,100000
+use-any-font,yes,Existing functionality works in Gutenberg,100000
+video-thumbnails,yes,Existing functionality works in Gutenberg,100000
+widget-css-classes,yes,Doesn't include editor functionality,100000
+wordpress-ping-optimizer,yes,Doesn't include editor functionality,100000
+wp-jalali,yes,Doesn't include editor functionality,100000
+wp-job-manager,yes,Doesn't include editor functionality,100000
+wp-retina-2x,yes,Doesn't include editor functionality,100000
+wp-sitemap-page,yes,Doesn't include editor functionality,100000
+wp-social-bookmarking-light,yes,Doesn't include editor functionality,100000
+yith-woocommerce-ajax-search,yes,Doesn't include editor functionality,100000
+yith-woocommerce-compare,yes,Existing functionality works in Gutenberg,100000
