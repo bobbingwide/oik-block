@@ -3,7 +3,8 @@ Contributors: bobbingwide
 Donate link: https://www.oik-plugins.com/oik/oik-donate/
 Tags: shortcode, blocks
 Requires at least: 4.9
-Tested up to: 5.0
+Tested up to: 5.0-alpha
+Gutenberg compatible: Yes
 Stable tag: 0.0.0-alpha-20180409
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

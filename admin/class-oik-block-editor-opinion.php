@@ -116,20 +116,57 @@ class oik_block_editor_opinion {
 	
 	
 	/**
+	 * Allows us to change our opinion
+	 * 
+	 * @param string $opinion - expected to be two chars or null
+	 */
+	public function set_opinion( $opinion ) {
+		$this->set_preferred_editor( $opinion );
+		$this->set_mandatory_from_opinion( $opinion );
+	}
+	
+	public function get_opinion() {
+		$next_opinion = $this->get_preferred_editor();
+		$next_opinion .= $this->get_mandatory();
+		return $next_opinion;
+	}
+	
+	/**
+	 * Allows us to change the importance of our opinion
+	 * 
+	 * @param string $opinion - expected to be two chars or null
+	 */
+	public function set_mandatory_from_opinion( $opinion ) {
+		$mandatory = strtoupper( substr( $opinion . "OO", 1, 1 ) );
+		if ( "M" === $mandatory ) {
+			$this->mandatory = true;
+		} else {
+			$this->mandatory = false;
+		}
+	}
+	
+	/**
+	 * Determines a new decision
+	 * 
+	 * Considers this (next) opinion in light of the current decision
+	 * 
+	 * This table contains some examples showing how it works. 
 	 * 
 	 * Current | Next opinion | New current | Notes
 	 * ------- | ------------ | ----------- | -------
-	 * AO      | AO           | AO
-	 * AM      | 
-	 * BO      |
-	 * BM      |
-	 * CO      | 
-	 * CM      | 
+	 * AO      | AO           | AO					| No change so we'll return the current decision 
+	 * BM      | CM           | CM          | Oops! We can't use both the Block editor and the Classic editor. Classic trumps
+	 * CO      | CM           | CM          | Next opinion is Mandatory - so overrides current
+	 * CM      | AM           | CM          | Oops! Ambivalent Mandatory doesn't really make sense.
+	 *
+	 * There are 36 possible combinations.
+	 * The $decisions array is sparsely populated with situations where the decision would change
 	 */
 	public function consider( $current_decision ) {
 		$decisions = array( "AOAM" => "AM"
 		                  , "AOBM" => "BM"
 											, "AOCM" => "CM"
+											, "AOCO" => "CO"
 											, "AMBM" => "BM"  
 		                  , "AMCM" => "CM"
 											, "BOAO" => "AO"
@@ -139,7 +176,7 @@ class oik_block_editor_opinion {
 											, "BOCM" => "CM"
 											, "BMAM" => "BM"
 											, "BMCM" => "CM" // Oops
-											, "COAO" => "AO"
+											, "COAO" => "CO" // Stay with CO once chosen
 											, "COAM" => "AM"
 											, "COBO" => "AO"
 											, "COBM" => "BM"
@@ -149,6 +186,9 @@ class oik_block_editor_opinion {
 											);
 		$next_opinion = $this->get_preferred_editor();
 		$next_opinion .= $this->get_mandatory();
+		
+		$current_opinion=  $this->get_opinion();
+	  // echo "cD: $current_decision $next_opinion $current_opinion";
 		
 		$new_decision = bw_array_get( $decisions, $current_decision . $next_opinion, $current_decision );
 		

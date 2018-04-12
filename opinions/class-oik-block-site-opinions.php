@@ -16,6 +16,7 @@ class oik_block_site_opinions {
 													 , "mu_plugin_support"
 													 , "active_network_plugin_support"
 													 , "active_plugin_support"
+													 , "summarise_plugin_compatibility"
 													 );
 
 	public function __construct() {
@@ -35,12 +36,20 @@ class oik_block_site_opinions {
 		 if ( method_exists( $this, $thought ) ) {
 				$opinion = $this->$thought();
 			} else {
+				echo "Can't form opinion using $thought";
 				gob();
 			}
 			 
 			 
 			if ( $opinion ) {
-				$opinions[] = $opinion;
+				if ( is_array( $opinion ) )  {
+					foreach ( $opinion as $one_opinion ) {
+						$opinions[] = $one_opinion;
+					}
+					
+				} else {
+					$opinions[] = $opinion;
+				}
 			}
 		}
 		//bw_trace2();
@@ -93,49 +102,76 @@ class oik_block_site_opinions {
 	}
 	
 	/**
-	 * Looks at "Tested up to:" and "Gutenberg compatible:" from the readme.txt file for each plugin
+	 * Analyses active plugins for their known / perceived ability to peacefully coexist with Gutenberg
 	 * 
-	 *
-	 * @TODO Decide if "Requires at least" is a valid thing to test
-	 
-	 * My initial thought was we could use existing values. But further reading up on the purpose 
-	 * of this tag suggests it's not a good test right now. Perhaps in the future we can make the inferences.
-	 * - If Requires at least is > 4.9 then that's probably OK
-	 * - If Requires at least is >= 5.0 then it implies it needs the block editor?
+	 * For each active plugin, attempts to obtain and evaluate
 	 * 
+	 * - "Tested up to:" from the readme.txt file
+	 * - Compatible status from the plugin compatibility database
+	 * - "Gutenberg compatible:" from the readme.txt file
 	 * 
 	 */
 	public function active_plugin_support() {
 		$this->load_plugincompatibility();
-		//gob();
 		$plugins = bw_get_active_plugins();
-		//print_r( $plugins );
-		foreach ( $plugins as $plugin_name => $plugin_file ) {
-			//echo $plugin_name;
-			$gc_opinion = $this->check_gutenberg_compatible( $plugin_name );
-			
-			$readme = $this->readme( $plugin_name );
-			//$this->check_requires( $readme, "ge", "4.9" );
-			$tut_opinion = $this->check_tested_up_to( $readme );
-			$this->accumulate_plugin_opinions( $plugin_name, $gc_opinion, $tut_opinion );
-			
-		}
-	}
-	
-	function accumulate_plugin_opinions( $plugin, $gc_opinion, $tut_opinion ) {
-		echo "$plugin: $gc_opinion $tut_opinion" . PHP_EOL;
+		$this->plugin_opinions = array();
 		
+		foreach ( $plugins as $plugin_name => $plugin_file ) {
+			$readme = $this->readme( $plugin_name );
+			$tut_opinion = $this->check_tested_up_to( $readme );
+			$gc_readme = $this->get_value( "Gutenberg compatible:", $readme );
+			//$readme_opinion = $this->check_readme_opinion( $readme );
+			$gutenberg_compatible = $this->get_gutenberg_compatible( $plugin_name );
+			$gc_opinion = $this->check_gutenberg_compatible( $gutenberg_compatible, $gc_readme );
+			
+			$this->accumulate_plugin_opinions( $plugin_name, $tut_opinion, $gc_opinion );
+		}
+		return $this->plugin_opinions;
 	}
 	
+	/**
+	 * Accumulates plugin opinions.
+	 * 
+	 * @TODO - Complete the accumulation
+	 * - Create an opinion for each plugin
+	 * - Accumulate the differing opinions
+	 * - If there are CO / CM opinions then we'll need to create a summary opinion
+	 * - Probably a Mandatory one
+	 */
+	function accumulate_plugin_opinions( $plugin, $tut_opinion, $gc_opinion ) {
+		$observation =  "Plugin: $plugin: $gc_opinion,$tut_opinion";
+		$opinion = new oik_block_editor_opinion( 'A', false, 'S', $observation );
+		
+		$deliberation = "AO";
+		$opinion->set_opinion( $tut_opinion );
+		$deliberation = $opinion->consider( $deliberation );
+		$opinion->set_opinion( $gc_opinion );
+		//$now = $opinion->get_opinion();
+		$deliberation = $opinion->consider( $deliberation );
+		$opinion->set_opinion( $deliberation );
+		$opinion->observation .= $this->gc;
+		
+		$this->plugin_opinions[] = $opinion;
+	}
+	
+	/**
+	 * Loads the readme.txt file, if present
+	 *
+	 * Some plugins don't have readme.txt files
+	 * - The GitHub version of Gutenberg
+	 * - Must use plugins 
+	 *
+	 * @param string $plugin_name the plugin slug, not the plugin file name
+	 * @return array empty if there's no readme.txt file
+	 */ 
 	private function readme( $plugin_name ) {
 		$file = WP_PLUGIN_DIR . '/'. $plugin_name . '/' . 'readme.txt';
 		if ( file_exists( $file ) ) { 
 			$lines = file( $file );
 		} else {
 			$lines = array();
-			echo "No readme" . $file;
+			bw_trace2( $file, "No readme.txt file", true, BW_TRACE_DEBUG );
 		}
-		//print_r( $lines );
 		return $lines;
 	}
 	
@@ -163,6 +199,21 @@ class oik_block_site_opinions {
 	}
 	
 	
+	/** 
+	 *
+	 * @TODO Decide if "Requires at least" is a valid thing to test
+	 
+	 * My initial thought was we could use the existing value. 
+	 * Further reading up on the purpose of this section suggests it's not a good test right now.
+	 * This is because, the value is used by core to determine if it's safe to offer a plugin update
+	 * based on the current version of core. When updating to 5.0 we're more likely to want plugins to 
+	 * be brought up to the latest level before updating core. 
+	 * Using ths update sequence we'll know that the plugin will peacefully coexist with Gutenberg. 
+	 
+	 * Perhaps in the future we can make the inferences.
+	 * - If Requires at least is > 4.9 then that's probably OK
+	 * - If Requires at least is >= 5.0 then it implies it needs the block editor?
+	 */
 	private function check_requires( $readme, $compare, $version ) {
 		$value = $this->get_value( "Requires at least:", $readme );
 		echo $value;
@@ -193,53 +244,78 @@ class oik_block_site_opinions {
 		
 	}
 	
+	private function check_readme_opinion( $gutenberg_compatible ) {
+		if ( $gutenberg_compatible ) {
+			$readme_opinion = $this->map_gutenberg_compatible_to_opinion( $gutenberg_compatible );
+		} else {
+			$readme_opinion = null;
+		}
+		return $readme_opinion;
+	}
+	
 	/**
 	 * Determines Gutenberg compatibility 
 	 *
-   * Plugin evaluation, performed at Site level, will attempt to obtain the `Gutenberg compatible:` status 
-	 * for each active plugin and accumulate the opinions into a single Mandatory opinion, 
-	 * which will then be used to influence the overall decision.  
+	 * Compares the values obtained from the plugin compatibility database and the local plugin
+	 * with the local plugin's decision taking precedence
 	 * 
-	 The plugin compatibility database (  can be exported in three forms: CSV, JSON and tab separated
-	 We can load up the table, from opinions/plugincompatibility.csv, 
-   convert to an array and then index it for the required setting.
-	  
-	 If it's available we'll consider using this value.
+	 * From this value we return the mapping to an opinion
 	 
 	 
 	 Daniel Bachhuber's compatibility database suggests multiple values for the Gutenberg compatible setting, 
 	 which we'll map to Opinions as below
 	 
-	*
-	* Gutenberg compatible | Opinion 
-	* -- | --
-	* No | CO
-	* Yes | AO
-	* Likely-no | CO
-	* Likely-yes | AO
-	* Testing | AO
-	* Unknown | AO
+	 if
+	 
 
 	*/
-	public function check_gutenberg_compatible( $plugin ) {
-		$gutenberg_compatible = $this->get_gutenberg_compatible( $plugin );
-		if ( $gutenberg_compatible ) {
-			$mapping = $this->map_gutenberg_compatible_to_opinion( $gutenberg_compatible );
+	public function check_gutenberg_compatible( $gutenberg_compatible, $gc_readme ) {
+		if ( $gc_readme ) {
+			$this->gc = $gc_readme;
+		} else {
+			$this->gc = $gutenberg_compatible;
+		}
+		if ( $this->gc ) {
+			$mapping = $this->map_gutenberg_compatible_to_opinion( $gc );
 		} else {
 			$mapping = null;
 		}
 		return $mapping;
 	}
 	
-	
+	/**
+	 * Get the stored value for Gutenberg compatible
+	 * 
+   * Plugin evaluation, performed at Site level, will attempt to obtain the `Gutenberg compatible:` status 
+	 * for each active plugin and accumulate the opinions into a single (Mandatory) opinion, 
+	 * which will then be used to influence the overall decision.  
+	 * 
+	 * The plugin compatibility database ( https://plugincompat.danielbachhuber.com/ ) can be exported in three forms: CSV, JSON and tab separated
+	 * We can load up the table, from opinions/plugincompatibility.csv, 
+   * convert to an array and then index it for the required setting.
+	 *  
+	 * If it's available we'll consider using this value.
+	 */
 	public function get_gutenberg_compatible( $plugin ) {
 		$gutenberg_compatible = bw_array_get( $this->plugin_compatibility, $plugin, null );
 		return $gutenberg_compatible;
 	}
 	
-	
+	/**
+	 * Maps the Gutenberg compatible value to an opinion
+	 *
+	 * Gutenberg compatible | Opinion 
+	 * -------------------- | -------
+	 * No                   | CO
+	 * Yes                  | AO
+	 * Likely-no            | CO
+	 * Likely-yes           | AO
+	 * Testing              | AO
+	 * Unknown              | AO
+	 */
 	public function map_gutenberg_compatible_to_opinion( $gutenberg_compatible ) {
 		$gc = strtolower( $gutenberg_compatible );
+		$gc = str_replace( "-", "_", $gc );
 		$mapping = array( "no" => "CO" 
 										, "yes" => "AO"
 										, "likely_no" => "CO"
@@ -250,7 +326,6 @@ class oik_block_site_opinions {
 		$opinion = bw_array_get( $mapping, $gc, null );
 		return $opinion;
 	}								
-									
 	
 	/**
 	 * Parses the plugincompatibility.csv file
@@ -263,9 +338,11 @@ class oik_block_site_opinions {
 	 * `
 	 * 
 	 * Note: There can be duplicates; we'll take the last and hope for the best.
+	 * 
+	 * Currently using "-gt100k" suffixed file. 
 	 */
 	public function load_plugincompatibility() {
-		$plugin_compatibility = file( oik_path( "opinions/plugincompatibility.csv", "oik-block" ) );
+		$plugin_compatibility = file( oik_path( "opinions/plugincompatibility-gt100k.csv", "oik-block" ) );
 		//echo count( $plugin_compatibility );
 		$this->plugin_compatibility = array();
 		$count = 0;
@@ -286,6 +363,24 @@ class oik_block_site_opinions {
 		//echo "After" . PHP_EOL;
 		//echo count( $this->plugin_compatibility );
 	
+	}
+	
+	/**
+	 * Summarise the plugincompatibility status 
+	 *
+	 * Count the number in each status
+	 * @TODO When there are enough results consider making opinions.
+	 * Determine the total number
+	 */
+	public function summarise_plugin_compatibility() {
+		$counts = array();
+		foreach ( $this->plugin_compatibility as $plugin => $compatibility ) {
+			if ( !isset( $counts[ $compatibility ] ) ) {
+				$counts[ $compatibility ] = 0;
+			}
+			$counts[ $compatibility ]++;
+		}
+		//print_r( $counts );
 	}
 
 
