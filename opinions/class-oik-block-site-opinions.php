@@ -127,15 +127,14 @@ class oik_block_site_opinions {
 			$this->accumulate_plugin_opinions( $plugin_name, $tut_opinion, $gc_opinion );
 		}
 		$summarised_opinion = $this->summarise_plugin_opinions();
-		// Do we add this to the array or what?
-		return $this->plugin_opinions;
-		//return $summarised_opinion;
+		
+		$opinions = $this->reportable_opinions( $summarised_opinion );
+		return $opinions;
 	}
 	
 	/**
 	 * Accumulates plugin opinions.
 	 * 
-	 * @TODO - Complete the accumulation
 	 * - Create an opinion for each plugin
 	 * - Accumulate the differing opinions
 	 * - If there are CO / CM opinions then we'll need to create a summary opinion
@@ -156,8 +155,9 @@ class oik_block_site_opinions {
 	/**
 	 * Summarises plugin opinions
 	 * 
-	 * So we can potentially hide the details
-	 *
+	 * Count each plugin opinion to produce a summary opinion.
+	 * 
+	 * @return summarise opinion
 	 */
 	function summarise_plugin_opinions() {
 		$summary = array();
@@ -180,6 +180,28 @@ class oik_block_site_opinions {
 			$summarised_opinion = new oik_block_editor_opinion( "A", false, "S", "Active plugins appear OK", $notes );
 		}
 		return $summarised_opinion;
+	}
+	
+	/**
+	 * Return the reportable opinions for plugins
+	 *
+	 * For some people the summary might be good enough
+	 * Others like all the nitty gritty.
+	 * Here's a compromise.
+	 */ 
+	private function reportable_opinions( $summarised_opinion ) {
+		$reportable = array();
+		$reportable[] = $summarised_opinion;
+		foreach ( $this->plugin_opinions as $opinion ) {
+			$decision = $opinion->get_opinion();
+			if ( "CM" === $decision ) {
+				$reportable[] = $opinion;
+			}
+			if ( "CO" === $decision ) {
+				$reportable[] = $opinion;
+			}
+		}
+		return $reportable;
 	}
 		
 	
