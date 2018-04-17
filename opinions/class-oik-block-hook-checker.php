@@ -6,20 +6,24 @@
  * 
  */
  
- 
 /**
  * Issue #25
- 
+ *
  * Related: https://github.com/WordPress/gutenberg/issues/1316
- 
-Another way of checking plugin compatibility is to look internally into the code.
-The classic editor invokes hooks and filters in a certain way
-The block editor changes that way. 
-There's an issue to document the changes.
-It should be possible to build routines that determine if plugins attach functions to the hooks that are changing. 
-If the hook is no longer being invoked OR hooks are being invoked in a different sequence to expected there could be a problem. 
-As a test, let's see if we can detect an issue with hello-dolly, or any plugin that responds to the 'replace_editor' hook, or help hooks or screen option hooks.
-I'll raise a separate issue for this. 
+ *
+ *	Another way of checking plugin compatibility is to look internally into the code.
+ *	The classic editor invokes hooks and filters in a certain way
+ *	The block editor changes that way. 
+ *	There's an issue to document the changes.
+ *	It should be possible to build routines that determine if plugins attach functions to the hooks that are changing. 
+ *	If the hook is no longer being invoked OR hooks are being invoked in a different sequence to expected there could be a problem. 
+ *	As a test, let's see if we can detect an issue with
+ *	-  hello-dolly, 
+ *	- or any plugin that responds to the 'replace_editor' hook, 
+ *	- or help hooks or screen option hooks.
+ *	
+ *	I'll raise a separate issue for this.
+ *  
  */
  
 class oik_block_hook_checker {
@@ -138,9 +142,9 @@ class oik_block_hook_checker {
 	 * ---------------- |------- | -------------  | ----------------------------------------------------------------  | -------
 	 * admin_body_class | filter | attached count | Gutenberg adds "gutenberg-editor-page" (inside "replace_editor" ) | None
 	 * admin_enqueue_scripts | action | attached count | 
+	 
+	 
 	 */
-
-	
 	
 
 }

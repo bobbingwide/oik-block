@@ -1,8 +1,15 @@
 <?php 
-/* Two file scan 
-   Compare g813.names vs c813.names
-	 documenting changes
-	 Where c813.names is the master and we're looking for changes 
+/* Two file scan
+ 
+   Compares g813.names vs c813.names summarising changes
+	 Where c813.names is the master ( Classic editor ) and we're looking for changes in the hooks that are invoked.
+	 
+	 g813.tree and c813.tree is the 
+	 
+	 
+The logic in oik_block_hook_checker only works for those hooks which are registered when the analysis is performed.
+If a plugin / theme attached hooks dynamically ( which happens a lot ) then
+the summary of attached hooks may not include the hook functions attached by that plugin.
 	 
 	 
 c813.names extract
@@ -108,10 +115,6 @@ class two_file_scan {
 			}
 			echo PHP_EOL;
 		}
-		
-		
-		
-			 
 	
 	}
 	
@@ -190,7 +193,7 @@ class two_file_scan {
 		} else {
 		
 		
-      echo "Match," . $this->ghook;
+      //echo "Match," . $this->ghook;
 			$this->same++;
 		}
 	}
@@ -206,5 +209,16 @@ class two_file_scan {
  		echo "Added," . $this->ghook;
 		$this->added++;
 	}
+	
+	/**
+	 * Hook             | Type   | Change         | Details                                                           |	Observation 
+	 * ---------------- |------- | -------------  | ----------------------------------------------------------------  | -------
+	 * admin_body_class | filter | attached count | Gutenberg adds "gutenberg-editor-page" (inside "replace_editor" ) | None
+	 * admin_enqueue_scripts | action | attached count | 
+	 */
+	
+	
+	function report_change( $gparts, $cparts ) {
+	
 	
 }
