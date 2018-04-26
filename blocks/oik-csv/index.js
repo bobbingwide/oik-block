@@ -9,6 +9,9 @@ const {
 	Editable,
   InspectorControls,
 	PlainText,
+	
+  AlignmentToolbar,
+  BlockControls,
  } = wp.blocks;
 	 
 const {
@@ -23,7 +26,7 @@ const {
 
 } = wp.components;
 
-
+const Fragment = wp.element.Fragment;
 const RawHTML = wp.element.RawHTML;
 // Set the header for the block since it is reused
 //const blockHeader = <h3>{ __( 'Person' ) }</h3>;
@@ -71,6 +74,11 @@ export default registerBlockType(
 						default: '',
 					},
 					
+					uo: { 
+						type: 'string',
+						default: 'u',
+					},
+					
         },
 				
 		supports: {
@@ -80,7 +88,7 @@ export default registerBlockType(
 		},
 			
 		edit: withInstanceId(
-			( { attributes, setAttributes, instanceId, focus } ) => {
+			( { attributes, setAttributes, instanceId, isSelected } ) => {
 				const inputId = `blocks-csv-input-${ instanceId }`;
 				
 				
@@ -91,16 +99,80 @@ export default registerBlockType(
 				const onChangeContent = ( value ) => {
 					setAttributes( { content: value } );
 				};
+				
+				const onChangeAlignment = ( value ) => {
+					
+				};
+				
+				const onChangeUo = ( value ) => {
+					setAttributes( { uo: value } );
+				};
+				
+				function isTable() {
+					return attributes.uo == "";
+				}
+				
+				function isUl() {
+					return attributes.uo == "u";
+				}
+				function isOl() {
+					return attributes.uo == "o";
+				}
+				
+				function setTable() {
+					setAttributes( { uo: "" } );
+				}
+				
+				function setUl() {
+					setAttributes( { uo: "u" } );
+				}
+				
+				function setOl() {
+					setAttributes( { uo: "o" } );
+				}
+
+				
 	
 				return [
 				
-  					!! focus && (
+  					isSelected && (
               <InspectorControls key="css">
 								<PanelBody>
 									<TextControl label="Text" value={attributes.text} onChange={onChangeText} />
+									<TextControl label="uo" value={attributes.uo} onChange={onChangeUo} />
 								</PanelBody>
               </InspectorControls>
   					),
+						isSelected && (
+						
+                  <BlockControls key="flagbogtiddle"
+										controls={ [
+										{
+											icon: 'editor-table',
+											title: __( 'Display as table' ),
+											isActive:  isTable(),
+											onClick: setTable,
+										},
+										
+										{
+											icon: 'editor-ul',
+											title: __( 'Display as unordered list' ),
+											isActive:  isUl(),
+											onClick: setUl,
+										},
+										
+										{
+											icon: 'editor-ol',
+											title: __( 'Display as ordered list' ),
+											isActive:  isOl(),
+											onClick: setOl,
+											
+										},
+										] }
+									
+									
+                  />
+						),
 					<div className="wp-block-oik-block-csv wp-block-shortcode" key="css-input">
 						<PlainText
 							id={ inputId }
@@ -109,6 +181,7 @@ export default registerBlockType(
 							onChange={onChangeContent}
 						/>
 					</div>
+				 					
 				];
 			}
 		),
