@@ -103,6 +103,22 @@ class oik_block_site_opinions {
 	}
 	
 	/**
+	 * Returns array of active plugins
+	 * 
+	 * @return array 
+	 */
+	private function get_active_plugins() {
+		$plugins = array();
+		if ( !function_exists( "bw_get_active_plugins" ) ) {
+			oik_require_lib( "oik-depends" );
+		}
+		if ( function_exists( "bw_get_active_plugins" ) ) {
+			$plugins = bw_get_active_plugins();
+		}
+		return $plugins;
+	}
+	
+	/**
 	 * Analyses active plugins for their known / perceived ability to peacefully coexist with Gutenberg
 	 * 
 	 * For each active plugin, attempts to obtain and evaluate
@@ -114,7 +130,7 @@ class oik_block_site_opinions {
 	 */
 	public function active_plugin_support() {
 		$this->load_plugincompatibility();
-		$plugins = bw_get_active_plugins();
+		$plugins = $this->get_active_plugins();
 		$this->plugin_opinions = array();
 		
 		foreach ( $plugins as $plugin_name => $plugin_file ) {
