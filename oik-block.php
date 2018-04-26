@@ -53,34 +53,20 @@ function oik_block_editor_scripts() {
 	if ( isset( $_GET['classic-editor'] ) ) {
 		gob();
 	}
-	//gob();
 
-    // Make paths variables so we don't write em twice ;)
-    $blockPath = 'blocks/build/js/editor.blocks.js';
-    //$blockPath = '/blocks/build/js/dummy.blocks.js';
-		
+	if ( doing_filter( "replace_editor" ) ) {
+		//oik_block_register_editor_scripts();
+		wp_enqueue_script( 'oik_block-blocks-js' );
+		// Pass in REST URL
+		wp_localize_script(
+			'oik_block-blocks-js',
+			'oik_block_globals',
+			[
+				'rest_url' => esc_url( rest_url() )
+			]);
+	}
+// Enqueue optional editor only styles
     $editorStylePath = 'blocks/build/css/blocks.editor.css';
-
-    // Enqueue the bundled block JS file
-		
-    wp_enqueue_script(
-        'oik_block-blocks-js',
-        plugins_url( $blockPath, __FILE__ ),
-        [ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
-        filemtime( plugin_dir_path(__FILE__) . $blockPath )
-    );
-		
-
-    // Pass in REST URL
-    wp_localize_script(
-      'oik_block-blocks-js',
-      'oik_block_globals',
-      [
-        'rest_url' => esc_url( rest_url() )
-      ]);
-
-
-    // Enqueue optional editor only styles
 		
     wp_enqueue_style(
         'oik_block-blocks-editor-css',
@@ -121,13 +107,18 @@ function oik_block_frontend_scripts()
 			return;
 		}
 		
+		if ( is_admin() ) {
+			return;
+		}
 		
 		
     // Enqueue the bundled block JS file
      wp_enqueue_script(
         'oik_block-blocks-frontend-js',
         plugins_url( $blockPath, __FILE__ ),
-        [ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
+        //[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ],
+				
+					[ 'wp-blocks', 'wp-element' ],
         filemtime( plugin_dir_path(__FILE__) . $blockPath )
     );
 		
@@ -327,7 +318,7 @@ function oik_block_loaded() {
 
 	add_action( "oik_loaded", "oik_block_oik_loaded" );
 	
-	oik_block_register_dynamic_blocks();
+	add_action( "init", "oik_block_register_dynamic_blocks" );
 	
 	
 	
@@ -342,13 +333,60 @@ function oik_block_loaded() {
 
 /**
  * Registers action/filter hooks for oik's dynamic blocks
+ *
+ * We have to do this during init, which comes after _enqueue_ stuff
+ *
+ script, style, editor_script, and editor_style
  */
 function oik_block_register_dynamic_blocks() {
 	if ( function_exists( "register_block_type" ) ) {
-		register_block_type( 'oik-block/contact-form', [  'render_callback' => 'oik_block_dynamic_block_contact_form' ] );
+		oik_block_register_editor_scripts();
+		register_block_type( 'oik-block/contact-form', 
+												[  'render_callback' => 'oik_block_dynamic_block_contact_form' 
+												,	'editor_script' => 'oik_block-blocks-js'
+												, 'editor_style' => null
+												, 'script' => null
+												, 'style' => null
+												] );
 		register_block_type( 'oik-block/css', [ 'render_callback' => 'oik_block_dynamic_block_css' ] );
 		register_block_type( 'oik-block/csv', [ 'render_callback' => 'oik_block_dynamic_block_csv' ] );
+		register_block_type( 'oik-block/dummy', 
+												[ 'render_callback' => 'oik_block_dummy' 
+												,	'editor_script' => 'oik_block-dummy-js'
+												, 'script' => 'oik_block-dummy-js'
+												]
+											 );
+												 
 	}
+}
+
+/**
+ * Registers the scripts we'll need	for the editor
+ * 
+ * Not sure why we'll need Gutenberg scripts for the front-end.
+ * But we might need Javascript stuff for some things, so these can be registered here.
+ *
+ * Dependencies were initially 
+ * `[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api' ]`
+ *
+ * why do we need the dependencies?
+ */
+function oik_block_register_editor_scripts() {
+	bw_trace2();
+	bw_backtrace();
+	
+	$scripts = array( 'oik_block-blocks-js' => 'blocks/build/js/editor.blocks.js' 
+									, 'oik_block-dummy-js' => '/blocks/build/js/dummy.blocks.js'
+									);
+	foreach ( $scripts as $name => $blockPath ) {
+		wp_register_script( $name,
+			plugins_url( $blockPath, __FILE__ ),
+			// [],
+			[ 'wp-blocks', 'wp-element' ],
+			filemtime( plugin_dir_path(__FILE__) . $blockPath )
+		);
+	}
+	
 }
 
 /** 
