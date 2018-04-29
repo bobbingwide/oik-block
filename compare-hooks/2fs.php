@@ -4,7 +4,8 @@
    Compares g813.names vs c813.names summarising changes
 	 Where c813.names is the master ( Classic editor ) and we're looking for changes in the hooks that are invoked.
 	 
-	 g813.tree and c813.tree is the 
+	 g813.tree and c813.tree are the files we could use to determine if the sequence in which the hooks are run has changed.
+	  
 	 
 	 
 The logic in oik_block_hook_checker only works for those hooks which are registered when the analysis is performed.
@@ -43,6 +44,7 @@ g813.names extract
 */
 
 $scanner = new two_file_scan();
+$scanner->report_header();
 $scanner->scan();
 $scanner->summary();
 
@@ -52,11 +54,12 @@ class two_file_scan {
 	public $changed = 0;
 	public $deleted = 0;
 	public $same = 0;
+	
 
 	function __construct() {  
 
-		$this->g813names = file( "../play/g813.names" );
-		$this->c813names = file( "../play/c813.names" );
+		$this->g813names = file( "../compare-hooks/g813.names" );
+		$this->c813names = file( "../compare-hooks/c813.names" );
 		$this->gc = count( $this->g813names );
 		$this->cc = count( $this->c813names );
 	
@@ -77,7 +80,7 @@ class two_file_scan {
 	}
 	
 	function oline( $text, $value ) {
-		echo $text . ',' . $value . PHP_EOL;
+		echo " " . $text . ',' . $value . PHP_EOL;
 	}
 	
 	
@@ -113,7 +116,7 @@ class two_file_scan {
 				$this->new_hook( $this->gparts );
 				$gi = $this->nexti( $gi, $this->gc );
 			}
-			echo PHP_EOL;
+			//echo PHP_EOL;
 		}
 	
 	}
@@ -186,9 +189,11 @@ class two_file_scan {
 		
 		if ( $this->get_attached( $gparts ) != $this->get_attached( $cparts ) ) {
 			$this->oline( "Attached hooks changed", $this->ghook );
+			$this->report_change( "Attached hooks changed", $gparts, $cparts );
 			$this->changed++;
 		} elseif ( $this->get_count( $gparts ) != $this->get_count( $gparts ) ) {
 			$this->oline( "Invocations changed", $this->ghook );
+			$this->report_change( "Invocations changed", $gparts, $cparts );
 			$this->changed++;			
 		} else {
 		
@@ -200,13 +205,15 @@ class two_file_scan {
 
 	function deleted_classic( $cparts ) {
 	
-			echo "Deleted," . $this->chook;
+		$this->oline( "Deleted" , $this->chook );
+		$this->report_change( "Deleted", null, $cparts );
 		$this->deleted++;			
 
 	}
 
 	function new_hook( $gparts ) {
- 		echo "Added," . $this->ghook;
+ 		$this->oline( "Added" , $this->ghook );
+		$this->report_change( "Added", $gparts, null );
 		$this->added++;
 	}
 	
@@ -218,7 +225,52 @@ class two_file_scan {
 	 */
 	
 	
-	function report_change( $gparts, $cparts ) {
+	function report_change( $change, $gparts, $cparts ) {
+		if ( $gparts ) {
+			$parts = $gparts;
+		} else {
+			$parts = $cparts;
+			$gparts = array( null, null, null, null, null );
+		}
+		
+		if ( !$cparts ) {
+			$cparts = array( null, null, null, null, null );	
+		}
+		$line = array();
+		$line[] = $this->get_hook( $parts );
+		$line[] = $this->get_type( $parts );
+		$line[] = $change;
+		$line[] = $this->gvc( $this->get_num_args( $gparts ) , $this->get_num_args( $cparts ) );
+		$line[] = $this->gvc( $this->get_attached( $gparts ) , $this->get_attached( $cparts ) );
+		$line[] = $this->gvc( $this->get_count( $gparts ) , $this->get_count( $cparts ) );
+		
+		echo implode( "|", $line );
+		echo PHP_EOL;
+	}
+	
+	function report_header() {
+		$line = array();
+		$line[] = "Hook";
+		$line[] = "Type";
+		$line[] = "Change";
+		$line[] = "Num args";
+		$line[] = "Attached";
+		$line[] = "Count";
+		
+		
+		echo implode( "|", $line );
+		echo PHP_EOL;
+		
+	}
+	
+	function gvc( $gpart, $cpart ) {
+		$part = $gpart;
+		if ( $gpart !== $cpart ) {
+			$part .= " ";
+			$part .= $cpart;
+		}
+		return $part;
+	}
 	
 	
 }
