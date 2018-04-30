@@ -1,0 +1,357 @@
+Hook|Type|Change|Num args|Attached|Count
+G 684
+C 659
+ Attached hooks changed,admin_body_class
+admin_body_class|filter|Attached hooks changed|1|1 0|1
+ Attached hooks changed,admin_enqueue_scripts
+admin_enqueue_scripts|action|Attached hooks changed|1|11 8|1
+ Attached hooks changed,admin_footer
+admin_footer|action|Attached hooks changed|1|1 4|1
+ Attached hooks changed,admin_head
+admin_head|action|Attached hooks changed|0|7 6|1
+ Attached hooks changed,admin_init
+admin_init|action|Attached hooks changed|0|39 38|1
+ Attached hooks changed,admin_menu
+admin_menu|action|Attached hooks changed|1|25 24|1
+ Deleted,admin_post_thumbnail_html
+admin_post_thumbnail_html|filter|Deleted| 3| 0| 1
+ Attached hooks changed,admin_print_footer_scripts
+admin_print_footer_scripts|action|Attached hooks changed|0|3 4|1
+ Attached hooks changed,admin_print_scripts
+admin_print_scripts|action|Attached hooks changed|0|1 2|1
+ Deleted,after_wp_tiny_mce
+after_wp_tiny_mce|action|Deleted| 1| 0| 1
+ Added,allowed_block_types
+allowed_block_types|filter|Added|2 |0 |1 
+ Added,auth_cookie_malformed
+auth_cookie_malformed|action|Added|2 |1 |6 
+ Added,author_link
+author_link|filter|Added|3 |0 |7 
+ Deleted,before_wp_tiny_mce
+before_wp_tiny_mce|action|Deleted| 1| 0| 1
+ Added,category_link
+category_link|filter|Added|2 |0 |13 
+ Added,content_pagination
+content_pagination|filter|Added|2 |0 |1 
+ Deleted,dbx_post_sidebar
+dbx_post_sidebar|action|Deleted| 1| 0| 1
+ Added,default_contextual_help
+default_contextual_help|filter|Added|1 |0 |1 
+ Deleted,default_hidden_columns
+default_hidden_columns|filter|Deleted| 2| 0| 1
+ Attached hooks changed,do_meta_boxes
+do_meta_boxes|action|Attached hooks changed|3|1 0|3
+ Added,do_parse_request
+do_parse_request|filter|Added|3 |0 |6 
+ Attached hooks changed,edit_form_advanced
+edit_form_advanced|action|Attached hooks changed|1|3 2|1
+ Deleted,edit_form_after_editor
+edit_form_after_editor|action|Deleted| 1| 0| 1
+ Deleted,edit_form_after_title
+edit_form_after_title|action|Deleted| 1| 0| 1
+ Deleted,edit_form_before_permalink
+edit_form_before_permalink|action|Deleted| 1| 0| 1
+ Deleted,edit_form_top
+edit_form_top|action|Deleted| 1| 0| 1
+ Deleted,editor_stylesheets
+editor_stylesheets|filter|Deleted| 1| 0| 1
+ Deleted,emoji_ext
+emoji_ext|filter|Deleted| 1| 0| 1
+ Deleted,emoji_svg_ext
+emoji_svg_ext|filter|Deleted| 1| 0| 1
+ Deleted,emoji_url
+emoji_url|filter|Deleted| 1| 0| 1
+ Added,enqueue_block_assets
+enqueue_block_assets|action|Added|0 |4 |1 
+ Added,enqueue_block_editor_assets
+enqueue_block_editor_assets|action|Added|0 |3 |1 
+ Added,excerpt_length
+excerpt_length|filter|Added|1 |0 |1 
+ Added,excerpt_more
+excerpt_more|filter|Added|1 |1 |1 
+ Added,filter_gutenberg_meta_boxes
+filter_gutenberg_meta_boxes|filter|Added|1 |1 |2 
+ Deleted,format_for_editor
+format_for_editor|filter|Deleted| 2| 0| 1
+ Added,found_users_query
+found_users_query|filter|Added|1 |0 |2 
+ Added,get_ancestors
+get_ancestors|filter|Added|4 |0 |13 
+ Added,get_category
+get_category|filter|Added|2 |0 |52 
+ Deleted,get_delete_post_link
+get_delete_post_link|filter|Deleted| 3| 0| 1
+ Attached hooks changed,get_edit_post_link
+get_edit_post_link|filter|Attached hooks changed|3|1 0|1
+ Deleted,get_sample_permalink_html
+get_sample_permalink_html|filter|Deleted| 5| 0| 1
+ Added,get_the_excerpt
+get_the_excerpt|filter|Added|2 |3 |1 
+ Added,get_the_guid
+get_the_guid|filter|Added|2 |0 |1 
+ Deleted,get_user_option_managepostcolumnshidden
+get_user_option_managepostcolumnshidden|filter|Deleted| 3| 0| 1
+ Deleted,get_user_option_screen_layout_post
+get_user_option_screen_layout_post|filter|Deleted| 3| 0| 1
+ Deleted,hidden_columns
+hidden_columns|filter|Deleted| 3| 0| 1
+ Added,http_origin
+http_origin|filter|Added|1 |0 |6 
+ Deleted,image_upload_iframe_src
+image_upload_iframe_src|filter|Deleted| 1| 0| 1
+ Deleted,is_protected_meta
+is_protected_meta|filter|Deleted| 3| 0| 15
+ Deleted,list_cats
+list_cats|filter|Deleted| 2| 1| 14
+ Attached hooks changed,manage_post_columns
+manage_post_columns|filter|Attached hooks changed|1|0 1|1
+ Deleted,mce_css
+mce_css|filter|Deleted| 1| 0| 1
+ Deleted,mce_external_languages
+mce_external_languages|filter|Deleted| 1| 0| 1
+ Deleted,media_buttons
+media_buttons|action|Deleted| 1| 1| 1
+ Deleted,media_buttons_context
+media_buttons_context|filter|Deleted| 1| 0| 1
+ Deleted,meta_query_find_compatible_table_alias
+meta_query_find_compatible_table_alias|filter|Deleted| 4| 0| 1
+ Added,oembed_default_width
+oembed_default_width|filter|Added|1 |0 |7 
+ Added,option_blogdescription
+option_blogdescription|filter|Added|2 |0 |1 
+ Added,option_comments_per_page
+option_comments_per_page|filter|Added|2 |0 |1 
+ Added,option_date_format
+option_date_format|filter|Added|2 |0 |1 
+ Deleted,option_page_for_posts
+option_page_for_posts|filter|Deleted| 2| 0| 3
+ Deleted,option_page_on_front
+option_page_on_front|filter|Deleted| 2| 0| 2
+ Added,option_rewrite_rules
+option_rewrite_rules|filter|Added|2 |0 |6 
+ Added,option_time_format
+option_time_format|filter|Added|2 |0 |1 
+ Added,parse_query
+parse_query|action|Added|1 |0 |1 
+ Added,parse_request
+parse_request|action|Added|1 |1 |6 
+ Added,parse_tax_query
+parse_tax_query|action|Added|1 |0 |2 
+ Attached hooks changed,plugins_loaded
+plugins_loaded|action|Attached hooks changed|0|9 8|7 1
+ Deleted,post_comment_status_meta_box-options
+post_comment_status_meta_box-options|action|Deleted| 1| 0| 1
+ Deleted,post_edit_category_parent_dropdown_args
+post_edit_category_parent_dropdown_args|filter|Deleted| 1| 0| 1
+ Deleted,post_edit_form_tag
+post_edit_form_tag|action|Deleted| 1| 0| 1
+ Deleted,post_lock_lost_dialog
+post_lock_lost_dialog|action|Deleted| 1| 0| 1
+ Added,post_password_required
+post_password_required|filter|Added|2 |1 |3 
+ Deleted,post_submitbox_minor_actions
+post_submitbox_minor_actions|action|Deleted| 1| 0| 1
+ Deleted,post_submitbox_misc_actions
+post_submitbox_misc_actions|action|Deleted| 1| 0| 1
+ Deleted,post_submitbox_start
+post_submitbox_start|action|Deleted| 1| 0| 1
+ Deleted,post_updated_messages
+post_updated_messages|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_authordiv
+postbox_classes_post_authordiv|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_categorydiv
+postbox_classes_post_categorydiv|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_commentstatusdiv
+postbox_classes_post_commentstatusdiv|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_postcustom
+postbox_classes_post_postcustom|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_postexcerpt
+postbox_classes_post_postexcerpt|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_postimagediv
+postbox_classes_post_postimagediv|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_slugdiv
+postbox_classes_post_slugdiv|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_submitdiv
+postbox_classes_post_submitdiv|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_tagsdiv-post_tag
+postbox_classes_post_tagsdiv-post_tag|filter|Deleted| 1| 0| 1
+ Deleted,postbox_classes_post_trackbacksdiv
+postbox_classes_post_trackbacksdiv|filter|Deleted| 1| 0| 1
+ Deleted,postmeta_form_keys
+postmeta_form_keys|filter|Deleted| 2| 0| 1
+ Deleted,postmeta_form_limit
+postmeta_form_limit|filter|Deleted| 1| 0| 1
+ Added,posts_pre_query
+posts_pre_query|filter|Added|1 |0 |1 
+ Added,posts_selection
+posts_selection|action|Added|1 |0 |1 
+ Added,pre_get_posts
+pre_get_posts|action|Added|1 |2 |1 
+ Added,pre_option_blogdescription
+pre_option_blogdescription|filter|Added|3 |0 |1 
+ Added,pre_option_comments_per_page
+pre_option_comments_per_page|filter|Added|3 |0 |1 
+ Added,pre_option_date_format
+pre_option_date_format|filter|Added|3 |0 |1 
+ Deleted,pre_option_page_for_posts
+pre_option_page_for_posts|filter|Deleted| 3| 0| 3
+ Deleted,pre_option_page_on_front
+pre_option_page_on_front|filter|Deleted| 3| 0| 2
+ Added,pre_option_rewrite_rules
+pre_option_rewrite_rules|filter|Added|3 |0 |6 
+ Added,pre_option_time_format
+pre_option_time_format|filter|Added|3 |0 |1 
+ Added,pre_term_link
+pre_term_link|filter|Added|2 |0 |18 
+ Deleted,preview_post_link
+preview_post_link|filter|Deleted| 2| 0| 3
+ Added,print_default_editor_scripts
+print_default_editor_scripts|action|Added|0 |0 |1 
+ Added,query_vars
+query_vars|filter|Added|1 |0 |6 
+ Deleted,quicktags_settings
+quicktags_settings|filter|Deleted| 2| 0| 2
+ Attached hooks changed,replace_editor
+replace_editor|filter|Attached hooks changed|2|3 2|1
+ Added,request
+request|filter|Added|1 |1 |6 
+ Added,rest_api_init
+rest_api_init|action|Added|1 |8 |7 
+ Added,rest_attachment_collection_params
+rest_attachment_collection_params|filter|Added|2 |0 |7 
+ Added,rest_authentication_errors
+rest_authentication_errors|filter|Added|1 |1 |6 
+ Added,rest_avatar_sizes
+rest_avatar_sizes|filter|Added|1 |0 |107 
+ Added,rest_cat2_collection_params
+rest_cat2_collection_params|filter|Added|2 |0 |7 
+ Added,rest_category_collection_params
+rest_category_collection_params|filter|Added|2 |0 |8 
+ Added,rest_category_query
+rest_category_query|filter|Added|2 |0 |1 
+ Added,rest_comment_collection_params
+rest_comment_collection_params|filter|Added|1 |0 |7 
+ Added,rest_dispatch_request
+rest_dispatch_request|filter|Added|4 |0 |12 
+ Added,rest_endpoints
+rest_endpoints|filter|Added|1 |0 |19 
+ Added,rest_endpoints_description
+rest_endpoints_description|filter|Added|1 |0 |37 
+ Added,rest_index
+rest_index|filter|Added|1 |1 |1 
+ Added,rest_jsonp_enabled
+rest_jsonp_enabled|filter|Added|1 |0 |6 
+ Added,rest_meetup_collection_params
+rest_meetup_collection_params|filter|Added|2 |0 |7 
+ Added,rest_page_collection_params
+rest_page_collection_params|filter|Added|2 |0 |7 
+ Added,rest_post_collection_params
+rest_post_collection_params|filter|Added|2 |0 |7 
+ Added,rest_post_dispatch
+rest_post_dispatch|filter|Added|3 |2 |6 
+ Added,rest_post_tag_collection_params
+rest_post_tag_collection_params|filter|Added|2 |0 |8 
+ Added,rest_post_tag_query
+rest_post_tag_query|filter|Added|2 |0 |1 
+ Added,rest_pre_dispatch
+rest_pre_dispatch|filter|Added|3 |1 |12 
+ Added,rest_pre_echo_response
+rest_pre_echo_response|filter|Added|3 |1 |6 
+ Added,rest_pre_serve_request
+rest_pre_serve_request|filter|Added|4 |2 |6 
+ Added,rest_prepare_category
+rest_prepare_category|filter|Added|3 |0 |13 
+ Added,rest_prepare_post
+rest_prepare_post|filter|Added|3 |1 |1 
+ Added,rest_prepare_post_tag
+rest_prepare_post_tag|filter|Added|3 |0 |5 
+ Added,rest_prepare_post_type
+rest_prepare_post_type|filter|Added|3 |0 |2 
+ Added,rest_prepare_taxonomy
+rest_prepare_taxonomy|filter|Added|3 |0 |5 
+ Added,rest_prepare_user
+rest_prepare_user|filter|Added|3 |0 |7 
+ Added,rest_request_after_callbacks
+rest_request_after_callbacks|filter|Added|3 |1 |12 
+ Added,rest_request_before_callbacks
+rest_request_before_callbacks|filter|Added|3 |0 |12 
+ Added,rest_request_parameter_order
+rest_request_parameter_order|filter|Added|2 |0 |367 
+ Added,rest_response_link_curies
+rest_response_link_curies|filter|Added|1 |0 |30 
+ Added,rest_route_data
+rest_route_data|filter|Added|2 |0 |1 
+ Added,rest_send_nocache_headers
+rest_send_nocache_headers|filter|Added|1 |0 |6 
+ Added,rest_user_collection_params
+rest_user_collection_params|filter|Added|1 |0 |9 
+ Added,rest_user_query
+rest_user_query|filter|Added|2 |0 |2 
+ Added,rest_wp_block_collection_params
+rest_wp_block_collection_params|filter|Added|2 |0 |7 
+ Added,sanitize_text_field
+sanitize_text_field|filter|Added|2 |0 |1 
+ Attached hooks changed,screen_options_show_screen
+screen_options_show_screen|filter|Attached hooks changed|2|1 0|1
+ Deleted,screen_options_show_submit
+screen_options_show_submit|filter|Deleted| 2| 0| 1
+ Added,split_the_query
+split_the_query|filter|Added|2 |0 |1 
+ Added,status_header
+status_header|filter|Added|4 |0 |6 
+ Deleted,submitpost_box
+submitpost_box|action|Deleted| 1| 0| 1
+ Added,tag_link
+tag_link|filter|Added|2 |0 |5 
+ Added,term_link
+term_link|filter|Added|3 |1 |18 
+ Deleted,the_category
+the_category|filter|Deleted| 3| 0| 19
+ Added,the_content
+the_content|filter|Added|1 |20 |2 
+ Deleted,the_editor
+the_editor|filter|Deleted| 1| 0| 2
+ Deleted,the_editor_content
+the_editor_content|filter|Deleted| 2| 0| 2
+ Added,the_excerpt
+the_excerpt|filter|Added|1 |7 |1 
+ Added,the_post
+the_post|action|Added|1 |0 |1 
+ Added,the_title
+the_title|filter|Added|2 |6 |2 
+ Attached hooks changed,user_can_richedit
+user_can_richedit|filter|Attached hooks changed|1|1 0|1 2
+ Added,user_trailingslashit
+user_trailingslashit|filter|Added|2 |0 |25 
+ Added,wp_code_editor_settings
+wp_code_editor_settings|filter|Added|2 |0 |1 
+ Deleted,wp_comment_reply
+wp_comment_reply|filter|Deleted| 2| 0| 1
+ Deleted,wp_default_editor
+wp_default_editor|filter|Deleted| 1| 0| 1
+ Deleted,wp_dropdown_cats
+wp_dropdown_cats|filter|Deleted| 2| 0| 1
+ Deleted,wp_dropdown_users
+wp_dropdown_users|filter|Deleted| 1| 0| 1
+ Deleted,wp_dropdown_users_args
+wp_dropdown_users_args|filter|Deleted| 2| 0| 1
+ Deleted,wp_editor_expand
+wp_editor_expand|filter|Deleted| 2| 0| 1
+ Deleted,wp_editor_settings
+wp_editor_settings|filter|Deleted| 2| 0| 2
+ Added,wp_rest_server_class
+wp_rest_server_class|filter|Added|1 |0 |7 
+ Added,wp_revisions_to_keep
+wp_revisions_to_keep|filter|Added|2 |0 |1 
+ Deleted,wp_terms_checklist_args
+wp_terms_checklist_args|filter|Deleted| 2| 0| 1
+ Deleted,wp_tiny_mce_init
+wp_tiny_mce_init|action|Deleted| 1| 0| 1
+ Added,wp_trim_excerpt
+wp_trim_excerpt|filter|Added|2 |0 |1 
+ Added,wp_trim_words
+wp_trim_words|filter|Added|4 |0 |1 
+ Total Added,92
+ Total Changed,16
+ Total Deleted,67
+ Total Same,576

@@ -1,85 +1,27 @@
-### Requirement
+# Comparison of post.php?action=edit for post 813
 
-Determine how hook invocation changes when using Gutenberg versus the Classic editor
-to see if that helps us in automatic detection of plugins that may work differently...
-leading to there being incompatibilities. 
-
-We're hoping for peaceful coexistence.
-
-The new block editor performs its initial request using the REST API functionality 
-then there are multiple further REST requests to obtain the data for meta boxes.
-
-Any plugin that uses one of the hooks that has somehow changed could be affected.
-
-
-
-### Proposed solution
-
-
-Our process of comparing hooks involves
-
-- Tracing Classic editor and Gutenberg requests
-- Extracting [hook] shortcodes ( using gethooknames.php )
-- Merging output from multiple requests ( using mergehooks.php )
-- Two file scan of the resulting files ( using 2fs.php )
-
-The two file scan's output is a summary report of changed hooks
-which can be used when analysing the plugins.
-
-We need to merge the output from multiple Gutenberg requests in order to perform a fair comparison
-with the hooks invoked by the Classic editor.
-
- 
-The theory is that we need to merge the subsequent REST requests that are performed to populate the Meta boxes.
-For the time being we'll ignore the requests performed by dynamic blocks, since existing content isn't expected to contain these.
-
-
-Request                     | Gutenberg Hooks | Classic hooks | Added | Changed | Deleted | Same
---------------              | --------------- | ------------- | ----- | ------- | ------- | ----
-post.php?action=edit      	| 626             | 621           |   117 |      10 |     112 | 499
-post-new.php?post_type=page | 705             | 640           |   131 |      15 |      66 | 599
-
-
-Notes: 
-- If we just look at the edit request the number of changes to comprehend appears unmanageable.
-- Merging in the hooks from the subsequent REST requests doesn't appear to make much difference to the overall figures. 
-- In a nutshell, there's quite a bit of difference
-
-
-
-
-
-
-
-
-
-
-### Routines
-
-
-File             | Purpose
----------------- | -------
-gethooknames.php | Extracts [hook] records from relevant trace files
-mergehooks.php   | Merges two .names files to create an accumulated .names file
-2fs.php          | Performs two file scan comparing a Gutenberg .names file with Classic .names file
-
-
-### Data files
-
-
+## Files in data/post-edit
 
 
 File       | Contents
 ---------- | -------------------------------------------
-c813.names | Manually extracted hooks for classic-editor post 813
-g813.names | Manually extracted hooks for Gutenberg editing post 813
+813.mrg    | Sorted output from 2fs
+c813.names | hooks for classic-editor post 813
+g813.names | hooks for Gutenberg editing post 813
+gmedia815.names | hooks for loading image ID 815 into post 813's Image block
+g813all.names | Merged hooks for Gutenberg editing post 813
 c813.tree  | Manually extracted hooks for classic-editor post 813 - tree format
 g813.tree  | Manually extracted hooks for Gutenberg editing post 813 - tree format
+README.md  | this file
 
 
-The original files were produced in qw/src on 2018/04/12 from the requests shown below.
+Notes:
+- The original files were produced in qw/src on 2018/04/12 from the requests shown below.
+- c813.names and c813.tree were created from the trace log file for `/src/wp-admin/post.php?post=813&action=edit&classic-editor=1`
+- g813.names and g813.tree were created from the trace log file for `/src/wp-admin/post.php?post=813&action=edit`
+- The tree files have not yet been processed.
+
 Both Gutenberg and the Classic editor were activated when the editor was invoked.
-
 
 
 
@@ -103,86 +45,45 @@ The following extract from bwtrace.vt.20180412 shows the trace files that were g
 /src/wp-admin/admin-ajax.php,heartbeat,1.047046,7.1.16,1273,3544,284,10,303,24,10,6,6,0.011185884475708,C:\svn\wordpress-develop\src/bwtraces.ajax.1523538314.96,52,fe80::205b:65ee:2dbf:66b9,1.046146,2018-04-12T13:05:16+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,POST
 ```
 
-c813.names and c813.tree were created from 
 
 
-
-/src/wp-admin/post.php?post=813&action=edit&classic-editor=1
-
-,,2.500817,7.1.16,1273,3626,295,10,335,24,10,6,43,0.30848622322083,
-
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> c813.names
-
-,142,fe80::205b:65ee:2dbf:66b9,2.499541,2018-04-12T12:27:04+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-```
-with 621/ 622 different hooks
-
-
-g813.names and g813.tree were created from
-
-```
-
-/src/wp-admin/post.php?post=813&action=edit
-,,2.094250,7.1.16,1273,3603,302,10,341,24,10,6,30,0.066166639328003,
-C:\svn\wordpress-develop\src/bwtraces.loh.1523536551.302
-
-,184,fe80::205b:65ee:2dbf:66b9,2.093060,2018-04-12T12:35:53+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-```
-
-with 569 different hooks 
-
-or was it 
-
-```
-/src/wp-admin/post.php?post=813&action=edit
-,,2.806357,7.1.16,1273,3645,303,10,346,24,10,6,42,0.15151524543762,
-
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > g813.names
-,197,fe80::205b:65ee:2dbf:66b9,2.804759,2018-04-12T12:37:43+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-```
-
-with 597 different hooks ?
-
-Explain the difference? 
 
 ### Semi automating analysis for post.php?action=edit
 
 
 ```
-
 cd \apache\htdocs\wordpress\wp-content\plugins\oik-block
 cd compare-hooks
 rem Extract [hook] shortcodes
 
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> data/c813.names
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> data\post-edit\c813.names
 
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > data/g813.names
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.rest.1523536670.243 > data/gmedia815.names
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > data\post-edit\g813.names
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.rest.1523536670.243 > data\post-edit\gmedia815.names
 
 rem Merge output from multiple Gutenberg requests
-php mergehooks.php data/g813.names data/gmedia815.names data/g813all.names
+php mergehooks.php data\post-edit\g813.names data\post-edit\gmedia815.names data\post-edit\g813all.names
 
 rem Two file scan of the resulting files
-php 2fs.php data/g813all.names data/c813.names > data/813.mrg
+php 2fs.php data\post-edit\g813all.names data\post-edit\c813.names > data\post-edit\813.mrg
 
 ```
 
+# Re-editing 30 April
 
+Subsequent editing of the post, with meta boxes open, recorded additional REST requests.
+These have not been included in the analysis. 
 
-
-### References
-
-
-- https://github.com/WordPress/gutenberg/issues/1316
-- https://github.com/WordPress/gutenberg/issues/4151 Document WordPress classic editor integration points and Gutenberg equivalents
-
-https://github.com/danielbachhuber/gutenberg-migration-guide
-
-
-And \apache\htdocs\hm\issue-x 
-where I compared add-new
-
-vs these files where it's edit
-
+```
+/src/wp-json/wp/v2/taxonomies/category?context=edit,,0.497560,7.2.4,1258,3109,273,11,268,24,12,6,6,0.013514041900635,C:\svn\wordpress-develop\src/bwtraces.rest.1525100400.714,57,192.168.50.1,0
+.496614,2018-04-30T15:00:01+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/66.0.3359.139 Safari/537.36,GET
+/src/wp-json/wp/v2/categories?per_page=100&orderby=count&order=desc&_fields=id%2Cname%2Cparent,,0.544206,7.2.4,1258,3109,273,11,268,24,12,6,9,0.016856908798218,C:\svn\wordpress-develop\src/bwt
+races.rest.1525100400.699,57,192.168.50.1,0.542890,2018-04-30T15:00:01+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/66.0.3359.139 Safari/537.36
+,GET
+/src/wp-json/wp/v2/taxonomies/post_tag?context=edit,,0.709681,7.2.4,1258,3109,273,11,268,24,12,6,6,0.014302730560303,C:\svn\wordpress-develop\src/bwtraces.rest.1525100400.745,57,192.168.50.1,0
+.708280,2018-04-30T15:00:01+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/66.0.3359.139 Safari/537.36,GET
+/src/wp-json/wp/v2/tags?per_page=100&orderby=count&order=desc&_fields=id%2Cname&search=,,0.774330,7.2.4,1258,3109,273,11,268,24,12,6,9,0.019623041152954,C:\svn\wordpress-develop\src/bwtraces.r
+est.1525100400.729,57,192.168.50.1,0.773328,2018-04-30T15:00:01+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/66.0.3359.139 Safari/537.36,GET
+```
 
 
