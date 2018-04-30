@@ -26,7 +26,7 @@ if ( !file_exists( $filename ) ) {
 
 
 $lines = file( $filename );
-echo count( $lines );
+//echo count( $lines );
 gethooks( $lines );
 
 
@@ -58,10 +58,10 @@ function gethooks( $lines ) {
 		if ( $found_hook === false ) {
       $found_hook = strpos( $line, "hook_links <h3>by hook name</h3>" );
 			if ( $found_hook !== false ) {
-				echo "line";
+				//echo "line";
 				//gob();
-			}
 			continue;
+			}
 		}
 		if ( $found_hook ) {
 			if ( substr( $line, 0, 6 ) === "[hook " ) {
@@ -72,7 +72,7 @@ function gethooks( $lines ) {
 			}
 		}
 	}
-	echo "Found $hooks hooks" . PHP_EOL;
+	//echo "Found $hooks hooks" . PHP_EOL;
 
 
 }

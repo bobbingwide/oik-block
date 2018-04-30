@@ -1,9 +1,10 @@
 ### Requirement
 
-Determine how hook invocation changes using Gutenberg versus the Classic editor
-to see if that helps us in automatic detection of plugins that may work differently
+Determine how hook invocation changes when using Gutenberg versus the Classic editor
+to see if that helps us in automatic detection of plugins that may work differently...
 leading to there being incompatibilities. 
-We're hoping for peaceful coexistence
+
+We're hoping for peaceful coexistence.
 
 The new block editor performs its initial request using the REST API 
 then there are multiple further REST requests to obtain the data for meta boxes.
@@ -18,37 +19,56 @@ Any plugin that uses one of the hooks that has somehow changed could be affected
 Our process of comparing hooks involves
 
 - Tracing Classic editor and Gutenberg requests
-- Extracting [hook] shortcodes
-- Merging output from multiple requests
-- Two file scan of the resulting files
-- Producing a summary report of changed hooks
-- This summary report of changes can then be used to analyse the plugins
+- Extracting [hook] shortcodes ( using gethooknames.php )
+- Merging output from multiple requests ( using mergehooks.php )
+- Two file scan of the resulting files ( using 2fs.php )
+
+The two file scan's output is a summary report of changed hooks
+which can be used when analysing the plugins.
+
+We need to merge the output from multiple Gutenberg requests in order to perform a fair comparison
+with the hooks invoked by the Classic editor. 
+
+If we just look at the edit request the number of changes to comprehend appears unmanageable
+
+Request                | Gutenberg Hooks | Classic hooks | Added | Changed | Deleted
+--------------         | --------------- | ------------- | ----- | ------- | -------
+post.php?action=edit 	 | 597             | 622           |    91 |      10 |     116
+
+597 + ( 116-91 ) = 597 + 25 = 622
+
+The theory is that we need to merge the subsequent REST requests that are performed to populate the Meta boxes.
+For the time being we'll ignore dynamic blocks, since existing content isn't expected to contain these.
+
+
+
 
 
 ### Routines
 
 
-File & parms  | Purpose
-
------- | -------
+File             | Purpose
+---------------- | -------
 gethooknames.php | Extracts [hook] records from relevant trace files
-2fs.php | Performs two file scan comparing a Gutenberg .names file with Classic .names file
-2fs.php merge | Merges two files .names to create an accumulated .names file
+mergehooks.php   | Merges two .names files to create an accumulated .names file
+2fs.php          | Performs two file scan comparing a Gutenberg .names file with Classic .names file
 
 
-### Sample files
+### Original sample files
 
 
-
+File       | Contents
+---------- | -------------------------------------------
 c813.names | Manually extracted hooks for classic-editor post 813
 g813.names | Manually extracted hooks for Gutenberg editing post 813
 c813.tree  | Manually extracted hooks for classic-editor post 813 - tree format
 g813.tree  | Manually extracted hooks for Gutenberg editing post 813 - tree format
 
 
-
 The original files were produced in qw/src on 2018/04/12 from the requests shown below.
 Both Gutenberg and the Classic editor were activated when the editor was invoked.
+
+
 
 
 The following extract from bwtrace.vt.20180412 shows the trace files that were generated for each transaction.
@@ -78,7 +98,8 @@ c813.names and c813.tree were created from
 /src/wp-admin/post.php?post=813&action=edit&classic-editor=1
 
 ,,2.500817,7.1.16,1273,3626,295,10,335,24,10,6,43,0.30848622322083,
-C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8
+
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> c813.names
 
 ,142,fe80::205b:65ee:2dbf:66b9,2.499541,2018-04-12T12:27:04+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
 ```
@@ -104,13 +125,35 @@ or was it
 /src/wp-admin/post.php?post=813&action=edit
 ,,2.806357,7.1.16,1273,3645,303,10,346,24,10,6,42,0.15151524543762,
 
-C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > g813.names
 ,197,fe80::205b:65ee:2dbf:66b9,2.804759,2018-04-12T12:37:43+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
 ```
 
 with 597 different hooks ?
 
 Explain the difference? 
+
+### Semi automating analysis for post.php?action=edit
+
+
+```
+
+cd \apache\htdocs\wordpress\wp-content\plugins\oik-block
+cd compare-hooks
+rem Extract [hook] shortcodes
+
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> data/c813.names
+
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > data/g813.names
+php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.rest.1523536670.243 > data/gmedia815.names
+
+rem Merge output from multiple Gutenberg requests
+php mergehooks.php data/g813.names data/gmedia815.names data/g813all.names
+
+rem Two file scan of the resulting files
+php 2fs.php data/g813all.names data/c813.names > 813.mrg
+
+```
 
 
 
