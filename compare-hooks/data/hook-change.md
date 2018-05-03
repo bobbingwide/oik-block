@@ -133,7 +133,7 @@ preview_post_link | filter | Deleted |  2 |  0 |  3
 print_default_editor_scripts | action | Added | 0  | 0  | 1 
 query_vars | filter | Added | 1  | 0  | 2 
 quicktags_settings | filter | Deleted |  2 |  0 |  2
-replace_editor | filter | Attached hooks changed | 2 | 3 2 | 1
+replace_editor | filter | Attached hooks changed | 2 | 1 0 | 1
 request | filter | Added | 1  | 1  | 2 
 rest_api_init | action | Added | 1  | 8  | 3 
 rest_attachment_collection_params | filter | Added | 2  | 0  | 3 
