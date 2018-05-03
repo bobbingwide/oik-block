@@ -37,19 +37,34 @@ For the time being we'll ignore the requests performed by dynamic blocks, since 
 Request                     | Gutenberg Hooks | Classic hooks | Added | Changed | Deleted | Same
 --------------              | --------------- | ------------- | ----- | ------- | ------- | ----
 post.php?action=edit      	| 626             | 621           |   117 |      10 |     112 | 499
+post-new.php                | 684             | 659           |    92 |      16 |      67 | 576
 post-new.php?post_type=page | 705             | 640           |   131 |      15 |      66 | 599
 
 
 Notes: 
 - If we just look at the edit request the number of changes to comprehend appears unmanageable.
 - Merging in the hooks from the subsequent REST requests doesn't appear to make much difference to the overall figures. 
-- In a nutshell, there's quite a bit of difference
+- In a nutshell, there's quite a bit of difference.
+
+### Using the results
+
+Having determined the differences we can use the results to create logic to detect use of each of the affected hooks.
+Can we perform this detection in the meta box?
+Perhaps not if the filter being invoked but
+we can probably tell if there is an attached hook. 
+So put into a spreadsheet and count them.
 
 
-
-
-
-
+Type   | Change  | Comments
+------ | ------- | ------------------------
+action | Added	 | Should not be a problem unless the plugin implements the hook already
+filter | Added   | Should not be a problem unless the plugin implements the hook already
+action | Changed num args | NO NO
+action | Changed attached hooks | need to know which Gutenberg function
+filter | Changed num args | NO NO
+filter | Changed attached hooks | need to know which Gutenberg function
+action | Deleted | A problem if the plugin responds to the hook  
+filter | Deleted | Could be a problem if the plugin responded to the hook
 
 
 
@@ -66,107 +81,17 @@ mergehooks.php   | Merges two .names files to create an accumulated .names file
 
 ### Data files
 
+File           | Rows | Contents			
+-----          | ---- | -----------
+data/hook-change.md |  214 | Summarises changed hooks for post-new.php?post_type=page 
+attached_hooks_changed.md |  | Summarises the changes to attached hooks - added and deleted functions with priority
 
 
+Subdirectories, each with their own README.md file
 
-File       | Contents
----------- | -------------------------------------------
-c813.names | Manually extracted hooks for classic-editor post 813
-g813.names | Manually extracted hooks for Gutenberg editing post 813
-c813.tree  | Manually extracted hooks for classic-editor post 813 - tree format
-g813.tree  | Manually extracted hooks for Gutenberg editing post 813 - tree format
-
-
-The original files were produced in qw/src on 2018/04/12 from the requests shown below.
-Both Gutenberg and the Classic editor were activated when the editor was invoked.
-
-
-
-
-The following extract from bwtrace.vt.20180412 shows the trace files that were generated for each transaction.
-
-```
-/src/wp-admin/plugins.php,,4.009640,7.1.16,1273,3563,295,10,328,24,10,6,26,0.26541113853455,C:\svn\wordpress-develop\src/bwtraces.loh.1523535962.059,452,fe80::205b:65ee:2dbf:66b9,4.008111,2018-04-12T12:26:06+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-admin/plugins.php?plugin_status=active,,2.560288,7.1.16,1273,3563,295,10,328,24,10,6,21,0.1412661075592,C:\svn\wordpress-develop\src/bwtraces.loh.1523535972.097,224,fe80::205b:65ee:2dbf:66b9,2.558622,2018-04-12T12:26:14+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-admin/edit.php,,2.975049,7.1.16,1273,3553,294,10,326,24,10,6,37,0.25303721427917,C:\svn\wordpress-develop\src/bwtraces.loh.1523535999.425,131,fe80::205b:65ee:2dbf:66b9,2.973290,2018-04-12T12:26:42+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-admin/admin-ajax.php,heartbeat,1.207960,7.1.16,1273,3544,284,10,303,24,10,6,46,0.039180278778076,C:\svn\wordpress-develop\src/bwtraces.ajax.1523536004.001,52,fe80::205b:65ee:2dbf:66b9,1.206807,2018-04-12T12:26:45+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,POST
-/src/wp-admin/admin-ajax.php,heartbeat,1.098092,7.1.16,1273,3544,284,10,303,24,10,6,46,0.038719177246094,C:\svn\wordpress-develop\src/bwtraces.ajax.1523536019.019,52,fe80::205b:65ee:2dbf:66b9,1.097427,2018-04-12T12:27:00+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,POST
-/src/wp-admin/post.php?post=813&action=edit&classic-editor=1,,2.500817,7.1.16,1273,3626,295,10,335,24,10,6,43,0.30848622322083,C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8,142,fe80::205b:65ee:2dbf:66b9,2.499541,2018-04-12T12:27:04+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/?p=813,,1.112564,7.1.16,1273,3080,271,10,267,24,10,6,6,0.01434326171875,C:\svn\wordpress-develop\src/bwtraces.loh.1523536540.569,54,fe80::205b:65ee:2dbf:66b9,1.111071,2018-04-12T12:35:41+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/?p=813,,1.516817,7.1.16,1273,3139,279,10,291,24,10,6,23,0.051685810089111,C:\svn\wordpress-develop\src/bwtraces.loh.1523536541.778,112,fe80::205b:65ee:2dbf:66b9,1.515269,2018-04-12T12:35:43+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-json/wp/v2/,,1.119172,7.1.16,1273,3080,271,10,266,24,10,6,6,0.012054204940796,C:\svn\wordpress-develop\src/bwtraces.rest.1523536545.628,58,fe80::205b:65ee:2dbf:66b9,1.118525,2018-04-12T12:35:46+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-admin/post.php?post=813&action=edit,,2.094250,7.1.16,1273,3603,302,10,341,24,10,6,30,0.066166639328003,C:\svn\wordpress-develop\src/bwtraces.loh.1523536551.302,184,fe80::205b:65ee:2dbf:66b9,2.093060,2018-04-12T12:35:53+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-admin/post.php?post=813&action=edit,,2.806357,7.1.16,1273,3645,303,10,346,24,10,6,42,0.15151524543762,C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281,197,fe80::205b:65ee:2dbf:66b9,2.804759,2018-04-12T12:37:43+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-json/wp/v2/media/815,,1.298115,7.1.16,1273,3080,271,10,266,24,10,6,8,0.017548084259033,C:\svn\wordpress-develop\src/bwtraces.rest.1523536670.243,94,fe80::205b:65ee:2dbf:66b9,1.297185,2018-04-12T12:37:51+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-/src/wp-admin/admin-ajax.php,heartbeat,1.015425,7.1.16,1273,3544,284,10,303,24,10,6,6,0.011444807052612,C:\svn\wordpress-develop\src/bwtraces.ajax.1523536731.647,52,fe80::205b:65ee:2dbf:66b9,1.014728,2018-04-12T12:38:52+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,POST
-...
-/src/wp-admin/admin-ajax.php,heartbeat,1.047046,7.1.16,1273,3544,284,10,303,24,10,6,6,0.011185884475708,C:\svn\wordpress-develop\src/bwtraces.ajax.1523538314.96,52,fe80::205b:65ee:2dbf:66b9,1.046146,2018-04-12T13:05:16+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,POST
-```
-
-c813.names and c813.tree were created from 
-
-
-
-/src/wp-admin/post.php?post=813&action=edit&classic-editor=1
-
-,,2.500817,7.1.16,1273,3626,295,10,335,24,10,6,43,0.30848622322083,
-
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> c813.names
-
-,142,fe80::205b:65ee:2dbf:66b9,2.499541,2018-04-12T12:27:04+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-```
-with 621/ 622 different hooks
-
-
-g813.names and g813.tree were created from
-
-```
-
-/src/wp-admin/post.php?post=813&action=edit
-,,2.094250,7.1.16,1273,3603,302,10,341,24,10,6,30,0.066166639328003,
-C:\svn\wordpress-develop\src/bwtraces.loh.1523536551.302
-
-,184,fe80::205b:65ee:2dbf:66b9,2.093060,2018-04-12T12:35:53+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-```
-
-with 569 different hooks 
-
-or was it 
-
-```
-/src/wp-admin/post.php?post=813&action=edit
-,,2.806357,7.1.16,1273,3645,303,10,346,24,10,6,42,0.15151524543762,
-
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > g813.names
-,197,fe80::205b:65ee:2dbf:66b9,2.804759,2018-04-12T12:37:43+00:00,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML; like Gecko) Chrome/65.0.3325.181 Safari/537.36,GET
-```
-
-with 597 different hooks ?
-
-Explain the difference? 
-
-### Semi automating analysis for post.php?action=edit
-
-
-```
-
-cd \apache\htdocs\wordpress\wp-content\plugins\oik-block
-cd compare-hooks
-rem Extract [hook] shortcodes
-
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536021.8	> data/c813.names
-
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.loh.1523536660.281 > data/g813.names
-php gethooknames.php C:\svn\wordpress-develop\src/bwtraces.rest.1523536670.243 > data/gmedia815.names
-
-rem Merge output from multiple Gutenberg requests
-php mergehooks.php data/g813.names data/gmedia815.names data/g813all.names
-
-rem Two file scan of the resulting files
-php 2fs.php data/g813all.names data/c813.names > data/813.mrg
-
-```
-
+- post-edit	- see post.php?action=edit 
+- post-new  - see post-new.php  
+- post-new-page - see post-new.php?post_type=page
 
 
 
