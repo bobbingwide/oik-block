@@ -57,9 +57,17 @@ class oik_block_site_opinions {
 		return $opinions;
 	}
 	
+	/**
+	 * Checks WordPress version
+	 *
+	 * Gutenberg | Requires
+	 * --------- | -----------
+	 * 2.9.2     | 4.9
+	 * 4.0.0     | 4.9.8
+	 */  
 	public function WordPress_version() {
 		global $wp_version;
-		if ( version_compare( $wp_version, "4.9", ">=" ) ) {
+		if ( version_compare( $wp_version, "4.9.8", ">=" ) ) {
 			return new oik_block_editor_opinion( 'A', false, 'S', sprintf( 'WordPress %1$s is Block editor compatible.', $wp_version ) );
 		} else {
 			return new oik_block_editor_opinion( 'C', true, 'S', sprintf( 'WordPress version too low: %1$s', $wp_version ), "Upgrade WordPress" );
