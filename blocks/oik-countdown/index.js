@@ -8,9 +8,11 @@ const { __ } = wp.i18n;
 // Get registerBlockType and Editable from wp.blocks
 const { 
 	registerBlockType, 
-	Editable,
+} = wp.blocks;
+
+const { 
   InspectorControls,
- } = wp.blocks;
+} = wp.editor;
 	 
 const {
   Toolbar,
@@ -20,8 +22,11 @@ const {
   PanelRow,
   FormToggle,
 	TextControl,
-
 } = wp.components;
+
+const {
+	withInstanceId,
+} = wp.compose;	
 
 const RawHTML = wp.element.RawHTML;
 
@@ -117,23 +122,6 @@ export default registerBlockType(
 						props.setAttributes( { format: event } );
 					};
 					
-					//var atts = props.attributes;
-					//var children = [];
-					//for (var key of Object.keys( atts )) {
-					//	var value = atts[key];
-					//	console.log( value );
-					//children.push( <TextControl label="User" value={props.attributes.user} key="hm001" instanceId="fm-user" onChange={onChangeUser}  /> );
-									
-					//}
-					
-					//var atts = props.attributes;
-					//var chatts = [];		
-					//for (var key of Object.keys( atts )) {
-				//		var value = atts[key];
-			//			if ( value ) {
-		//					chatts.push( " " + key + "=\"" + value + "\"" );
-	//					}
-//					}
 					
 					var atts = props.attributes;
 					var chatts = '[bw_countdown'; 	
@@ -147,8 +135,7 @@ export default registerBlockType(
 					
           return [
 						
-  					!! props.focus && (
-              <InspectorControls key="ic-countdown">
+  					  <InspectorControls key="ic-countdown">
 								<PanelBody key="pb-countdown">
 								<TextControl label="Since" value={props.attributes.since} key="cd-since" onChange={onChangeSince} />
 								<TextControl label="Until" value={props.attributes.until} key="cd-until" onChange={onChangeUntil} />
@@ -157,8 +144,7 @@ export default registerBlockType(
 								<TextControl label="Expiry Text" value={props.attributes.expirytext} key="cd-expirytext" onChange={onChangeExpiryText}  /> 
 								<TextControl label="Format" value={props.attributes.format} key="cd-format" onChange={onChangeFormat} /> 
 								 </PanelBody>
-              </InspectorControls>
-  					),
+              </InspectorControls>,
 					
 					
             <div className={ props.className } key="chatts">
