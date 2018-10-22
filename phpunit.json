@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="6.683028">
-    <testsuite name="Tests_issue_4225" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-issue-4225.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="6.683028">
-      <testcase name="test_get_the_content_page_2" class="Tests_issue_4225" classname="Tests_issue_4225" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-issue-4225.php" line="23" assertions="1" time="6.683028">
-        <failure type="PHPUnit\Framework\ExpectationFailedException">Tests_issue_4225::test_get_the_content_page_2
-Failed asserting that 'Page 3 excerpt\n
- &lt;a href="https://qw/wordpress/post-title/#more-35453" class="more-link"&gt;third&lt;/a&gt;' is null.
-
-C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-issue-4225.php:44
-</failure>
-        <system-out>Array
-(
-    [0] =&gt; Page 1 excerpt
-&lt;!--more more--&gt;
-Page 1 content
-    [1] =&gt; Page 2 excerpt
-&lt;!--more again--&gt;
-Page 2 content
-    [2] =&gt; Page 3 excerpt
-&lt;!--more third--&gt;
-Page 3 content
-)
+  <testsuite name="" tests="7" assertions="4" errors="3" failures="1" skipped="0" time="9.313144">
+    <testsuite name="Tests_class_oik_block_editor_opinion" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinion.php" tests="3" assertions="2" errors="1" failures="0" skipped="0" time="9.255387">
+      <testcase name="test_construct" class="Tests_class_oik_block_editor_opinion" classname="Tests_class_oik_block_editor_opinion" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinion.php" line="23" assertions="1" time="9.235821"/>
+      <testcase name="test_report" class="Tests_class_oik_block_editor_opinion" classname="Tests_class_oik_block_editor_opinion" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinion.php" line="29" assertions="0" time="0.009599">
+        <error type="PHPUnit\Framework\RiskyTestError">Risky Test
+</error>
+        <system-out>A | O | P |  | &#13;
+</system-out>
+      </testcase>
+      <testcase name="test_set_preferred_editor" class="Tests_class_oik_block_editor_opinion" classname="Tests_class_oik_block_editor_opinion" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinion.php" line="34" assertions="1" time="0.009967"/>
+    </testsuite>
+    <testsuite name="Tests_class_oik_block_editor_opinions" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinions.php" tests="4" assertions="2" errors="2" failures="1" skipped="0" time="0.057757">
+      <testcase name="test_construct" class="Tests_class_oik_block_editor_opinions" classname="Tests_class_oik_block_editor_opinions" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinions.php" line="22" assertions="1" time="0.018049"/>
+      <testcase name="test_add_opinions" class="Tests_class_oik_block_editor_opinions" classname="Tests_class_oik_block_editor_opinions" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinions.php" line="30" assertions="0" time="0.019888">
+        <error type="PHPUnit\Framework\RiskyTestError">Risky Test
+</error>
+      </testcase>
+      <testcase name="test_gather_site_opinions" class="Tests_class_oik_block_editor_opinions" classname="Tests_class_oik_block_editor_opinions" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinions.php" line="34" assertions="0" time="0.009803">
+        <error type="PHPUnit\Framework\RiskyTestError">Risky Test
+</error>
+        <system-out>Editor | Mandatory? | Level | Opinion | Notes &#13;
+------ | ---------- | ----- | ------- | ----- &#13;
+C | O | S | Shortcodes [bw_csv] and [bw_graphviz] should be converted to blocks | &#13;
 &#13;
-Content:&#13;
-Page 3 excerpt
-&lt;span id="more-35453"&gt;&lt;/span&gt;
-Page 3 content&#13;
-Excerpt:&#13;
-Page 3 excerpt
- &lt;a href="https://qw/wordpress/post-title/#more-35453" class="more-link"&gt;third&lt;/a&gt;</system-out>
+</system-out>
+      </testcase>
+      <testcase name="test_consider_opinions" class="Tests_class_oik_block_editor_opinions" classname="Tests_class_oik_block_editor_opinions" file="C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinions.php" line="41" assertions="1" time="0.010017">
+        <failure type="PHPUnit\Framework\ExpectationFailedException">Tests_class_oik_block_editor_opinions::test_consider_opinions
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'C'
++'CO'
+
+C:\apache\htdocs\wordpress\wp-content\plugins\oik-block\tests\test-class-oik-block-editor-opinions.php:44
+</failure>
       </testcase>
     </testsuite>
   </testsuite>
