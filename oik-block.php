@@ -2,10 +2,10 @@
 /**
  * Plugin Name: oik-block
  * Plugin URI: https://www.oik-plugins.com/oik-plugins/oik-block
- * Description: WordPress blocks for oik shortcodes
+ * Description: WordPress Gutenberg blocks for oik shortcodes
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
- * Version: 0.0.0-alpha-20180409
+ * Version: 0.0.0-alpha-20181022
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
@@ -43,8 +43,12 @@ function oik_block_templates( $args, $post_type ) {
 /**
  * Enqueues block editor JavaScript and CSS
  * 
+ * Notes:
+ * - This routine shouldn't be invoked when using the classic-editor
+ * - It should only enqueue scripts for the Gutenberg editor
+ * - Not in other admin areas 
  * 
- * 
+ * @TODO Check purpose of the wp_localize_script !
  */
 function oik_block_editor_scripts() {
 	bw_trace2();
@@ -55,7 +59,6 @@ function oik_block_editor_scripts() {
 	}
 
 	if ( doing_filter( "replace_editor" ) ) {
-		//oik_block_register_editor_scripts();
 		wp_enqueue_script( 'oik_block-blocks-js' );
 		// Pass in REST URL
 		wp_localize_script(
@@ -65,20 +68,16 @@ function oik_block_editor_scripts() {
 				'rest_url' => esc_url( rest_url() )
 			]);
 	}
-// Enqueue optional editor only styles
-    $editorStylePath = 'blocks/build/css/blocks.editor.css';
+	// Enqueue optional editor only styles
+	$editorStylePath = 'blocks/build/css/blocks.editor.css';
 		
-    wp_enqueue_style(
-        'oik_block-blocks-editor-css',
-        plugins_url( $editorStylePath, __FILE__),
-        [ 'wp-blocks' ],
-        filemtime( plugin_dir_path( __FILE__ ) . $editorStylePath )
-    );
-		
-		
-
+	wp_enqueue_style(
+		'oik_block-blocks-editor-css',
+		plugins_url( $editorStylePath, __FILE__),
+		[ 'wp-blocks' ],
+		filemtime( plugin_dir_path( __FILE__ ) . $editorStylePath )
+	);
 }
-
 
 /**
  * Enqueue block editor JavaScript and CSS
@@ -152,8 +151,12 @@ function oik_block_dynamic_block_contact_form( $attributes ) {
 	bw_backtrace();
 	bw_trace2();
 	
-	oik_require( "shortcodes/oik-contact-form.php" );
-	$html = bw_contact_form( $attributes );
+	if ( did_action( "oik_loaded" ) ) {
+		oik_require( "shortcodes/oik-contact-form.php" );
+		$html = bw_contact_form( $attributes );
+	} else {
+		$html = "The Contact form block requires the oik plugin";
+	}
 	return $html;
 
 }
@@ -317,6 +320,7 @@ function oik_block_loaded() {
 	
 
 	add_action( "oik_loaded", "oik_block_oik_loaded" );
+	add_action( "plugins_loaded", "oik_block_plugins_loaded", 100 );
 	
 	add_action( "init", "oik_block_register_dynamic_blocks" );
 	
@@ -340,7 +344,8 @@ function oik_block_loaded() {
  */
 function oik_block_register_dynamic_blocks() {
 	if ( function_exists( "register_block_type" ) ) {
-		oik_block_register_editor_scripts();
+		oik_block_register_editor_scripts(); 
+		oik_block_boot_libs();
 		register_block_type( 'oik-block/contact-form', 
 												[  'render_callback' => 'oik_block_dynamic_block_contact_form' 
 												,	'editor_script' => 'oik_block-blocks-js'
@@ -387,6 +392,29 @@ function oik_block_register_editor_scripts() {
 		);
 	}
 	
+}
+
+/**
+ * Implements 'plugins_loaded' action for oik-block
+ * 
+ * Prepares use of shared libraries if this has not already been done.
+ */
+function oik_block_plugins_loaded() {
+	oik_block_boot_libs();
+	oik_require_lib( "bwtrace" );
+}
+
+/**
+ * Boot up process for shared libraries
+ * 
+ * ... if not already performed
+ */
+function oik_block_boot_libs() {
+	if ( !function_exists( "oik_require" ) ) {
+		$oik_boot_file = __DIR__ . "/libs/oik_boot.php";
+		$loaded = include_once( $oik_boot_file );
+	}
+	oik_lib_fallback( __DIR__ . "/libs" );
 }
 
 /** 

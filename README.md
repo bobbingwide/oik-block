@@ -2,37 +2,53 @@
 ![banner](https://raw.githubusercontent.com/bobbingwide/oik-block/master/assets/oik-block-banner-772x250.jpg)
 * Contributors: bobbingwide
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
-* Tags: shortcode, blocks
-* Requires at least: 4.9
-* Tested up to: 5.0
-* Stable tag: 0.0.0-alpha-20180409
+* Tags: gutenberg, shortcode, blocks, oik
+* Requires at least: 4.9.8
+* Tested up to: 5.0-alpha
+* Gutenberg compatible: Yes
+* Stable tag: 0.0.0-alpha-20181022
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description 
-WordPress 5.0 blocks for oik shortcodes.
+WordPress 5.0 blocks, aka Gutenberg blocks, for oik shortcodes.
 
 This is mostly prototype code delivering a number of the oik shortcodes
 as blocks for the new WordPress content editor.
 
+
 oik delivers over 80 shortcodes.
 Some of these are crying out to be converted into advanced WordPress blocks.
+
+oik-block provides 10 blocks
+
+- Address
+- CSS
+- CSV
+- Contact form
+- Countdown
+- Follow me
+- GitHub Issue
+- Google Maps
+- Nivo slider
+- Person
+
+For more info on the blocks included in the plugin see:
+
+[block readme](https://github.com/bobbingwide/oik-block/tree/master/blocks)
 
 This is just the start.
 
 This plugin is currently being used for education, demonstration, experimentation and estimation.
 
 The code is being developed to work with latest version of the Gutenberg plugin,
-upon which it is currently dependent, until the plugin is merged into core.
+upon which it is currently dependent, until the plugin is merged into core, planned for WordPress 5.0
 
 At some time in the future all references to Gutenberg may be eliminated.
 
 We'll refer to Gutenberg as the new editor.
 And each block will be called a block.
 
-For more info on blocks see:
-
-[block readme](https://github.com/bobbingwide/oik-block/tree/master/blocks)
 
 This plugin also includes logic to evaluate Gutenberg's compatibility with site contents.
 It forms opinions at multiple levels and applies these to decide which editor is the safest to use for the content and context.
@@ -59,6 +75,8 @@ Yes, it's dependent upon a number of other plugins:
 - oik
 - oik-bob-bing-wide
 - gutenberg
+- oik-nivo-slider
+- oik-css
 
 and for the batch routine
 
@@ -68,6 +86,9 @@ and for the batch routine
 1. oik-block's address block
 
 ## Upgrade Notice 
+# 0.0.0-alpha-20181022 
+Upgrade for Gutenberg v4.0.0 support.
+
 # 0.0.0-alpha-20180409 
 Upgrade for two new blocks ( CSS and CSV ) and a fix to the Countdown block.
 
@@ -78,6 +99,16 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from https://github.com/bobbingwide/oik-block
 
 ## Changelog 
+# 0.0.0-alpha-20181022 
+* Changed: Update Countdown block for Gutenberg 4.0.0 https://github.com/bobbingwide/oik-block/issues/11
+* Changed: Update oik-csv for Gutenberg 4.0.0 https://github.com/bobbingwide/oik-block/issues/24
+* Changed: Update oik-css for Gutenberg 4.0.0 https://github.com/bobbingwide/oik-block/issues/23
+* Changed: Update blocks README for Gutenberg 4.0.0 https://github.com/bobbingwide/oik-block/issues/28
+* Changed: Improve hook checking logic where the hook is not invoked in Gutenberg https://github.com/bobbingwide/oik-block/issues/25
+* Changed: Adjust attached hook counts for replace_editor - removed trace hook functions
+* Changed: Update compare-hooks README. Add using results, move other stuff to sub-directories
+
+
 # 0.0.0-alpha-20180409 
 * Added: CSS block to replace bw_css shortcode https://github.com/bobbingwide/oik-block/issues/23
 * Added: CSV block to replace bw_csv shortcode https://github.com/bobbingwide/oik-block/issues/24

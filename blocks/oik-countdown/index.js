@@ -66,7 +66,7 @@ const blockAttributes = {
 
 
 /**
- * Register e
+ * Register the Countdown timer
  */
 export default registerBlockType(
     // Namespaced, hyphens, lowercase, unique name
@@ -121,6 +121,8 @@ export default registerBlockType(
 					const onChangeFormat = ( event ) => {
 						props.setAttributes( { format: event } );
 					};
+					
+					// For the time being we'll show the generated shortcode.
 					
 					
 					var atts = props.attributes;
