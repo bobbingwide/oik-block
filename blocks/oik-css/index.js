@@ -6,10 +6,12 @@ const { __ } = wp.i18n;
 // Get registerBlockType and Editable from wp.blocks
 const { 
 	registerBlockType, 
+} = wp.blocks;
+const {
 	Editable,
   InspectorControls,
 	PlainText,
- } = wp.blocks;
+ } = wp.editor;
 	 
 const {
   Toolbar,
@@ -19,9 +21,12 @@ const {
   PanelRow,
   FormToggle,
 	TextControl,
-	withInstanceId,
 
 } = wp.components;
+
+const {
+	withInstanceId,
+} = wp.compose;
 
 
 const RawHTML = wp.element.RawHTML;
@@ -93,13 +98,12 @@ export default registerBlockType(
 	
 				return [
 				
-  					!! focus && (
-              <InspectorControls key="css">
+            <InspectorControls key="css">
 								<PanelBody>
 									<TextControl label="Text" value={attributes.text} onChange={onChangeText} />
 								</PanelBody>
               </InspectorControls>
-  					),
+  					,
 					<div className="wp-block-oik-block-css wp-block-shortcode" key="css-input">
 						<PlainText
 							id={ inputId }
