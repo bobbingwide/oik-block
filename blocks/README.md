@@ -49,19 +49,22 @@ js     | frontend.blocks.js | Built JS for the front end
 To build the JavaScript code in the blocks folder you need to use npm (Node Package Manager),
 which is part of Node.js. 
 
+If you don't already have it [download and install Node.js](https://nodejs.org/en/download/)
+
 Check what versions you have using `node -v` and `npm -v`.
+
 ```
 C:\Users\Herb>node -v
 v8.9.4
 
 C:\Users\Herb>npm -v
-5.6.0
+6.4.1 
 ```
 
-If you don't already have it download and install Node.js. See https://nodejs.org/en/download/
+
+npm 6 is needed for building Gutenberg 4.0.0
 
 
- 
 Then you need to install the dependencies locally.
 
 ```
