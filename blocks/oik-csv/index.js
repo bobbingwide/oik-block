@@ -5,14 +5,16 @@ import './editor.scss';
 const { __ } = wp.i18n;
 // Get registerBlockType and Editable from wp.blocks
 const { 
-	registerBlockType, 
+	registerBlockType,
+} = wp.blocks;
+
+const { 
 	Editable,
-  InspectorControls,
 	PlainText,
-	
   AlignmentToolbar,
   BlockControls,
- } = wp.blocks;
+  InspectorControls,
+ } = wp.editor;
 	 
 const {
   Toolbar,
@@ -22,9 +24,11 @@ const {
   PanelRow,
   FormToggle,
 	TextControl,
-	withInstanceId,
-
 } = wp.components;
+
+const {
+	withInstanceId,
+} = wp.compose;	
 
 const Fragment = wp.element.Fragment;
 const RawHTML = wp.element.RawHTML;
@@ -135,16 +139,14 @@ export default registerBlockType(
 	
 				return [
 				
-  					isSelected && (
-              <InspectorControls key="css">
+  					  <InspectorControls key="csv">
 								<PanelBody>
 									<TextControl label="Text" value={attributes.text} onChange={onChangeText} />
 									<TextControl label="uo" value={attributes.uo} onChange={onChangeUo} />
 								</PanelBody>
               </InspectorControls>
-  					),
-						isSelected && (
-						
+  					,
+					 						
                   <BlockControls key="flagbogtiddle"
 										controls={ [
 										{
@@ -172,7 +174,7 @@ export default registerBlockType(
 									
 									
                   />
-						),
+						,
 					<div className="wp-block-oik-block-csv wp-block-shortcode" key="css-input">
 						<PlainText
 							id={ inputId }
