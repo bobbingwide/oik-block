@@ -8,10 +8,12 @@ import './editor.scss';
 const { __ } = wp.i18n;
 // Get registerBlockType and Editable from wp.blocks
 const { 
-	registerBlockType, 
+	registerBlockType,
+} = wp.blocks;
+const { 
 	Editable,
   InspectorControls,
- } = wp.blocks;
+} = wp.editor;
 	 
 const {
   Toolbar,
@@ -84,7 +86,7 @@ export default registerBlockType(
 					
 					
 					
-  					!! props.focus && (
+  					
               <InspectorControls key="perinspector">
 								<PanelBody key="pb">
 								<PanelRow key="pruser">
@@ -99,7 +101,7 @@ export default registerBlockType(
 
 
               </InspectorControls>
-  					),
+  					,
             <div className={ props.className } key="perinspector">
 							{blockHeader}
 							 <p>This is where the person information for {props.attributes.user} will appear.</p>
