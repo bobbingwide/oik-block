@@ -1,17 +1,18 @@
 import './style.scss';
 import './editor.scss';
 
-//import Input from './input';
-//import TextControl from '@wordpress/components-text
-
 // Get just the __() localization function from wp.i18n
 const { __ } = wp.i18n;
-// Get registerBlockType and Editable from wp.blocks
-const { registerBlockType, Editable } = wp.blocks;
+// Get registerBlockType wp.blocks
+const { 
+	registerBlockType, 
+} = wp.blocks;
 // Set the h2 header for the block since it is reused
 const blockHeader = <h3>{ __( 'GitHub Issue' ) }</h3>;
 
-var TextControl = wp.components.TextControl;
+const { 
+	TextControl,
+} = wp.components;
 
 /**
  * Register example block
@@ -33,31 +34,37 @@ export default registerBlockType(
 
         // Limit to 3 Keywords / Phrases
         keywords: [
-            __( 'GitHub' ),
-            __( 'Issue' ),
+            __( 'GitHub Issue' ),
             __( 'Link' ),
+						__( 'oik' ),
         ],
 
         // Set for each piece of dynamic data used in your block
         attributes: {
-          issue: {
-            source: 'text',
-            type: 'string',
-            selector: 'div div',
-          },
-					bit: {
-						source: 'text',
+					shortcode: {
 						type: 'string',
+						default: 'github',
 					},
+					owner: {
+						type: 'string',
+						default: 'wordpress',
+					}, 
+					repo: {
+						type: 'string',
+						default: 'gutenberg',
+					},
+          issue: {
+            type: 'string',
+          },
 					
         },
 
         edit: props => {
           const onChangeInput = ( event ) => {
-            props.setAttributes( { issue: event.target.value } );
-						bit = 'bit'; 
-						props.setAttributes( { bit: bit } );
+            props.setAttributes( { issue: event } );
           };
+					
+					
 					
 					//const focus = ( focus ) => {
 					 	//props.setAttributes( { issue: 'fred' } );
@@ -68,11 +75,12 @@ export default registerBlockType(
 							{blockHeader}
 							<TextControl 
 								id="issue" 
-								label="issue" 
-								value={ props.attributes.bit }
+								label="Issue" 
+								value={ props.attributes.issue }
 								onChange={ onChangeInput }
 								onFocus={ focus }
 							/>
+
             </div>
           );
         },
@@ -85,8 +93,7 @@ export default registerBlockType(
             <div>
 						{blockHeader}
 						<div>{lsb}
-						github wordpress gutenberg issue
-						{props.attributes.bit}
+						github {props.attributes.owner} {props.attributes.repo} issue {props.attributes.issue} 
 						{rsb}
 						</div>
             </div>
