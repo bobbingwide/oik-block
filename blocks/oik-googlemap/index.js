@@ -1,3 +1,12 @@
+/**
+ * Implements Google Maps shortcode block
+ * 
+ * Uses [bw_show_googlemap] shortcode.
+ *
+ * @copyright (C) Copyright Bobbing Wide 2018
+ * @author Herb Miller @bobbingwide
+ */
+
 import './style.scss';
 import './editor.scss';
 
