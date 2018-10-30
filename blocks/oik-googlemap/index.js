@@ -10,9 +10,6 @@
 import './style.scss';
 import './editor.scss';
 
-//import Input from './input';
-//import TextControl from '@wordpress/components-text
-
 // Get just the __() localization function from wp.i18n
 const { __ } = wp.i18n;
 // Get registerBlockType and Editable from wp.blocks
