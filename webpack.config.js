@@ -1,3 +1,13 @@
+/**
+ * Controls the oik-block build
+ * 
+ * All of the blocks are built into the one package.
+ * All the frontend CSS is built into one file.
+ * The Editor CSS is built into another.
+ * 
+ * @copyright (C) Copyright Bobbing Wide 2018
+ * @author Herb Miller @bobbingwide
+ */
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );

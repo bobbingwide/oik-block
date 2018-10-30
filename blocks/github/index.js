@@ -1,3 +1,11 @@
+/**
+ * Implements GitHub Issue shortcode block
+ * 
+ * Uses [github] shortcode from oik-bob-bing-wide plugin
+ *
+ * @copyright (C) Copyright Bobbing Wide 2018
+ * @author Herb Miller @bobbingwide
+ */
 import './style.scss';
 import './editor.scss';
 
