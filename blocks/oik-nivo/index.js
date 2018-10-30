@@ -1,3 +1,13 @@
+/**
+ * Implements Nivo slider shortcode block
+ * 
+ * Uses [nivo] shortcode.
+ *
+ * @copyright (C) Copyright Bobbing Wide 2018
+ * @author Herb Miller @bobbingwide
+ */
+
+
 import './style.scss';
 import './editor.scss';
 
@@ -5,12 +15,15 @@ import './editor.scss';
 // Get just the __() localization function from wp.i18n
 const { __ } = wp.i18n;
 
-// Get registerBlockType and Editable from wp.blocks
+// Get registerBlockType from wp.blocks
 const { 
-	registerBlockType, 
+	registerBlockType,
+} = wp.blocks;
+
+const { 
 	Editable,
   InspectorControls,
- } = wp.blocks;
+ } = wp.editor;
 	 
 const {
   Toolbar,
@@ -21,7 +34,6 @@ const {
   FormToggle,
 	TextControl,
 	SelectControl,
-
 } = wp.components;
 
 const RawHTML = wp.element.RawHTML;
@@ -66,7 +78,7 @@ const themeOptions =
 
 
 /**
- * Register e
+ * Register 
  */
 export default registerBlockType(
     // Namespaced, hyphens, lowercase, unique name
@@ -136,7 +148,7 @@ export default registerBlockType(
 					
           return [
 						
-  					!! props.focus && (
+  					
               <InspectorControls key="ic-nivo">
 								<PanelBody key="pb-nivo">
 									<TextControl label="Theme" value={props.attributes.theme} id="theme" onChange={onChangeTheme} />
@@ -150,7 +162,7 @@ export default registerBlockType(
 									/>
 								</PanelBody>
               </InspectorControls>
-  					),
+  					,
 					
 					
             <div className={ props.className } key="chatts">
