@@ -5,7 +5,7 @@
  * Description: WordPress Gutenberg blocks for oik shortcodes
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
- * Version: 0.0.0-alpha-20181022
+ * Version: 0.0.0-alpha-20181030
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
@@ -200,6 +200,21 @@ function oik_block_dynamic_block_csv( $attributes ) {
 }
 
 /**
+ * Server rendering dynamic shortcode block
+ *
+ * @TODO Find out how to invoke the selected shortcode
+ *
+ * @param array $attributes
+ * @return string generated HTML
+ */
+function oik_block_dynamic_block_shortcode( $attributes ) {
+	oik_require( "shortcodes/oik-shortcode.php", "oik-block" );
+	$html = oik_block_shortcode_block( $attributes );
+	return $html;
+	
+}
+
+/**
  * Returns the content of the dynamic block
  * 
  * This is a quick and dirty hack while we're waiting on a fix for Gutenberg issue #5760
@@ -361,6 +376,7 @@ function oik_block_register_dynamic_blocks() {
 												, 'script' => 'oik_block-dummy-js'
 												]
 											 );
+		register_block_type( 'oik-block/shortcode-block', [ 'render_callback' => 'oik_block_dynamic_block_shortcode' ] );
 												 
 	}
 }
