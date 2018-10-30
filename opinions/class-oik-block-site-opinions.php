@@ -76,6 +76,11 @@ class oik_block_site_opinions {
 	}
 	
 	/**
+	 * Checks if the block editor is available. 
+	 * 
+	 * The Gutenberg plugin provides the_gutenberg_project.
+	 * WordPress 5.0 delivers it as...
+	 * 
 	 * @TODO Check the WordPress version once something has been committed to core. 
 	 */
 	public function gutenberg_available() {
@@ -83,7 +88,11 @@ class oik_block_site_opinions {
 			return new oik_block_editor_opinion( 'A', false, "S", "Block editor available" );
 		}
 		else {
-			return new oik_block_editor_opinion( 'C', true, 'S', "Block editor not available", "Install and activate gutenberg plugin" );
+			if ( function_exists( "has_blocks" ) ) {
+				return new oik_block_editor_opinion( 'B', false, 'S', "Gutenberg built into core" );
+			} else {
+				return new oik_block_editor_opinion( 'C', true, 'S', "Block editor not available", "Install and activate gutenberg plugin" );
+			}
 		}
 	}
 	

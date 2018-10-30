@@ -91,23 +91,32 @@ class oik_block_post_opinions {
 	/**
 	 * Determines if Gutenberg is activated
 	 *
-	 * @TODO Add logic when merge proposal created.
 	 */
   public function gutenberg_activated() {
-		if ( function_exists( "gutenberg_content_has_blocks" ) && function_exists( "get_dynamic_block_names" ) ) {
+		// Gutenberg probably doesn't need to be activated! 
+    //if ( function_exists( "gutenberg_content_has_blocks" ) && function_exists( "get_dynamic_block_names" ) ) {
+		if ( function_exists( "the_gutenberg_project" ) ) {
 			
 			$this->considered_true( __FUNCTION__ );
 		}	else {
-			return new oik_block_editor_opinion( 'C', false, $this->level, "Gutenberg not activated" );
+			if ( function_exists( "has_blocks" ) ) {
+			
+				$this->considered_true( __FUNCTION__ );
+				//return new oik_block_editor_opinion( 'B', false, $this->level, "Gutenberg built into core" );
+				
+			} else {
+				return new oik_block_editor_opinion( 'C', false, $this->level, "Gutenberg not activated" );
+			}
 		}
 	}	
 	
 	/**
+	 * Checks content for Gutenberg blocks
 	 * 
 	 */
 	public function gutenberg_content_has_blocks() {
 		if ( $this->considered( "gutenberg_activated" ) ) {
-			if ( gutenberg_content_has_blocks( $this->post_content ) ) {
+			if ( has_blocks( $this->post_content ) ) {
 				$this->considered_true( __FUNCTION__ );
 				return new oik_block_editor_opinion( 'B', false, $this->level, "Content already contains blocks" );
 			} else {
