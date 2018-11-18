@@ -4,9 +4,9 @@
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: gutenberg, shortcode, blocks, oik
 * Requires at least: 4.9.8
-* Tested up to: 5.0-alpha
+* Tested up to: 5.0-beta5
 * Gutenberg compatible: Yes
-* Stable tag: 0.0.0-alpha-20181022
+* Stable tag: 0.0.0-alpha-20181118
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,9 @@ and for the batch routine
 1. oik-block's address block
 
 ## Upgrade Notice 
+# 0.0.0-alpha-20181118 
+Version for cwiccer.com testing compatibility with oik plugins.
+
 # 0.0.0-alpha-20181022 
 Upgrade for Gutenberg v4.0.0 support.
 
@@ -99,6 +102,14 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from https://github.com/bobbingwide/oik-block
 
 ## Changelog 
+# 0.0.0-alpha-20181118 
+* Added: Prototype generic dynamic shortcode block https://github.com/bobbingwide/oik-block/issues/16
+* Changed: Update GitHub Issue block for Gutenberg v4.0.0 https://github.com/bobbingwide/oik-block/issues/1
+* Changed: Update for Gutenberg 4.x and WordPress 5.0-betax https://github.com/bobbingwide/oik-block/issues/28
+* Changed: Update oik-nivo for Gutenberg 4.0.0 and higher https://github.com/bobbingwide/oik-block/issues/13
+* Changed: Update oik-person for Gutenberg v4.0.0 https://github.com/bobbingwide/oik-block/issues/7
+* Deleted: Delete Zac Gordon's examples https://github.com/bobbingwide/oik-block/issues/12
+
 # 0.0.0-alpha-20181022 
 * Changed: Update Countdown block for Gutenberg 4.0.0 https://github.com/bobbingwide/oik-block/issues/11
 * Changed: Update oik-csv for Gutenberg 4.0.0 https://github.com/bobbingwide/oik-block/issues/24
@@ -107,7 +118,6 @@ New plugin, available only from https://github.com/bobbingwide/oik-block
 * Changed: Improve hook checking logic where the hook is not invoked in Gutenberg https://github.com/bobbingwide/oik-block/issues/25
 * Changed: Adjust attached hook counts for replace_editor - removed trace hook functions
 * Changed: Update compare-hooks README. Add using results, move other stuff to sub-directories
-
 
 # 0.0.0-alpha-20180409 
 * Added: CSS block to replace bw_css shortcode https://github.com/bobbingwide/oik-block/issues/23
