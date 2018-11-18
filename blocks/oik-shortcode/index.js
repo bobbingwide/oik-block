@@ -24,6 +24,7 @@ const {
   PanelRow,
   FormToggle,
 	TextControl,
+	SelectControl,
 } = wp.components;
 
 const {
@@ -32,10 +33,40 @@ const {
 
 const Fragment = wp.element.Fragment;
 const RawHTML = wp.element.RawHTML;
-// Set the header for the block since it is reused
-//const blockHeader = <h3>{ __( 'Person' ) }</h3>;
 
 //var TextControl = wp.blocks.InspectorControls.TextControl;
+
+import { bw_shortcodes, getAttributes, bw_shortcodes_attrs } from './bw_shortcodes';
+//import GenericAttrs from './GenericAttrs';
+
+import { map, partial, has } from 'lodash';
+
+const shortcode_attributes =
+{
+					shortcode: {
+						type: 'string',
+						default: '',
+					},
+					
+					content: {
+						type: 'string',
+						default: '',
+					},
+					
+					selector: {
+						type: 'string',
+						default: '',
+					},
+					
+					post_type: {
+						type: 'string',
+						default: '',
+						values: {},
+					}
+};	
+
+ 
+
 
 /**
  * Register the oik-block/shortcode-block block
@@ -72,19 +103,7 @@ export default registerBlockType(
 				// We can't set a default for the shortcode since the attribute is not created when it's the default value
 				// This can probably be used to our advantage if we expect the default value to come from options.
 				
-        attributes: {
-					shortcode: {
-						type: 'string',
-						default: '',
-					},
-					
-					content: {
-						type: 'string',
-						default: '',
-					},
-				
-					
-        },
+        attributes: shortcode_attributes,
 				
 		supports: {
 			customClassName: false,
@@ -102,23 +121,49 @@ export default registerBlockType(
 				};
 				
 				const onChangeShortcode = ( value ) => {
+					
+					attributes = getAttributes( value ); 			
 					setAttributes( { shortcode: value } );
 				};
 				
-
 				
-	
+					function onChangeAttr( key, value ) {
+						//var nextAttributes = {};
+						//nextAttributes[ key ] = value;
+						//setAttributes( nextAttributes );
+						setAttributes( { [key] : value } );
+					};
+				
+
+				 /*
+									<GenericAttrs value={attributes.shortcode} />
+				 */
 				return [
 				
   					  <InspectorControls>
 								<PanelBody>
 									<TextControl label="Shortcode" value={attributes.shortcode} onChange={onChangeShortcode} />
+									
+																	
+									<SelectControl label="" value={attributes.shortcode}
+										options={ map( bw_shortcodes, ( key, label ) => ( { value: label, label: key } ) ) }
+										onChange={partial( onChangeAttr, 'shortcode' )}
+									/>
+									<SelectControl label="Post Type" value={attributes.post_type} 
+										options={ map( bw_shortcodes_attrs.bw_posts.post_type, ( key, label ) => ( { value: label, label: key } ) ) }
+										onChange={partial( onChangeAttr, 'post_type' )}
+									/>
+									
 								</PanelBody>
               </InspectorControls>
 									
 						,
 					<div className="wp-block-oik-block-shortcode wp-block-shortcode">
-						<TextControl label="Shortcode" value={attributes.shortcode} onChange={onChangeShortcode} />
+						<SelectControl label="Shortcode" value={attributes.shortcode}
+										options={ map( bw_shortcodes, ( key, label ) => ( { value: label, label: key } ) ) }
+										onChange={partial( onChangeAttr, 'shortcode' )}
+									/>
+
 						<PlainText
 							id={ inputId }
 							value={ attributes.content }
