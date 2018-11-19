@@ -403,7 +403,7 @@ function oik_block_register_editor_scripts() {
 		wp_register_script( $name,
 			plugins_url( $blockPath, __FILE__ ),
 			// [],
-			[ 'wp-blocks', 'wp-element' ],
+			[ 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ],
 			filemtime( plugin_dir_path(__FILE__) . $blockPath )
 		);
 	}
