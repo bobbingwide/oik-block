@@ -66,10 +66,13 @@ class oik_block_hook_checker {
 	
 	function check_prerequisites() {
 		if ( !function_exists( "bw_trace_get_attached_hooks" ) ) {
-			oik_require( "includes/bwtrace-actions.php", "oik-bwtrace" );
+			$file = oik_path( "includes/bwtrace-actions.php", "oik-bwtrace");
+			if ( file_exists( $file )) {
+				oik_require( "includes/bwtrace-actions.php", "oik-bwtrace" );
+			}
 		}
 		if ( !function_exists( "bw_trace_get_attached_hooks" ) ) {
-			$this->add_opinion( "A", "O", "Cannot perform hook analysis", "Install oik-bwtrace" );
+			$this->add_opinion( "A", false, "Cannot perform hook analysis", "Install oik-bwtrace" );
 			$this->pre_requisites_satisfied = false;
 			
 		}	else {
