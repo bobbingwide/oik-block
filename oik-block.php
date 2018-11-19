@@ -443,11 +443,12 @@ function oik_block_add_meta_boxes( $post_type, $post ) {
 
   //$clone = post_type_supports( $post_type, "clone" );
   //if ( $clone ) {
-		
-    oik_require( "admin/oik-block-meta-box.php", "oik-block" );
-		
-    add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default' );
-		
+	if ( function_exists( 'bw_as_array')) {
+
+		oik_require( "admin/oik-block-meta-box.php", "oik-block" );
+
+		add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default' );
+	}
 }
 
 /**
