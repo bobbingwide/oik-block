@@ -261,11 +261,13 @@ class oik_block_editor_opinions {
 	 * Produces a report of all the opinions
 	 */
 	public function report() {
-		$this->report_header();
-		foreach ( $this->opinions as $opinion ) {
-			$opinion->report();
+		if ( did_action( "oik_admin_menu" )) {
+			$this->report_header();
+			foreach ( $this->opinions as $opinion ) {
+				$opinion->report();
+			}
+			$this->report_footer();
 		}
-		$this->report_footer();
 	
 	}
 	
@@ -278,7 +280,7 @@ class oik_block_editor_opinions {
 			echo "------ | ---------- | ----- | ------- | ----- " . PHP_EOL;
 		} else {
 			oik_require( "shortcodes/oik-table.php" );
-			bw_table_header( bw_as_array( "Editor,Mandatory?,Level,Opinion,Notes") ); 
+			bw_table_header( bw_as_array( "Editor,Mandatory?,Level,Opinion,Notes" ) );
 			stag( "tbody" );
 		}	
 	}

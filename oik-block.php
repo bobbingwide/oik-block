@@ -443,7 +443,7 @@ function oik_block_add_meta_boxes( $post_type, $post ) {
 
   //$clone = post_type_supports( $post_type, "clone" );
   //if ( $clone ) {
-	if ( function_exists( 'bw_as_array')) {
+	if ( did_action( 'oik_admin_menu')) {
 
 		oik_require( "admin/oik-block-meta-box.php", "oik-block" );
 
