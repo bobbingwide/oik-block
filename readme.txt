@@ -1,66 +1,45 @@
 === oik-block ===
 Contributors: bobbingwide
 Donate link: https://www.oik-plugins.com/oik/oik-donate/
-Tags: gutenberg, shortcode, blocks, oik
-Requires at least: 4.9.8
-Tested up to: 5.0-beta5
+Tags: gutenberg, compatibility, oik
+Requires at least: 4.9
+Tested up to: 5.0-RC1
 Gutenberg compatible: Yes
-Stable tag: 0.0.0-alpha-20181118
+Stable tag: 0.1.0-alpha-20181126
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
-WordPress 5.0 blocks, aka Gutenberg blocks, for oik shortcodes.
+Gut feel - helps you form Gutenberg compatibility opinions.
 
-This is mostly prototype code delivering a number of the oik shortcodes 
-as blocks for the new WordPress content editor.
+oik-block may help you evaluate the compatibility of Gutenberg with your site's configuration and content.
 
+- It contains logic to evaluate Gutenberg's compatibility with site contents.
+- It forms opinions at multiple levels and applies these to help you decide which editor is the safest to use for the content and context.
+- These opinions are displayed in the Preferred Editor meta box.
 
-oik delivers over 80 shortcodes. 
-Some of these are crying out to be converted into advanced WordPress blocks.
-
-oik-block provides 10 blocks
-
-- Address
-- CSS
-- CSV 
-- Contact form
-- Countdown
-- Follow me
-- GitHub Issue
-- Google Maps
-- Nivo slider
-- Person
-
-For more info on the blocks included in the plugin see:
-
-[block readme](https://github.com/bobbingwide/oik-block/tree/master/blocks)
-
-This is just the start. 
-
-This plugin is currently being used for education, demonstration, experimentation and estimation.
-
-The code is being developed to work with latest version of the Gutenberg plugin,
-upon which it is currently dependent, until the plugin is merged into core, planned for WordPress 5.0
-
-At some time in the future all references to Gutenberg may be eliminated.
-
-We'll refer to Gutenberg as the new editor.
-And each block will be called a block.
+Shortcodes provided
+- [blocks] - displays the raw post content - may help you debug your blocks
+- [content] - displays the website content summary
+- [guts] - displays some information about Gutenberg
 
 
-This plugin also includes logic to evaluate Gutenberg's compatibility with site contents.
-It forms opinions at multiple levels and applies these to decide which editor is the safest to use for the content and context.
-At some point in the future this logic may be extracted into a separate plugin.
 
-The batch routine, called oik-block-opinions.php, runs under the control of the oik-batch plugin. 
-Its implementation is similar to WP-cli.
+The oik-block-opinions.php batch routine helps you to estimate the compatibility of your site's content with Gutenberg. 
+
+- The routine runs under the control of the oik-batch plugin; its implementation is similar to WP-cli.
+- Syntax: oikwp oik-block-opinions.php subcommand [post_type |  post_id ]  url=domain path=path
+- where subcommand may be: status, reset, list, decide
+
+
+The oik-block plugin was developed for education, demonstration, experimentation and estimation.
 
 
 
 == Installation ==
 1. Upload the contents of the oik-block plugin to the `/wp-content/plugins/oik-block' directory
 1. Activate the oik-block plugin through the 'Plugins' menu in WordPress
+
 
 == Frequently Asked Questions ==
 
@@ -69,22 +48,26 @@ Where can I find out more?
 [github bobbingwide oik-block ]
 
 
+Note: For Gutenberg blocks for oik-shortcodes see [github bobbingwide oik-blocks].
+
+
 Yes, it's dependent upon a number of other plugins:
 
-- oik 
-- oik-bob-bing-wide
-- gutenberg
-- oik-nivo-slider
-- oik-css
+- oik - for shortcodes
+- oik-bwtrace - for logic associated with hooked functions
+- Gutenberg
 
-and for the batch routine
+and for the batch routine ( oik-block-opinions.php )
 
 - oik-batch
 
 == Screenshots ==
-1. oik-block's address block
+1. 
 
 == Upgrade Notice ==
+= 0.1.0-alpha=20181126 =
+No longer contains any Gutenberg blocks, which were moved to oik-blocks. 
+
 = 0.0.0-alpha-20181118 = 
 Version for cwiccer.com testing compatibility with oik plugins.
 
@@ -100,7 +83,13 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 = 0.0.0 =
 New plugin, available only from [github bobbingwide oik-block]
 
-== Changelog == 
+== Changelog ==
+= 0.1.0-alpha-20181126 = 
+* Changed: Only do meta box processing if 'oik_admin_menu' has been run [github bobbingwide oik-block issue 27]
+* Changed: check for file existence before attempting to load it in oik_block_hook_checker::check_prerequisites [github bobbingwide oik-block issue 25]
+* 
+* a4300e3 Issue #28 - add dependencies on wp-components and wp-editor
+ 
 = 0.0.0-alpha-20181118 = 
 * Added: Prototype generic dynamic shortcode block [github bobbingwide oik-block issue 16]
 * Changed: Update GitHub Issue block for Gutenberg v4.0.0 [github bobbingwide oik-block issue 1]
