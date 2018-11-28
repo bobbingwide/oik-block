@@ -5,7 +5,7 @@ Tags: gutenberg, compatibility, oik
 Requires at least: 4.9
 Tested up to: 5.0-RC1
 Gutenberg compatible: Yes
-Stable tag: 0.1.0-alpha-20181126
+Stable tag: 0.1.0-alpha-20181128
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,8 +65,8 @@ and for the batch routine ( oik-block-opinions.php )
 1. 
 
 == Upgrade Notice ==
-= 0.1.0-alpha=20181126 =
-No longer contains any Gutenberg blocks, which were moved to oik-blocks. 
+= 0.1.0-alpha=20181128 =
+Updated to reflect the "Gut feel" role. No longer contains any Gutenberg blocks, which were moved to oik-blocks. 
 
 = 0.0.0-alpha-20181118 = 
 Version for cwiccer.com testing compatibility with oik plugins.
@@ -84,11 +84,14 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from [github bobbingwide oik-block]
 
 == Changelog ==
-= 0.1.0-alpha-20181126 = 
-* Changed: Only do meta box processing if 'oik_admin_menu' has been run [github bobbingwide oik-block issue 27]
+= 0.1.0-alpha-20181128 = 
+* Changed: Reduce dependency on oik's presence when displaying the Preferred editor meta box [github bobbingwide oik-block issue 27]
+* Changed: [guts] - display WordPress and Gutenberg version information	[github bobbingwide oik-block issue 30]
 * Changed: check for file existence before attempting to load it in oik_block_hook_checker::check_prerequisites [github bobbingwide oik-block issue 25]
-* 
-* a4300e3 Issue #28 - add dependencies on wp-components and wp-editor
+* Deleted: Removed JavaScript and configuration files now implemented in oik-blocks [github bobbingwide oik-block issues 21]
+* Tested: With Gutenberg 4.5.1
+* Tested: With PHP 7.1 and 7.2
+* Tested: With WordPress 5.0-RC1 
  
 = 0.0.0-alpha-20181118 = 
 * Added: Prototype generic dynamic shortcode block [github bobbingwide oik-block issue 16]
