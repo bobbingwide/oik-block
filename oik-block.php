@@ -5,7 +5,7 @@
  * Description: Gut feel - helps you form Gutenberg compatibility opinions.
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
- * Version: 0.1.0-alpha-20181126
+ * Version: 0.1.0-alpha-20181128
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
@@ -95,10 +95,12 @@ function oik_block_boot_libs() {
  * 
  */
 function oik_block_add_meta_boxes( $post_type, $post ) {
-	if ( did_action( 'oik_admin_menu')) {
+	if ( !did_action( 'oik_admin_menu')) {
+		oik_block_plugins_loaded();
+	}
 		oik_require( "admin/oik-block-meta-box.php", "oik-block" );
 		add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default' );
-	}
+	
 }
 
 /**

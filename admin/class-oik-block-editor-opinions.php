@@ -261,26 +261,34 @@ class oik_block_editor_opinions {
 	 * Produces a report of all the opinions
 	 */
 	public function report() {
-		if ( did_action( "oik_admin_menu" )) {
+		//if ( did_action( "oik_admin_menu" )) {
 			$this->report_header();
 			foreach ( $this->opinions as $opinion ) {
 				$opinion->report();
 			}
 			$this->report_footer();
-		}
+		//}
 	
 	}
 	
 	/**
-	 * @TODO - shared libary capability
+	 * Displays the table header
+	 * 
+	 * We can't use bw_table_header() if oik is not available at all. i.e. not installed
 	 */
 	public function report_header() {
 		if ( "cli" == php_sapi_name() ) {
 			echo "Editor | Mandatory? | Level | Opinion | Notes " . PHP_EOL;
 			echo "------ | ---------- | ----- | ------- | ----- " . PHP_EOL;
 		} else {
-			oik_require( "shortcodes/oik-table.php" );
-			bw_table_header( bw_as_array( "Editor,Mandatory?,Level,Opinion,Notes" ) );
+			//oik_require( "shortcodes/oik-table.php" );
+			//bw_table_header(
+			$title_arr =  bw_as_array( "Editor,Mandatory?,Level,Opinion,Notes" );
+      stag( "table", "bw_table" );
+			stag( "thead" );
+			bw_tablerow( $title_arr, "tr", "th" );
+			etag( "thead" );
+			stag( "tbody" );
 			stag( "tbody" );
 		}	
 	}
