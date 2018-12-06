@@ -9,7 +9,9 @@
 
 function oik_block_guts( $atts, $content, $tag ) {
 
-	p( bw_wp( array( "v" ) ) ); // [wp v]
+//	p( bw_wp( array( "v" ) ) ); // [wp v]
+global $wp_version;
+p( "WordPress version: " . $wp_version ); 
   // gutenberg version 
 	p( "Gutenberg version: "  . oik_block_gutenberg_version() );
 	
