@@ -1,12 +1,12 @@
 <?php
 
 /**
- * (C) Copyright Bobbing Wide 2018
+ * (C) Copyright Bobbing Wide 2018, 2019
  * @package: oik-block
  */
  
 /**
- * Implements [blocks] shortcode for oik-block
+ * Implements [contents] shortcode for oik-block
  * 
  * Dependent upon the oik base plugin and Gutenberg
  * Primarily intended for use in a sidebar this shortcode will display
@@ -25,7 +25,7 @@
  * @param string $tag shortcode used
  * @return string the generated HTML
  */
-function oik_block_blocks( $atts, $content, $tag ) {
+function oik_block_contents( $atts, $content, $tag ) {
 
 	$post_id = oik_block_get_post_id( $atts );
 	if ( $post_id ) {
