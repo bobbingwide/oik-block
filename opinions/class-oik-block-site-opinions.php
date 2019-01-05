@@ -18,6 +18,7 @@ class oik_block_site_opinions {
 													 , "active_plugin_support"
 													 , "summarise_plugin_compatibility"
 													 , "replaced_hook_checker"
+													 , "allowed_mime_types"
 													 );
 
 	public function __construct() {
@@ -479,6 +480,11 @@ class oik_block_site_opinions {
 		$hook_checker->analyse();
 		$opinions = $hook_checker->get_opinions();
 		return $opinions;
+	}
+	
+	public function allowed_mime_types() {
+		$types = get_allowed_mime_types();
+		//print_r( $types );
 	}
 
 }
