@@ -5,7 +5,7 @@
  * Description: Gut feel - helps you form Gutenberg compatibility opinions.
  * Author: Herb Miller
  * Author URI: https://herbmiller.me/about/mick
- * Version: 0.1.0-alpha-20181128
+ * Version: 0.1.0-alpha-20190105
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
@@ -47,7 +47,7 @@ function oik_block_oik_loaded() {
  * Add our shortcodes
  */
 function oik_block_oik_add_shortcodes() {
-  bw_add_shortcode( "blocks", "oik_block_blocks", oik_path("shortcodes/oik-blocks.php", "oik-block"), false );
+	bw_add_shortcode( "contents", "oik_block_contents", oik_path("shortcodes/oik-contents.php", "oik-block"), false );
 	bw_add_shortcode( "guts", "oik_block_guts", oik_path( "shortcodes/oik-guts.php", "oik-block" ), false );
 	bw_add_shortcode( "content", "oik_block_content", oik_path( "shortcodes/oik-content.php", "oik-block" ), false );
 }
