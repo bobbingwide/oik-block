@@ -43,6 +43,8 @@ function oik_block_gutenberg_version() {
 
 /**
  * Display the value of a constant
+ *
+ * But only if it's defined
  */
 function oik_block_display_constant( $field, $type, $extra=null ) {
 	$displayed = defined( $field );
@@ -51,7 +53,7 @@ function oik_block_display_constant( $field, $type, $extra=null ) {
 		p( "$field $value $type $extra" );
 		//$this->tablerow( $field, $value, $type, $extra );
 	} else {
-		p( "$field undefined $type $extra" ); 
+		//p( "$field undefined $type $extra" );
 	}
 	return( $displayed );
 }
