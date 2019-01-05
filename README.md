@@ -4,9 +4,9 @@
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: gutenberg, compatibility, oik
 * Requires at least: 4.9
-* Tested up to: 5.0-RC1
+* Tested up to: 5.0.2
 * Gutenberg compatible: Yes
-* Stable tag: 0.1.0-alpha-20181128
+* Stable tag: 0.1.0-alpha-20190105
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ and for the batch routine ( oik-block-opinions.php )
 1.
 
 ## Upgrade Notice 
+# 0.1.0-alpha-20190105 
+Renamed [blocks] shortcode to [contents].
+
 # 0.1.0-alpha#20181128 
 Updated to reflect the "Gut feel" role. No longer contains any Gutenberg blocks, which were moved to oik-blocks.
 
@@ -85,6 +88,12 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from https://github.com/bobbingwide/oik-block
 
 ## Changelog 
+# 0.1.0-alpha-20190105 
+* Changed: Is not being able to upload my .zip files a known problem?, https://github.com/bobbingwide/oik-block/issues/32
+* Changed: [guts] - don't display undefined constants, https://github.com/bobbingwide/oik-block/issues/30
+* Changed: Rename [blocks] shortcode to [contents],https://github.com/bobbingwide/oik-block/issues/31
+* Fixed: [guts] shortcode may not be able to call bw_wp. Use $wp_version instead
+
 # 0.1.0-alpha-20181128 
 * Changed: Reduce dependency on oik's presence when displaying the Preferred editor meta box https://github.com/bobbingwide/oik-block/issues/27
 * Changed: [guts] - display WordPress and Gutenberg version information	https://github.com/bobbingwide/oik-block/issues/30
