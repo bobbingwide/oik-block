@@ -2,10 +2,10 @@
 Contributors: bobbingwide
 Donate link: https://www.oik-plugins.com/oik/oik-donate/
 Tags: gutenberg, compatibility, oik
-Requires at least: 4.9
-Tested up to: 5.0.2
+Requires at least: 5.5.1
+Tested up to: 5.5.1
 Gutenberg compatible: Yes
-Stable tag: 0.1.0-alpha-20190105
+Stable tag: 0.1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,9 +19,9 @@ oik-block may help you evaluate the compatibility of Gutenberg with your site's 
 - These opinions are displayed in the Preferred Editor meta box.
 
 Shortcodes provided
-- [blocks] - displays the raw post content - may help you debug your blocks
+- [contents] - displays the raw post content - may help you debug your blocks
 - [content] - displays the website content summary
-- [guts] - displays some information about Gutenberg
+- [guts] - displays some information about WordPress and Gutenberg
 
 
 
@@ -65,6 +65,9 @@ and for the batch routine ( oik-block-opinions.php )
 1. 
 
 == Upgrade Notice ==
+= 0.1.0 = 
+Update for improved [guts] shortcode. Still dependent upon oik
+
 = 0.1.0-alpha-20190105 = 
 Renamed [blocks] shortcode to [contents]. 
 
@@ -87,6 +90,12 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from [github bobbingwide oik-block]
 
 == Changelog ==
+= 0.1.0 = 
+* Changed: Improved [guts] when running in GUTENBERG_DEVELOPMENT_MODE. Issue #30
+* Changed: Alter check to see if the block should display anything on archives. Issue #31
+* Changed: Update bwtrace shared library to v3.0.0
+* Changed: Remove extra tbody
+
 = 0.1.0-alpha-20190105 =
 * Changed: Is not being able to upload my .zip files a known problem?, [github bobbingwide oik-block issue 32]
 * Changed: [guts] - don't display undefined constants, [github bobbingwide oik-block issue 30]
