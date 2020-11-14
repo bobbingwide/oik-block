@@ -289,7 +289,7 @@ class oik_block_editor_opinions {
 			bw_tablerow( $title_arr, "tr", "th" );
 			etag( "thead" );
 			stag( "tbody" );
-			stag( "tbody" );
+			//stag( "tbody" ); why two Herb 2019/03/07
 		}	
 	}
 	
