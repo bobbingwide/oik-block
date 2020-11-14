@@ -29,7 +29,7 @@ function oik_block_contents( $atts, $content, $tag ) {
 
 	$post_id = oik_block_get_post_id( $atts );
 	if ( $post_id ) {
-		if ( is_single( $post_id ) ) {
+		if ( true || is_single( $post_id ) ) {
 			$post = get_post( $post_id );
 			h4( "Blocks", "widget-title widgettitle" );
 			e( $post->post_title );
@@ -53,6 +53,7 @@ function oik_block_contents( $atts, $content, $tag ) {
  */
 
 function oik_block_get_post_id( $atts ) {
+	$single = false;
   $post_id = bw_array_get( $atts, "id", null );
   if ( $post_id ) {
     $single = true;
@@ -61,7 +62,7 @@ function oik_block_get_post_id( $atts ) {
     if ( $post_id === bw_global_post_id() ) {
       $single = true;
     } else {
-      $single = is_single( $post_id );
+      // $single = is_single( $post_id );. This is a bad test.
     }   
   }
 	if ( $single ) { 
