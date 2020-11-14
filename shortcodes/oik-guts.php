@@ -35,6 +35,20 @@ function oik_block_gutenberg_version() {
 	if ( defined( 'GUTENBERG_VERSION' ) ) {
 		$version = GUTENBERG_VERSION;
 	}
+	if (!$version ) {
+	    if ( defined( 'GUTENBERG_DEVELOPMENT_MODE') ) {
+	        $active = bw_get_active_plugins();
+	        $plugin = bw_array_get( $active, 'gutenberg', null );
+	        //print_r( $active );
+            $version = $plugin;
+	        if ( $plugin ) {
+                $plugin = WP_PLUGIN_DIR . '/' . $plugin;
+                $data = get_plugin_data($plugin);
+                $version .= ' ';
+                $version .= $data['Version'];
+            }
+        }
+    }
 	return $version;
 }  
 	
