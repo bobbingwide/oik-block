@@ -37,6 +37,7 @@ function oik_block_gutenberg_version() {
 	}
 	if (!$version ) {
 	    if ( defined( 'GUTENBERG_DEVELOPMENT_MODE') ) {
+	        oik_require_lib( 'oik-depends');
 	        $active = bw_get_active_plugins();
 	        $plugin = bw_array_get( $active, 'gutenberg', null );
 	        //print_r( $active );
