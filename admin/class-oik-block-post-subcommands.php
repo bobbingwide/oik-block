@@ -33,11 +33,11 @@ class oik_block_post_subcommands extends oik_block_subcommands {
 		if ( $post ) {
 			$post_type = $post->post_type;
 			if ( $post_type === 'revision' ) {
-				printf( 'Post ID %1$s is a revision', $post_id );
+				printf( 'Post ID %1$s is a revision', $this->post_type_or_id );
 				echo PHP_EOL;
 			}
 		} else {
-			echo "Post ID not found: $post_id" . PHP_EOL;
+			echo "Post ID not found: " . $this->post_type_or_id . PHP_EOL;
 		}
 		return $post;
 	}
