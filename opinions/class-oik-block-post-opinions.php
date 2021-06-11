@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright (C) Copyright Bobbing Wide 2018
+ * @copyright (C) Copyright Bobbing Wide 2018, 2021
  * @package oik-block
  */
  
@@ -48,7 +48,9 @@ class oik_block_post_opinions {
 	 */
 	public function form_opinions( $opinions, $post ) {
 		$this->post = $post;
-		$this->post_content = $post->post_content;
+		if ( $post ) {
+            $this->post_content = $post->post_content;
+        }
 		
 		//bw_trace2();
 		foreach ( $this->thoughts as $thought ) {
