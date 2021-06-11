@@ -99,7 +99,9 @@ function oik_block_add_meta_boxes( $post_type, $post ) {
 		oik_block_plugins_loaded();
 	}
 		oik_require( "admin/oik-block-meta-box.php", "oik-block" );
-		add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default' );
+		add_meta_box( 'oik_block', __( "Editor selection", 'oik-block' ), 'oik_block_meta_box', $post_type, 'normal', 'default',
+        [ '__back_compat_meta_box' => true ]
+        );
 	
 }
 
