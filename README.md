@@ -4,9 +4,9 @@
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
 * Tags: gutenberg, compatibility, oik
 * Requires at least: 5.5.1
-* Tested up to: 5.5.1
+* Tested up to: 5.7.2
 * Gutenberg compatible: Yes
-* Stable tag: 0.1.0
+* Stable tag: 0.2.0
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ and for the batch routine ( oik-block-opinions.php )
 1.
 
 ## Upgrade Notice 
+# 0.2.0 
+Upgrade to have the Preferred Editor meta box only displayed in the Classic editor.
+
 # 0.1.0 
 Update for improved [guts] shortcode. Still dependent upon oik
 
@@ -91,6 +94,14 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from https://github.com/bobbingwide/oik-block
 
 ## Changelog 
+# 0.2.0 
+* Changed: Set the oik_block_meta_box to only display in the Classic editor #18
+* Changed: Partially update tests for PHPUnit 9. They don't all run correctly.
+* Fixed: Only set post_content if post is set
+* Fixed: Replace post_id by instance variable
+* Changed: Reconcile shared library changes
+* Fixed: Fix [guts] shortcode when Gutenberg is in development mode
+
 # 0.1.0 
 * Changed: Improved [guts] when running in GUTENBERG_DEVELOPMENT_MODE. Issue #30
 * Changed: Alter check to see if the block should display anything on archives. Issue #31
