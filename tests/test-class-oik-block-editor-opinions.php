@@ -1,13 +1,13 @@
 <?php 
 
 /**
- * @copyright: Bobbing Wide 2018
+ * @copyright: Bobbing Wide 2018-2021
  * @package: oik-block
  */
  
 class Tests_class_oik_block_editor_opinions extends BW_UnitTestCase {
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		if ( !class_exists( "oik_block_editor_opinions" ) ) {
 			oik_require( "admin/class-oik-block-editor-opinions.php", "oik-block" );

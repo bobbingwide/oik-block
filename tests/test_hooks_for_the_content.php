@@ -15,7 +15,7 @@ class Tests_hooks_for_the_content extends BW_UnitTestCase {
 	 * 
 	 * - ensure any database updates are rolled back
 	 */
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 	}
 	
