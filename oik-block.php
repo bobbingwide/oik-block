@@ -61,7 +61,7 @@ function oik_block_loaded() {
 	add_action( "plugins_loaded", "oik_block_plugins_loaded", 100 );
   if ( !defined('DOING_AJAX') ) {
     add_action( "save_post", "oik_block_save_post", 10, 3 );
-		add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
+		//add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
   }
 }
 
