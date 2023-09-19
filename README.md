@@ -1,40 +1,24 @@
 # oik-block 
-![banner](https://raw.githubusercontent.com/bobbingwide/oik-block/master/assets/oik-block-banner-772x250.jpg)
+![banner](assets/oik-block-banner-772x250.jpg)
 * Contributors: bobbingwide
 * Donate link: https://www.oik-plugins.com/oik/oik-donate/
-* Tags: gutenberg, compatibility, oik
+* Tags: gutenberg, compatibility, oik, shortcodes
 * Requires at least: 5.5.1
-* Tested up to: 5.7.2
+* Tested up to: 6.3.1
 * Gutenberg compatible: Yes
-* Stable tag: 0.2.0
+* Stable tag: 0.3.0
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description 
-Gut feel - helps you form Gutenberg compatibility opinions.
+Provides 3 shortcodes that may help with Gutenberg block development.
 
-oik-block may help you evaluate the compatibility of Gutenberg with your site's configuration and content.
-
-- It contains logic to evaluate Gutenberg's compatibility with site contents.
-- It forms opinions at multiple levels and applies these to help you decide which editor is the safest to use for the content and context.
-- These opinions are displayed in the Preferred Editor meta box.
-
-Shortcodes provided
 - [contents] - displays the raw post content - may help you debug your blocks
 - [content] - displays the website content summary
 - [guts] - displays some information about WordPress and Gutenberg
 
 
-
-The oik-block-opinions.php batch routine helps you to estimate the compatibility of your site's content with Gutenberg.
-
-- The routine runs under the control of the oik-batch plugin; its implementation is similar to WP-cli.
-* - Syntax: oikwp oik-block-opinions.php subcommand [post_type |  post_id ]  url=domain path=path
-* - where subcommand may be: status, reset, list, decide
-
-
-The oik-block plugin was developed for education, demonstration, experimentation and estimation.
-
+The oik-block plugin was originally developed for education, demonstration, experimentation and estimation.
 
 
 ## Installation 
@@ -62,10 +46,24 @@ and for the batch routine ( oik-block-opinions.php )
 
 - oik-batch
 
+## What's been disabled in v0.3.0 
+oik-block no longer displays the Editor selection meta box.
+Therefore oik-block can no longer be used to help you form Gutenberg compatibility opinions.
+
+The following functionality still exists. It's just not called.
+
+- It contains logic to evaluate Gutenberg's compatibility with site contents.
+- It forms opinions at multiple levels and applies these to help you decide which editor is the safest to use for the content and context.
+- These opinions are displayed in the Preferred Editor meta box.
+
+
 ## Screenshots 
 1.
 
 ## Upgrade Notice 
+# 0.3.0 
+No longer displays the Editor selection meta box.
+
 # 0.2.0 
 Upgrade to have the Preferred Editor meta box only displayed in the Classic editor.
 
@@ -94,6 +92,13 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from https://github.com/bobbingwide/oik-block
 
 ## Changelog 
+# 0.3.0 
+* Deleted: Don't bother with Editor selection meta-box any more #37
+* Changed: Support PHP 8.2: #38
+* Tested: With WordPress 6.3.1 and WordPress Multisite
+* Tested: With PHP 8.2
+* Tested: With PHPUnit 9.6
+
 # 0.2.0 
 * Changed: Set the oik_block_meta_box to only display in the Classic editor #18
 * Changed: Partially update tests for PHPUnit 9. They don't all run correctly.

@@ -2,10 +2,10 @@
 /**
  * Plugin Name: oik-block
  * Plugin URI: https://www.oik-plugins.com/oik-plugins/oik-block
- * Description: Gut feel - helps you form Gutenberg compatibility opinions.
+ * Description: Shortcodes that may help with block development using Gutenberg
  * Author: Herb Miller
- * Author URI: https://herbmiller.me/about/mick
- * Version: 0.2.0
+ * Author URI: https://bobbingwide.com/about-bobbing-wide
+ * Version: 0.3.0
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
@@ -61,7 +61,8 @@ function oik_block_loaded() {
 	add_action( "plugins_loaded", "oik_block_plugins_loaded", 100 );
   if ( !defined('DOING_AJAX') ) {
     add_action( "save_post", "oik_block_save_post", 10, 3 );
-		//add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
+	// No longer does this from v0.3.0
+	// add_action( 'add_meta_boxes', 'oik_block_add_meta_boxes', 10, 2 );
   }
 }
 
