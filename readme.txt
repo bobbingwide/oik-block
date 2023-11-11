@@ -3,9 +3,9 @@ Contributors: bobbingwide
 Donate link: https://www.oik-plugins.com/oik/oik-donate/
 Tags: gutenberg, compatibility, oik, shortcodes
 Requires at least: 5.5.1
-Tested up to: 6.3.1
+Tested up to: 6.4.1
 Gutenberg compatible: Yes
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,9 @@ The following functionality still exists. It's just not called.
 1. 
 
 == Upgrade Notice ==
+= 0.3.1 =
+Update for support for PHP 8.1 and PHP 8.2
+
 = 0.3.0 =
 No longer displays the Editor selection meta box.
 
@@ -91,6 +94,13 @@ Provides 8 blocks and a batch routine to form opinions about content compatibili
 New plugin, available only from [github bobbingwide oik-block]
 
 == Changelog ==
+= 0.3.1 =
+* Changed: Added a PHPUnit test
+* Tested: With WordPress 6.4.1 and WordPress Multisite
+* Tested: With PHP 8.2
+* Tested: With PHPUnit 9.6 
+
+
 = 0.3.0 =
 * Deleted: Don't bother with Editor selection meta-box any more #37
 * Changed: Support PHP 8.2: #38

@@ -26,8 +26,12 @@ class Tests_load_shortcodes extends BW_UnitTestCase {
 
 	}
 
-	function test_content() {
-
+	function test_load_libs() {
+		oik_require( 'libs/bwtrace.php', 'oik-block');
+		oik_require( 'libs/class-BW-table.php', 'oik-block');
+		oik_require( 'libs/oik-depends.php', 'oik-block');
+		oik_require( 'libs/oik_boot.php', 'oik-block');
+		$this->assertTrue( true );
 	}
 
 }
