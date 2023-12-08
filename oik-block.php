@@ -5,7 +5,7 @@
  * Description: Shortcodes that may help with block development using Gutenberg
  * Author: Herb Miller
  * Author URI: https://bobbingwide.com/about-bobbing-wide
- * Version: 0.3.1
+ * Version: 0.3.2
  * License: GPL3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  *
