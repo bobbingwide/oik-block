@@ -1,9 +1,10 @@
-<?php // (C) Copyright Bobbing Wide 2018
+<?php // (C) Copyright Bobbing Wide 2018-2023
 
 /**
  * Implement [guts] shortcode
  * 
- * Displays information about WordPress and/or Gutenberg
+ * Displays information about WordPress, Gutenberg and PHP
+ * For a more flexible display use the oik-bbw/wp block
  * 
  */
 
@@ -20,6 +21,7 @@ p( "WordPress version: " . $wp_version );
 	oik_block_display_constant( "GUTENBERG_LIST_VENDOR_ASSETS", "bool" );
 	oik_block_display_constant( "GUTENBERG_DEVELOPMENT_MODE", "bool" );
 
+	p('PHP version: ' . PHP_VERSION );
 
  return bw_ret();
 
